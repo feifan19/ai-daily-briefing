@@ -56,13 +56,12 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .content-scroll::-webkit-scrollbar-track{background:transparent}
 .content-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
 @media(prefers-color-scheme:dark){.content-scroll{scrollbar-color:#334155 transparent}.content-scroll::-webkit-scrollbar-thumb{background:#334155}}
-.top{padding:2px 0;display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}
-.top h1{font-size:27px;font-weight:750;letter-spacing:.01em}
+.top{padding:2px 0}
+.top h1{font-size:27px;font-weight:750;letter-spacing:.01em;display:flex;align-items:center;gap:12px}
+.top h1::before{content:"";width:11px;height:26px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec);flex:0 0 auto}
 p.meta{display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:13px;margin:16px 0 2px;background:var(--bg);border:1px dashed var(--border);border-radius:10px;padding:10px 14px}
 .tab-panel{animation:fade .18s ease}
 @keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
-.sec-tag{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;white-space:nowrap}
-.sec-tag i{width:10px;height:24px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec);font-style:normal;flex:0 0 auto}
 ul.items{list-style:none}
 ul.items li{background:color-mix(in srgb,var(--sec) 5%,var(--card));border:1px solid color-mix(in srgb,var(--sec) 15%,var(--border));border-radius:12px;box-shadow:var(--shadow);padding:16px 22px;margin:12px 0;transition:box-shadow .15s,transform .15s}
 ul.items li:hover{box-shadow:0 8px 22px rgba(15,23,42,.12);transform:translateY(-1px)}
@@ -115,7 +114,7 @@ strong{font-weight:650}
 </aside>
 <main class="content"><div class="content-col">
   <div class="head-card">
-    <header class="top"><h1>AI 每日简报</h1><div class="sec-tag" id="secBar" style="--sec:#3b82f6"><i></i><span id="secTitle">模型与 API</span></div></header>
+    <header class="top"><h1 id="secTitle" style="--sec:#3b82f6">模型与 API</h1></header>
     <p class="meta">收集窗口：10 月 9 日 08:00 – 10 月 10 日 10:00（北京时间）</p>
   </div>
   <div class="content-scroll" id="contentScroll">
@@ -194,13 +193,13 @@ strong{font-weight:650}
 (function(){
   var btns=Array.prototype.slice.call(document.querySelectorAll('.sections button'));
   var panels=Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
-  var secBar=document.getElementById('secBar'),secTitle=document.getElementById('secTitle');
+  var secTitle=document.getElementById('secTitle');
   var secData=[["模型与 API", "#3b82f6"], ["开源与工具链", "#10b981"], ["Agent 与应用开发", "#8b5cf6"], ["部署与推理优化", "#f59e0b"], ["研究前沿", "#f43f5e"], ["社区热议", "#06b6d4"]];
   if(!btns.length||!panels.length)return;
   function show(i,hash){
     btns.forEach(function(b,j){b.classList.toggle('active',j===i);});
     panels.forEach(function(p,j){p.style.display=j===i?'':'none';});
-    if(secTitle&&secData[i]){secTitle.textContent=secData[i][0];secBar.style.setProperty('--sec',secData[i][1]);}
+    if(secTitle&&secData[i]){secTitle.textContent=secData[i][0];secTitle.style.setProperty('--sec',secData[i][1]);}
     if(hash!==false){try{history.replaceState(null,'','#s'+i);}catch(e){}}
     window.scrollTo(0,0);var cs=document.getElementById('contentScroll');if(cs)cs.scrollTo(0,0);
   }
