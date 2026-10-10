@@ -56,14 +56,13 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .content-scroll::-webkit-scrollbar-track{background:transparent}
 .content-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
 @media(prefers-color-scheme:dark){.content-scroll{scrollbar-color:#334155 transparent}.content-scroll::-webkit-scrollbar-thumb{background:#334155}}
-.top{padding:2px 0}
+.top{padding:2px 0;display:flex;align-items:center;justify-content:space-between;gap:12px 20px;flex-wrap:wrap}
 .top h1{font-size:27px;font-weight:750;letter-spacing:.01em}
 p.meta{display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:13px;margin:16px 0 2px;background:var(--bg);border:1px dashed var(--border);border-radius:10px;padding:10px 14px}
 .tab-panel{animation:fade .18s ease}
 @keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
-.sec-bar{flex:0 0 auto;padding:4px 4px 0;margin-bottom:14px}
-.sec-bar h2{font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px}
-.sec-bar h2::before{content:"";width:10px;height:24px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec)}
+.sec-tag{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;white-space:nowrap}
+.sec-tag i{width:10px;height:24px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec);font-style:normal;flex:0 0 auto}
 ul.items{list-style:none}
 ul.items li{background:color-mix(in srgb,var(--sec) 5%,var(--card));border:1px solid color-mix(in srgb,var(--sec) 15%,var(--border));border-radius:12px;box-shadow:var(--shadow);padding:16px 22px;margin:12px 0;transition:box-shadow .15s,transform .15s}
 ul.items li:hover{box-shadow:0 8px 22px rgba(15,23,42,.12);transform:translateY(-1px)}
@@ -116,10 +115,9 @@ strong{font-weight:650}
 </aside>
 <main class="content"><div class="content-col">
   <div class="head-card">
-    <header class="top"><h1>AI 每日简报</h1></header>
+    <header class="top"><h1>AI 每日简报</h1><div class="sec-tag" id="secBar" style="--sec:#3b82f6"><i></i><span id="secTitle">模型与 API</span></div></header>
     <p class="meta">收集窗口：10 月 9 日 08:00 – 10 月 10 日 10:00（北京时间）</p>
   </div>
-  <div class="sec-bar" id="secBar" style="--sec:#3b82f6"><h2 id="secTitle">模型与 API</h2></div>
   <div class="content-scroll" id="contentScroll">
   <section class="tab-panel" id="s0" style="--sec:#3b82f6"><ul class="items">
 <li><div class="item-title">OpenAI 10.23 API 下线大限（10.9 迁移指南更新）</div><div class="item-body">17 个 model ID 届时停服，包括 o1/o3-mini/o4-mini、GPT-4 Turbo、<code>gpt-4o-2024-05-13</code>、<code>gpt-3.5-turbo-0125</code>、<code>gpt-image-1</code> 及 6 个 <code>ft-*</code> 微调模型；注意下线页推荐路径（GPT-5.6 Sol）与现行模型指南（GPT-6 家族）互相矛盾，GPT-6.1 Sol 价格还是 5.6 Sol 的一半。只剩两周，grep 代码里硬编码的 model ID，别按过期推荐迁两次。</div><div class="item-src">来源：<a href="https://digitalmatters.me/artificial-intelligence-ai/openai-october-2026-model-shutoff/" target="_blank" rel="noopener">DigitalMatters 下线清单</a>、<a href="https://digitalmatters.me/artificial-intelligence-ai/openai-model-selection-october-2026/" target="_blank" rel="noopener">选型指南</a></div></li>
