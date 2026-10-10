@@ -46,24 +46,21 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .stats span{font-size:11px;color:var(--side-muted)}
 .side-foot{margin-top:auto;padding-top:22px;font-size:12px;color:var(--side-muted);line-height:1.7}
 /* ---------- content ---------- */
-.content{flex:1;min-width:0;display:flex;justify-content:center;padding:0 36px 90px}
-.content-col{width:100%;max-width:880px;min-width:0}
+.content{flex:1;min-width:0;padding:0 36px 90px}
+.content-col{max-width:880px;margin:0 auto}
 .content-bar{display:none}
 .head-card{position:sticky;top:16px;z-index:30;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.1);padding:26px 34px 22px;margin-bottom:22px}
-.content-card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:6px 38px 48px}
 .top{padding:2px 0}
-.top .date-badge{display:inline-block;font-size:12.5px;font-weight:700;color:#fff;background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:999px;padding:5px 16px;margin-bottom:12px;letter-spacing:.04em;box-shadow:0 3px 10px rgba(99,102,241,.35)}
 .top h1{font-size:27px;font-weight:750;letter-spacing:.01em}
-.top>p{color:var(--muted);font-size:13.5px;margin-top:6px}
 p.meta{display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:13px;margin:16px 0 2px;background:var(--bg);border:1px dashed var(--border);border-radius:10px;padding:10px 14px}
-.tab-panel{animation:fade .18s ease}
+.tab-panel{background:color-mix(in srgb,var(--sec) 6%,var(--card));border:1px solid color-mix(in srgb,var(--sec) 16%,var(--border));border-radius:18px;box-shadow:var(--shadow);padding:10px 34px 32px;margin-top:20px;animation:fade .18s ease}
 @keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
 .tab-panel>h2{font-size:20px;font-weight:700;display:flex;align-items:center;gap:10px;margin:28px 0 4px}
 .tab-panel>h2::before{content:"";width:10px;height:24px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec)}
 ul.items{list-style:none}
-ul.items li{padding:18px 8px;margin:0;border-bottom:1px solid var(--border);transition:background .12s}
+ul.items li{padding:18px 8px;margin:0;border-bottom:1px solid color-mix(in srgb,var(--sec) 14%,var(--border));transition:background .12s}
 ul.items li:last-child{border-bottom:none}
-ul.items li:hover{background:color-mix(in srgb,var(--sec) 4%,transparent);border-radius:10px}
+ul.items li:hover{background:color-mix(in srgb,var(--sec) 7%,transparent);border-radius:10px}
 ul.items li p.note{color:var(--muted);font-size:13px}
 ul.items li:has(p.note):hover{background:none}
 .item-title{font-weight:650;font-size:15.5px;line-height:1.65;margin-bottom:6px}
@@ -89,7 +86,7 @@ strong{font-weight:650}
   .side-foot{display:none}
   .content{padding:0 14px 70px}
   .head-card{position:static;padding:20px 20px 18px;margin-bottom:16px}
-  .content-card{padding:4px 18px 36px;border-radius:14px}
+  .tab-panel{padding:6px 18px 28px;border-radius:14px;margin-top:16px}
   .top{padding-top:24px}
   .top h1{font-size:25px}
 }
@@ -98,7 +95,7 @@ strong{font-weight:650}
 <body>
 <div class="layout">
 <aside class="sidebar">
-  <div class="brand"><div class="brand-mark">AI</div><div><div class="brand-title">AI 每日简报</div><div class="brand-sub">AI 开发者视角 · 每天 8 点更新</div></div></div>
+  <div class="brand"><div class="brand-mark">AI</div><div><div class="brand-title">AI 每日简报</div></div></div>
   <div class="side-label">板块</div>
   <nav class="sections"><button data-tab="0" style="--sec:#3b82f6" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg><span class="sec-name">模型与 API</span><span class="cnt">9</span></button><button data-tab="1" style="--sec:#10b981" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sec-name">开源与工具链</span><span class="cnt">10</span></button><button data-tab="2" style="--sec:#8b5cf6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.8 4.6 1.2-4.6 1.2L12 15l-1.9-4.8L5.5 9l4.6-1.2z"/><path d="M19 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg><span class="sec-name">Agent 与应用开发</span><span class="cnt">10</span></button><button data-tab="3" style="--sec:#f59e0b" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span class="sec-name">部署与推理优化</span><span class="cnt">10</span></button><button data-tab="4" style="--sec:#f43f5e" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5.2 9.4A2 2 0 0 0 6.6 21h10.8a2 2 0 0 0 1.8-2.6L14 9V3"/><path d="M7.6 14h8.8"/></svg><span class="sec-name">研究前沿</span><span class="cnt">10</span></button><button data-tab="5" style="--sec:#06b6d4" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><span class="sec-name">社区热议</span><span class="cnt">10</span></button></nav>
   <div class="side-label">往期归档</div>
@@ -108,11 +105,10 @@ strong{font-weight:650}
 </aside>
 <main class="content"><div class="content-col">
   <div class="head-card">
-    <header class="top"><span class="date-badge">2026-10-10 · 每日 8 点更新</span><h1>AI 每日简报</h1><p>AI 开发者视角 · 每天 8 点更新</p></header>
+    <header class="top"><h1>AI 每日简报</h1></header>
     <p class="meta">收集窗口：10 月 9 日 08:00 – 10 月 10 日 10:00（北京时间）</p>
   </div>
-  <div class="content-card">
-    <section class="tab-panel" id="s0" style="--sec:#3b82f6"><h2>模型与 API</h2><ul class="items">
+  <section class="tab-panel" id="s0" style="--sec:#3b82f6"><h2>模型与 API</h2><ul class="items">
 <li><div class="item-title">OpenAI 10.23 API 下线大限（10.9 迁移指南更新）</div><div class="item-body">17 个 model ID 届时停服，包括 o1/o3-mini/o4-mini、GPT-4 Turbo、<code>gpt-4o-2024-05-13</code>、<code>gpt-3.5-turbo-0125</code>、<code>gpt-image-1</code> 及 6 个 <code>ft-*</code> 微调模型；注意下线页推荐路径（GPT-5.6 Sol）与现行模型指南（GPT-6 家族）互相矛盾，GPT-6.1 Sol 价格还是 5.6 Sol 的一半。只剩两周，grep 代码里硬编码的 model ID，别按过期推荐迁两次。</div><div class="item-src">来源：<a href="https://digitalmatters.me/artificial-intelligence-ai/openai-october-2026-model-shutoff/" target="_blank" rel="noopener">DigitalMatters 下线清单</a>、<a href="https://digitalmatters.me/artificial-intelligence-ai/openai-model-selection-october-2026/" target="_blank" rel="noopener">选型指南</a></div></li>
 <li><div class="item-title">Claude Haiku 5.5 发布 + Sonnet 5.5 缓存读半价（10.7 发布，10.8–10.9 跟进）</div><div class="item-body">API ID <code>claude-haiku-5-5</code>，1M 上下文，100K token 内输入 $0.10/输出 $0.50（较 4.5 降 90%），首个 Haiku 支持可调 effort；Sonnet 5.5 缓存读 $0.20→$0.10/M；Max/Team 订阅每月获 $100–500 API credit；已进 GitHub Copilot GA 和 Vercel AI Gateway。高频分类/路由/子 agent 的新便宜主力，但新 tokenizer 下同文本多 ~30% token，预算门按 prompt 长度设。</div><div class="item-src">来源：<a href="https://www.developersdigest.tech/blog/claude-haiku-5-5-release-guide-2026" target="_blank" rel="noopener">DevelopersDigest</a>、<a href="https://www.notebookcheck.net/Claude-Haiku-5-5-Anthropic-s-fastest-model-is-also-free-to-use.1420065.0.html" target="_blank" rel="noopener">Notebookcheck</a></div></li>
 <li><div class="item-title">GPT-6.1 Sol Ultrafast 上线（10.9）</div><div class="item-body">极速档按标准价 6 倍收费（$12/$60 per 1M），API 端 token 生成快 6x、Codex 端 8x，支持 US/EU 数据驻留，限 Pro 500/Enterprise 等工作区计划。延迟是钱买的：实时交互/agent 交互场景评估用，批量任务别碰。</div><div class="item-src">来源：<a href="https://runtimewire.com/article/openai-gpt-6-1-sol-ultrafast-api-pricing" target="_blank" rel="noopener">Runtime Wire</a></div></li>
@@ -180,7 +176,6 @@ strong{font-weight:650}
 <li><div class="item-title">V2EX：有没有靠谱的 gpt-image-2 API 服务商（27 回复，10.9–10.10）</div><div class="item-body">国内开发者找图像模型 API 渠道的实操帖，第三方服务商稳定性/价格对比的一手信息。</div><div class="item-src">来源：<a href="https://www.v2ex.com/go/ai" target="_blank" rel="noopener">V2EX /go/ai</a></div></li>
 <li><div class="item-title">Cockroach Labs：把 bug 当病人、coding agent 当医疗团队的五个月实践（10.9）</div><div class="item-body">16 points/11 comments，agentic coding 方法论的 war story，agent 分工与复核流程值得抄作业。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50021899" target="_blank" rel="noopener">HN 16 points / 11 comments</a></div></li>
 </ul></section>
-  </div>
 </div></main>
 </div>
 <script>
