@@ -7,6 +7,7 @@
 <style>*{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#f1f5f9;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--code-bg:#f1f5f9;
+  --acc:#3b82f6;
   --sidebar-bg:#0f172a;--side-text:#e2e8f0;--side-muted:#94a3b8;
   --shadow:0 1px 2px rgba(15,23,42,.05);
 }
@@ -65,14 +66,14 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .tab-panel{animation:fade .18s ease}
 @keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
 ul.items{list-style:none}
-ul.items li{background:color-mix(in srgb,var(--sec) 5%,var(--card));border:1px solid color-mix(in srgb,var(--sec) 15%,var(--border));border-radius:12px;box-shadow:var(--shadow);padding:16px 22px;margin:12px 0;transition:box-shadow .15s,transform .15s}
+ul.items li{background:color-mix(in srgb,var(--acc) 8%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 18%,var(--border));border-radius:12px;box-shadow:var(--shadow);padding:16px 22px;margin:12px 0;transition:box-shadow .15s,transform .15s}
 ul.items li:hover{box-shadow:0 8px 22px rgba(15,23,42,.12);transform:translateY(-1px)}
 ul.items li p.note{color:var(--muted);font-size:13px}
 ul.items li:has(p.note){background:none;border:none;box-shadow:none;padding:6px 4px}
 ul.items li:has(p.note):hover{box-shadow:none;transform:none}
-.item-title{font-weight:650;font-size:15.5px;line-height:1.65;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--sec) 18%,var(--border))}
+.item-title{font-weight:650;font-size:15.5px;line-height:1.65;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--acc) 22%,var(--border))}
 .item-body{font-size:14.5px}
-.item-src{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:flex-end;margin-top:12px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--sec) 20%,var(--border));font-size:12.5px;color:var(--muted);text-align:right}
+.item-src{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:flex-end;margin-top:12px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--acc) 22%,var(--border));font-size:12.5px;color:var(--muted);text-align:right}
 .item-src a{margin-right:10px;white-space:nowrap}
 p.body{margin:10px 0;font-size:15px}
 a{color:#3b82f6;text-decoration:none}
