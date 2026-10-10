@@ -15,10 +15,11 @@
   --sidebar-bg:#070a10;--side-text:#dbe3ee;--side-muted:#7d8ba1;
   --shadow:0 1px 2px rgba(0,0,0,.4);}
 }
-body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.75}
-.layout{display:flex;max-width:1280px;margin:0 auto;min-height:100vh}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.75;overflow:hidden}
+.layout{display:flex;max-width:1280px;margin:0 auto;height:100vh;padding:16px 0}
 /* ---------- sidebar ---------- */
-.sidebar{width:300px;flex:0 0 300px;color:var(--side-text);position:sticky;top:0;height:100vh;overflow-y:auto;padding:30px 22px;display:flex;flex-direction:column;
+.sidebar{width:300px;flex:0 0 300px;color:var(--side-text);height:100%;overflow-y:auto;border-radius:18px;padding:30px 22px;display:flex;flex-direction:column;
   background:
     radial-gradient(560px 280px at 12% 0%, rgba(99,102,241,.17), transparent 60%),
     radial-gradient(480px 380px at 95% 100%, rgba(236,72,153,.1), transparent 60%),
@@ -46,10 +47,15 @@ body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSy
 .stats span{font-size:11px;color:var(--side-muted)}
 .side-foot{margin-top:auto;padding-top:22px;font-size:12px;color:var(--side-muted);line-height:1.7}
 /* ---------- content ---------- */
-.content{flex:1;min-width:0;padding:16px 36px 90px}
-.content-col{max-width:880px;margin:0 auto}
+.content{flex:1;min-width:0;height:100%;min-height:0}
+.content-col{max-width:880px;margin:0 auto;height:100%;display:flex;flex-direction:column;min-height:0;padding:0 36px}
 .content-bar{display:none}
-.head-card{position:sticky;top:0;z-index:30;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.1);padding:26px 34px 22px;margin-bottom:22px}
+.head-card{flex:0 0 auto;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.1);padding:26px 34px 22px;margin-bottom:16px}
+.content-scroll{flex:1;min-height:0;overflow-y:auto;padding:4px 8px 90px;scrollbar-width:thin;scrollbar-color:#cbd5e1 transparent}
+.content-scroll::-webkit-scrollbar{width:8px}
+.content-scroll::-webkit-scrollbar-track{background:transparent}
+.content-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+@media(prefers-color-scheme:dark){.content-scroll{scrollbar-color:#334155 transparent}.content-scroll::-webkit-scrollbar-thumb{background:#334155}}
 .top{padding:2px 0}
 .top h1{font-size:27px;font-weight:750;letter-spacing:.01em}
 p.meta{display:flex;gap:8px;align-items:flex-start;color:var(--muted);font-size:13px;margin:16px 0 2px;background:var(--bg);border:1px dashed var(--border);border-radius:10px;padding:10px 14px}
@@ -63,7 +69,7 @@ ul.items li:hover{box-shadow:0 8px 22px rgba(15,23,42,.12);transform:translateY(
 ul.items li p.note{color:var(--muted);font-size:13px}
 ul.items li:has(p.note){background:none;border:none;box-shadow:none;padding:6px 4px}
 ul.items li:has(p.note):hover{box-shadow:none;transform:none}
-.item-title{font-weight:650;font-size:15.5px;line-height:1.65;margin-bottom:6px}
+.item-title{font-weight:650;font-size:15.5px;line-height:1.65;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--sec) 18%,var(--border))}
 .item-body{font-size:14.5px}
 .item-src{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:flex-end;margin-top:12px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--sec) 20%,var(--border));font-size:12.5px;color:var(--muted);text-align:right}
 .item-src a{margin-right:10px;white-space:nowrap}
@@ -75,8 +81,9 @@ code{background:var(--code-bg);border:1px solid var(--border);border-radius:6px;
 @media(prefers-color-scheme:dark){code{color:#a5b4fc}}
 strong{font-weight:650}
 @media(max-width:920px){
-  .layout{display:block}
-  .sidebar{position:static;width:auto;height:auto;padding:20px 16px 14px}
+  body{overflow:auto;height:auto}
+  .layout{display:block;height:auto;padding:0}
+  .sidebar{position:static;width:auto;height:auto;border-radius:0;padding:20px 16px 14px}
   .brand{margin-bottom:8px}
   .side-label{margin:12px 4px 6px}
   .sections{flex-direction:row;overflow-x:auto;padding-bottom:6px}
@@ -84,8 +91,10 @@ strong{font-weight:650}
   .archive-list{flex-direction:row;overflow-x:auto;max-height:none;padding-bottom:4px}
   .archive-list a{white-space:nowrap}
   .side-foot{display:none}
-  .content{padding:0 14px 70px}
+  .content{height:auto}
+  .content-col{display:block;height:auto;padding:0 14px 70px}
   .head-card{position:static;padding:20px 20px 18px;margin-bottom:16px}
+  .content-scroll{overflow:visible}
   .tab-panel{margin-top:14px;padding:2px 0 6px}
   ul.items li{padding:14px 16px}
   .top{padding-top:24px}
@@ -109,6 +118,7 @@ strong{font-weight:650}
     <header class="top"><h1>AI 每日简报</h1></header>
     <p class="meta">收集窗口：10 月 9 日 08:00 – 10 月 10 日 10:00（北京时间）</p>
   </div>
+  <div class="content-scroll" id="contentScroll">
   <section class="tab-panel" id="s0" style="--sec:#3b82f6"><h2>模型与 API</h2><ul class="items">
 <li><div class="item-title">OpenAI 10.23 API 下线大限（10.9 迁移指南更新）</div><div class="item-body">17 个 model ID 届时停服，包括 o1/o3-mini/o4-mini、GPT-4 Turbo、<code>gpt-4o-2024-05-13</code>、<code>gpt-3.5-turbo-0125</code>、<code>gpt-image-1</code> 及 6 个 <code>ft-*</code> 微调模型；注意下线页推荐路径（GPT-5.6 Sol）与现行模型指南（GPT-6 家族）互相矛盾，GPT-6.1 Sol 价格还是 5.6 Sol 的一半。只剩两周，grep 代码里硬编码的 model ID，别按过期推荐迁两次。</div><div class="item-src">来源：<a href="https://digitalmatters.me/artificial-intelligence-ai/openai-october-2026-model-shutoff/" target="_blank" rel="noopener">DigitalMatters 下线清单</a>、<a href="https://digitalmatters.me/artificial-intelligence-ai/openai-model-selection-october-2026/" target="_blank" rel="noopener">选型指南</a></div></li>
 <li><div class="item-title">Claude Haiku 5.5 发布 + Sonnet 5.5 缓存读半价（10.7 发布，10.8–10.9 跟进）</div><div class="item-body">API ID <code>claude-haiku-5-5</code>，1M 上下文，100K token 内输入 $0.10/输出 $0.50（较 4.5 降 90%），首个 Haiku 支持可调 effort；Sonnet 5.5 缓存读 $0.20→$0.10/M；Max/Team 订阅每月获 $100–500 API credit；已进 GitHub Copilot GA 和 Vercel AI Gateway。高频分类/路由/子 agent 的新便宜主力，但新 tokenizer 下同文本多 ~30% token，预算门按 prompt 长度设。</div><div class="item-src">来源：<a href="https://www.developersdigest.tech/blog/claude-haiku-5-5-release-guide-2026" target="_blank" rel="noopener">DevelopersDigest</a>、<a href="https://www.notebookcheck.net/Claude-Haiku-5-5-Anthropic-s-fastest-model-is-also-free-to-use.1420065.0.html" target="_blank" rel="noopener">Notebookcheck</a></div></li>
@@ -177,6 +187,7 @@ strong{font-weight:650}
 <li><div class="item-title">V2EX：有没有靠谱的 gpt-image-2 API 服务商（27 回复，10.9–10.10）</div><div class="item-body">国内开发者找图像模型 API 渠道的实操帖，第三方服务商稳定性/价格对比的一手信息。</div><div class="item-src">来源：<a href="https://www.v2ex.com/go/ai" target="_blank" rel="noopener">V2EX /go/ai</a></div></li>
 <li><div class="item-title">Cockroach Labs：把 bug 当病人、coding agent 当医疗团队的五个月实践（10.9）</div><div class="item-body">16 points/11 comments，agentic coding 方法论的 war story，agent 分工与复核流程值得抄作业。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50021899" target="_blank" rel="noopener">HN 16 points / 11 comments</a></div></li>
 </ul></section>
+  </div>
 </div></main>
 </div>
 <script>
@@ -188,7 +199,7 @@ strong{font-weight:650}
     btns.forEach(function(b,j){b.classList.toggle('active',j===i);});
     panels.forEach(function(p,j){p.style.display=j===i?'':'none';});
     if(hash!==false){try{history.replaceState(null,'','#s'+i);}catch(e){}}
-    window.scrollTo(0,0);
+    window.scrollTo(0,0);var cs=document.getElementById('contentScroll');if(cs)cs.scrollTo(0,0);
   }
   btns.forEach(function(b,i){b.addEventListener('click',function(){show(i);});});
   var m=location.hash.match(/#s(\d+)/),init=m?Math.min(parseInt(m[1],10),btns.length-1):0;
