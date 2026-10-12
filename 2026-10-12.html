@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-10-12 · AI 每日简报</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f1f5f9;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--code-bg:#f1f5f9;
+  --acc:#3b82f6;
+  --sidebar-bg:#0f172a;--side-text:#e2e8f0;--side-muted:#94a3b8;
+  --shadow:0 1px 2px rgba(15,23,42,.05);
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0a0e15;--card:#121826;--text:#e6ebf2;--muted:#8b98ab;--border:#223047;--code-bg:#0a0e15;
+  --sidebar-bg:#070a10;--side-text:#dbe3ee;--side-muted:#7d8ba1;
+  --shadow:0 1px 2px rgba(0,0,0,.4);}
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.75;overflow:hidden}
+.layout{display:flex;max-width:1280px;margin:0 auto;height:100vh;padding:16px 0}
+/* ---------- sidebar ---------- */
+.sidebar{width:300px;flex:0 0 300px;color:var(--side-text);height:100%;overflow-y:auto;border-radius:18px;padding:30px 22px;display:flex;flex-direction:column;
+  background:
+    radial-gradient(560px 280px at 12% 0%, rgba(99,102,241,.17), transparent 60%),
+    radial-gradient(480px 380px at 95% 100%, rgba(236,72,153,.1), transparent 60%),
+    var(--sidebar-bg);}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.brand-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#3b82f6,#8b5cf6 55%,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:17px;flex:0 0 42px;box-shadow:0 4px 16px rgba(139,92,246,.45)}
+.brand-title{font-size:19px;font-weight:700;letter-spacing:.02em;color:#fff}
+.brand-sub{font-size:12px;color:var(--side-muted);margin-top:2px}
+.side-meta{font-size:12px;color:var(--side-muted);line-height:1.7;margin:10px 2px 0;padding:10px 12px;background:rgba(148,163,184,.08);border:1px dashed rgba(148,163,184,.25);border-radius:10px}
+.side-label{font-size:11px;letter-spacing:.14em;color:var(--side-muted);margin:18px 4px 8px;font-weight:600}
+.sections{display:flex;flex-direction:column;gap:4px}
+.sections button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:10px;padding:10px 12px;color:var(--side-text);font-size:14.5px;cursor:pointer;font-family:inherit;transition:background .12s,border-color .12s}
+.sections button svg{width:17px;height:17px;color:var(--sec);flex:0 0 17px}
+.sections button .cnt{margin-left:auto;font-size:11.5px;color:var(--side-muted);background:rgba(148,163,184,.15);border-radius:999px;padding:1px 9px}
+.sections button:hover{background:rgba(148,163,184,.1)}
+.sections button.active{background:color-mix(in srgb,var(--sec) 17%,transparent);border-color:color-mix(in srgb,var(--sec) 48%,transparent)}
+.sections button.active .sec-name{color:#fff;font-weight:600}
+.sections button.active .cnt{background:color-mix(in srgb,var(--sec) 32%,transparent);color:#fff}
+.archive-list{display:flex;flex-direction:column;gap:2px;max-height:200px;overflow-y:auto}
+.archive-list a{color:var(--side-muted);font-size:13.5px;padding:7px 12px;border-radius:8px;text-decoration:none;transition:background .12s}
+.archive-list a:hover{color:var(--side-text);background:rgba(148,163,184,.1)}
+.archive-list a.cur{color:#fff;background:rgba(148,163,184,.18);font-weight:600}
+.stats{display:flex;gap:10px;margin:20px 2px 0}
+.stats>div{flex:1;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.14);border-radius:12px;padding:10px 6px;text-align:center}
+.stats b{display:block;font-size:20px;color:#fff;font-weight:700}
+.stats span{font-size:11px;color:var(--side-muted)}
+.side-foot{margin-top:auto;padding-top:22px;font-size:12px;color:var(--side-muted);line-height:1.7}
+/* ---------- content ---------- */
+.content{flex:1;min-width:0;height:100%;min-height:0}
+.content-col{max-width:880px;margin:0 auto;height:100%;display:flex;flex-direction:column;min-height:0;padding:0 36px}
+.content-bar{display:none}
+.head-card{flex:0 0 auto;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.1);padding:18px 34px;margin-bottom:16px}
+.sec-desc{flex:0 0 auto;margin-bottom:14px;padding:10px 16px;background:color-mix(in srgb,var(--sec) 6%,var(--card));border:1px dashed color-mix(in srgb,var(--sec) 30%,var(--border));border-radius:12px;font-size:13px;line-height:1.7;color:var(--muted)}
+.sec-desc p{margin:0}
+/* ---------- top3 highlight (from a "## 今日三件事" section; not counted as a tab) ---------- */
+.top3{flex:0 0 auto;margin-bottom:14px;padding:14px 18px 8px;background:color-mix(in srgb,#3b82f6 7%,var(--card));border:1px solid color-mix(in srgb,#3b82f6 32%,var(--border));border-radius:14px;box-shadow:var(--shadow)}
+.top3-label{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:750;color:#3b82f6;margin:0 0 2px}
+.top3-label::before{content:"";width:9px;height:20px;border-radius:5px;background:#3b82f6;box-shadow:0 0 8px #3b82f6}
+@media(prefers-color-scheme:dark){.top3-label{color:#8aa8ff}}
+.top3 ul.items{margin-top:4px}
+.content-scroll{flex:1;min-height:0;overflow-y:auto;padding:0 8px 24px;scrollbar-width:thin;scrollbar-color:#cbd5e1 transparent}
+.content-scroll::-webkit-scrollbar{width:8px}
+.content-scroll::-webkit-scrollbar-track{background:transparent}
+.content-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+@media(prefers-color-scheme:dark){.content-scroll{scrollbar-color:#334155 transparent}.content-scroll::-webkit-scrollbar-thumb{background:#334155}}
+.top{padding:2px 0}
+.top h1{font-size:27px;font-weight:750;letter-spacing:.01em;display:flex;align-items:center;gap:12px}
+.top h1::before{content:"";width:11px;height:26px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec);flex:0 0 auto}
+.tab-panel{animation:fade .18s ease}
+@keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+ul.items{list-style:none}
+ul.items li{background:color-mix(in srgb,var(--acc) 8%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 18%,var(--border));border-radius:12px;box-shadow:var(--shadow);padding:16px 22px;margin:12px 0;transition:box-shadow .15s,transform .15s}
+ul.items li:hover{box-shadow:0 8px 22px rgba(15,23,42,.12);transform:translateY(-1px)}
+ul.items li p.note{color:var(--muted);font-size:13px}
+ul.items li:has(p.note){background:none;border:none;box-shadow:none;padding:6px 4px}
+ul.items li:has(p.note):hover{box-shadow:none;transform:none}
+.item-title{font-weight:650;font-size:15.5px;line-height:1.65;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--acc) 22%,var(--border))}
+.item-body{font-size:14.5px}
+.item-src{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:flex-end;margin-top:12px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--acc) 22%,var(--border));font-size:12.5px;color:var(--muted);text-align:right}
+.item-src a{margin-right:10px;white-space:nowrap}
+p.body{margin:10px 0;font-size:15px}
+a{color:#3b82f6;text-decoration:none}
+@media(prefers-color-scheme:dark){a{color:#8aa8ff}}
+a:hover{text-decoration:underline}
+code{background:var(--code-bg);border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:.86em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#4f46e5}
+@media(prefers-color-scheme:dark){code{color:#a5b4fc}}
+strong{font-weight:650}
+@media(max-width:920px){
+  body{overflow:auto;height:auto}
+  .layout{display:block;height:auto;padding:0}
+  .sidebar{position:static;width:auto;height:auto;border-radius:0;padding:20px 16px 14px}
+  .brand{margin-bottom:8px}
+  .side-label{margin:12px 4px 6px}
+  .sections{flex-direction:row;overflow-x:auto;padding-bottom:6px}
+  .sections button{flex:0 0 auto}
+  .archive-list{flex-direction:row;overflow-x:auto;max-height:none;padding-bottom:4px}
+  .archive-list a{white-space:nowrap}
+  .side-foot{display:none}
+  .content{height:auto}
+  .content-col{display:block;height:auto;padding:0 14px 70px}
+  .head-card{position:static;padding:20px 20px 18px;margin-bottom:16px}
+  .content-scroll{overflow:visible;padding:0}
+  .tab-panel{padding:0}
+  ul.items li{padding:14px 16px}
+  .top{padding-top:24px}
+  .top h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">AI</div><div><div class="brand-title">AI 每日简报</div></div></div>
+  <div class="side-meta">收集窗口：10 月 11 日 08:00 – 10 月 12 日 08:00（北京时间）</div>
+  <div class="side-label">板块</div>
+  <nav class="sections"><button data-tab="0" style="--sec:#3b82f6" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg><span class="sec-name">模型与 API</span><span class="cnt">3</span></button><button data-tab="1" style="--sec:#10b981" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sec-name">开源与工具链</span><span class="cnt">10</span></button><button data-tab="2" style="--sec:#8b5cf6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.8 4.6 1.2-4.6 1.2L12 15l-1.9-4.8L5.5 9l4.6-1.2z"/><path d="M19 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg><span class="sec-name">Agent 与应用开发</span><span class="cnt">10</span></button><button data-tab="3" style="--sec:#f59e0b" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span class="sec-name">部署与推理优化</span><span class="cnt">4</span></button><button data-tab="4" style="--sec:#f43f5e" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5.2 9.4A2 2 0 0 0 6.6 21h10.8a2 2 0 0 0 1.8-2.6L14 9V3"/><path d="M7.6 14h8.8"/></svg><span class="sec-name">研究前沿</span><span class="cnt">5</span></button><button data-tab="5" style="--sec:#06b6d4" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><span class="sec-name">社区热议</span><span class="cnt">10</span></button></nav>
+  <div class="side-label">往期归档</div>
+  <nav class="archive-list"><a href="2026-10-10.html">2026-10-10</a><a href="2026-10-11.html">2026-10-11</a><a href="2026-10-12.html" class="cur">2026-10-12</a></nav>
+  <div class="stats"><div><b>3</b><span>收录期数</span></div><div><b>122</b><span>累计条目</span></div></div>
+  <div class="side-foot">内容由 AI 收集整理，仅供参考<br>每天 8 点（北京时间）自动更新</div>
+</aside>
+<main class="content"><div class="content-col">
+  <div class="head-card">
+    <header class="top"><h1 id="secTitle" style="--sec:#3b82f6">模型与 API</h1></header>
+  </div>
+  
+  <div class="sec-desc" id="secDesc" style="--sec:#3b82f6"><p>本板块今日偏少：窗口内确认 3 条实质新闻；国内无实质性新模型/API 发布，未凑数。</p></div>
+  <div class="content-scroll" id="contentScroll">
+  <section class="tab-panel" id="s0" style="--sec:#3b82f6"><ul class="items">
+<li><div class="item-title">Decision 3.0：vLLM Semantic Router 团队发布开源决策模型家族（10.11）</div><div class="item-body">Apache-2.0，5 个尺寸（0.85B–27B），输入文本/JSON/图像后对类型化问题（选择/是非/打分）直接输出校准概率而非生成文本——路由与护栏可不再解析 LLM 文本输出；基准自报（KIE 文档抽取 97.7、R-Bench-M 34.1），独立验证前谨慎引用。&quot;决策模型&quot;品类一周内出第二款（接 Microsoft-Decision-1），不同团队同范式，值得持续跟踪。</div><div class="item-src">来源：<a href="https://www.marktechpost.com/2026/10/11/what-is-decision-3-0-vllm-semantic-routers-new-open-decision-models/" target="_blank" rel="noopener">MarkTechPost</a>、<a href="https://thecosmicmeta.com/decision-3-0-overview-vllm-semantic-routers-new-open-decision-models/" target="_blank" rel="noopener">Cosmic Meta Digital</a> 互证</div></li>
+<li><div class="item-title">OrcaCyber Zero 1.5：网络安全专用模型（10.11）</div><div class="item-body">1M 上下文、128K 最大输出，原生函数调用与结构化输出，主攻授权漏洞复现、渗透测试与安全审计；托管 API 定价 $3.00/$7.50 每百万输入/输出词元。官方宣称 Cybench 100%（39/39）但为自报、CVE-Bench 仅 24 题样本——安全工具选型先跑自有评估集再信。</div><div class="item-src">来源：<a href="https://www.marktechpost.com/2026/10/10/orcarouter-releases-orcacyber-zero-1-5-cybersecurity-model-with-1m-context/" target="_blank" rel="noopener">MarkTechPost</a>、<a href="https://aidailypost.com/news/orcacyber-zero-15-model-boasts-top" target="_blank" rel="noopener">AI Daily Post</a>、<a href="https://www.orcarouter.ai/models/orca/orcacyber-zero-1.5" target="_blank" rel="noopener">OrcaRouter 官方模型页</a></div></li>
+<li><div class="item-title">星动纪元 VPP2 世界动作模型开源并登顶 RoboDojo（10.11 国内报道）</div><div class="item-body">32.26% 平均成功率、39.26 分拿下具身智能基准 RoboDojo 榜首，泛化/精细操作/记忆三项第一，超越 GPT-6 Astra、π0.5、GR00T-N1.7；视频预测与动作生成分阶段训练、未引入额外数据。注意官方原始公告为 10 月 9 日（PR Newswire），10.11 为国内跟进报道。</div><div class="item-src">来源：<a href="http://k.sina.cn/article_5952915720_162d2490806704zba6.html" target="_blank" rel="noopener">北京商报</a>、<a href="https://finance.sina.cn/stock/jdts/2026-10-10/detail-iniutqmf2111975.d.html" target="_blank" rel="noopener">澎湃新闻</a></div></li>
+
+</ul></section><section class="tab-panel" id="s1" style="--sec:#10b981"><ul class="items">
+<li><div class="item-title">REA（Reverse Engineer Anything）登顶 GitHub Trending</div><div class="item-body">开源逆向工程 agent 工具链，把 Ghidra/IDA/JADX（Android APK，v4.1 新增）、Binwalk 等本地分析工具接到 coding agent 上，提供 MCP server + CLI 两种形态；10 月 7 日发布，10–11 日冲上趋势榜首、单日新增约 7,744 stars（总计约 29.9k）。逆向工程 + coding agent 的现成集成方案。</div><div class="item-src">来源：<a href="https://startupfortune.com/an-ai-agent-that-reverse-engineers-any-software-just-hit-number-one-on-github/" target="_blank" rel="noopener">Startup Fortune</a>、<a href="https://levelup.gitconnected.com/this-ai-project-on-github-trending-can-read-software-you-did-not-write-51f0a211dc35?gi=cf2cb9a76f17" target="_blank" rel="noopener">Level Up Coding</a> 佐证</div></li>
+<li><div class="item-title">ArtCraft：单人纯 Rust 开源 Adobe 替代套件单周 43k stars</div><div class="item-body">一名独立开发者用 Claude Opus 5.5 主力工作流写了 7 个创意应用，对标 Photoshop/Premiere 等；10 月 9 日 27.4k stars，10 月 11 日已约 43k；MIT/Apache-2.0 双许可，Linux/Windows/macOS 原生安装包 + WASM 版，每个菜单命令都可经 MCP server 被 agent 驱动。AI 加速开源开发的代表性案例。</div><div class="item-src">来源：<a href="https://www.linuxcompatible.org/story/artcraft-the-free-opensource-adobe-suite-that-racked-up-43000-stars-in-days/" target="_blank" rel="noopener">Linux Compatible</a>、<a href="http://dev.to/signals_api/ai-signals-this-week-2026-10-05-to-2026-10-11-what-actually-moved-19i2" target="_blank" rel="noopener">dev.to AI signals 聚合</a> 佐证</div></li>
+<li><div class="item-title">Mistral Large 4 开放权重倒计时页上线 HF（10.11）</div><div class="item-body">mistralai/Mistral-Large-4-1T-A52B 候发布页面已上线（含 Upcoming release 横幅，742 人订阅提醒），目标 10 月 31 日；1.05T 总参数、每 token 激活约 49B、原生多模态、1M 上下文。10 月 6 日预览的许可证细节待发布日确认，商用前务必读条款。</div><div class="item-src">来源：<a href="https://aiweekly.co/alerts/mistral-queues-le-chonk-open-weight-1t-moe-for-late-october" target="_blank" rel="noopener">AI Weekly</a>、<a href="https://www.theregister.com/ai-and-ml/2026/10/06/european-ai-flag-bearer-mistrals-new-open-weights-model-is-le-chonk/5301443" target="_blank" rel="noopener">The Register</a> 佐证</div></li>
+<li><div class="item-title">GitHub Copilot for JetBrains 更新（北京时间 10.11 凌晨，紧贴窗口）</div><div class="item-body">企业管理员可经 managed settings 指定新会话默认 Copilot agent 模型；新增禁用 Copilot/Claude MCP 服务器自动启动的设置；诊断意图菜单新增「Fix」一键丢给 inline chat；停支持 IDE 2025.1（需 2025.2+）。</div><div class="item-src">来源：<a href="https://www.ai-jitan-hub.com/news/github-copilot-jetbrains-default-model-mcp-controls" target="_blank" rel="noopener">AI时短ラボ 对官方 changelog 核验</a></div></li>
+<li><div class="item-title">JetBrains Air 进入 IDE EAP（10.8–9，窗口内发酵）</div><div class="item-body">Marketplace 插件或 IDE 2026.3 EAP 内置形态；定位是&quot;连接你现有 agent 和订阅的管道&quot;，本身不是 AI 提供商、不内置 agent；随附免费 Junie Lite 编码 agent 试用。</div><div class="item-src">来源：<a href="https://blog.jetbrains.com/ja/ai/2026/10/air-in-ides-eap/" target="_blank" rel="noopener">JetBrains 官方博客</a></div></li>
+<li><div class="item-title">AWS 开源 Physical AI Toolchain（公告约 10.8–9，窗口内发酵）</div><div class="item-body">Apache 2.0，覆盖机器人从数据到部署全链路——Cosmos 合成数据、遥操作/SageMaker 训练、Isaac Sim 仿真、Greengrass 边缘部署；统一用 LeRobot v2 / ROS 2 / URDF / ONNX 等可移植格式。做具身智能的：全链路开源栈 + 可移植格式，能少踩不少集成坑。</div><div class="item-src">来源：<a href="https://www.engineering.com/aws-launches-open-source-toolchain-for-physical-ai-development/" target="_blank" rel="noopener">Engineering</a>、<a href="https://www.aboutamazon.com:443/news/aws/aws-physical-ai-toolchain-build-intelligent-machines" target="_blank" rel="noopener">Amazon 官方公告</a> 互证</div></li>
+<li><div class="item-title">GitHub Digest 10 月 11 日两款小工具</div><div class="item-body"><code>Shyboy0499/antibody</code>（369 stars）——一个 agent 发现的修复自动传播给其他并行 Claude Code agent；<code>Orchestra-Research/AI-Research-SKILLs</code>（13,443 stars）——把 agent 变成自主研究员的技能库。并行 agent 协作的现成小件。</div><div class="item-src">来源：<a href="https://www.alextech.ai/en/news/github-digest-11-october-2026/" target="_blank" rel="noopener">GitHub Digest</a></div></li>
+<li><div class="item-title">NVIDIA cuOpt 并入开源 mPDLP 求解器</div><div class="item-body">大规模线性规划拆到 NVLink 互联多 GPU 并行求解，官方称单 GPU 求解器峰值内存降至 1/6。运筹/调度场景的开源 GPU 求解器选项。</div><div class="item-src">来源：<a href="https://sharedsapience.com/century-report/the-century-report-october-11-2026/" target="_blank" rel="noopener">Shared Sapience 每日 digest</a>，单一信源，为 NVIDIA 开发者公告口径</div></li>
+<li><div class="item-title">Meta FAIR 开源 RoboJEPA 机器人世界模型</div><div class="item-body">最大 8B，基于 12 种机器人、15,022 小时视频训练，检查点 + 训练代码 + 真机部署代码一并放出。</div><div class="item-src">来源：<a href="https://sharedsapience.com/century-report/the-century-report-october-11-2026/" target="_blank" rel="noopener">Shared Sapience 每日 digest</a>，单一信源</div></li>
+<li><div class="item-title">HF Bio 发布 Carbon-A 开放基因组注释模型</div><div class="item-body">附带 Carbon Annotation Database 与训练数据；生命科学管线的基因组注释新资源。</div><div class="item-src">来源：<a href="https://sharedsapience.com/century-report/the-century-report-october-11-2026/" target="_blank" rel="noopener">Shared Sapience 每日 digest</a>，单一信源，细节待官方文档确认</div></li>
+</ul></section><section class="tab-panel" id="s2" style="--sec:#8b5cf6"><ul class="items">
+<li><div class="item-title">Claude Managed Agents 动态工作流公测</div><div class="item-body">主 Agent 自写编排程序、分阶段调度多 Agent 协作，云端后台运行；116k 行代码藏 70 bug 测出 66 个（单 Agent 最多 27）；单 run 上限 1000 子 Agent。Agent 编排转向&quot;编排即代码、交给主 Agent&quot;——注意 Anthropic 明确提示 token 消耗巨大，先小规模验证账单。</div><div class="item-src">来源：<a href="https://finance.sina.cn/stock/jdts/2026-10-11/detail-iniuvpap7391009.d.html" target="_blank" rel="noopener">新智元/新浪</a>、<a href="https://cellcog.ai/blog/claude-dynamic-workflows/" target="_blank" rel="noopener">CellCog</a></div></li>
+<li><div class="item-title">Claude Code Projects 扩大公测</div><div class="item-body">等待名单上的 Pro/Max 用户已全部获得资格；围绕项目承接需求、判断新开线程或交给相关线程，积累项目记忆（决策、踩坑、资料），各线程云端独立分支工作、合上电脑后继续。长期项目的&quot;持续 agent 团队&quot;形态。</div><div class="item-src">来源：<a href="https://news.marsbit.co/20261011144530140102.html" target="_blank" rel="noopener">新智元/MarsBit</a></div></li>
+<li><div class="item-title">OpenAI dots 个人 Agent 登陆移动端，Codex 上线&quot;Composer Predictions&quot;</div><div class="item-body">dots（GPT-6 Astra 驱动的常驻个人 Agent）扩展至手机 App，可配专属云 PC 沙盒管理长期任务；Codex 为 Pro 用户推出实验性 Composer Predictions，基于对话上下文与编码习惯预判并补全下一条完整指令，Tab 接受。</div><div class="item-src">来源：<a href="https://www.rebabel.net/en/state-of-ai-report-2026-released-ai-rd-reaches-tipping-point-ai-daily-2026-10-11/" target="_blank" rel="noopener">AI Daily/rebabel</a></div></li>
+<li><div class="item-title">国产 Agnes Harness（AGH）开源</div><div class="item-body">面向真实任务的 Agent 执行基础设施——持续任务执行、工具调用、状态管理、结果反馈，带 Web 工作台与轨迹回放调试；插件机制接入自有工具/MCP，Skills 沉淀复用任务方法，多端共享会话。同步开源 MHS 设备交互协议，但 GitHub 上 MHS 文档仍标&quot;即将开放&quot;，适配成熟度待验证。</div><div class="item-src">来源：<a href="https://finance.sina.cn/stock/jdts/2026-10-11/detail-iniuvhur7366578.d.html" target="_blank" rel="noopener">新智元/新浪财经</a>、<a href="https://github.com/AgnesAI-Labs/agnes-harness" target="_blank" rel="noopener">GitHub</a></div></li>
+<li><div class="item-title">billion-context：为 Coding Agent 设计的渐进式上下文压缩代理</div><div class="item-body">反向代理方案，注入 compress/decompress 原语，模型自主触发分层摘要与按需解压缩，声称 token 消耗降至 1/5、前缀缓存命中率 &gt;95%，支持跨越数月、数十亿 token 的单会话；登上 GitHub 趋势榜。长时 coding agent 成本控制的现成路线。</div><div class="item-src">来源：<a href="https://www.rebabel.net/en/state-of-ai-report-2026-released-ai-rd-reaches-tipping-point-ai-daily-2026-10-11/" target="_blank" rel="noopener">AI Daily/rebabel</a></div></li>
+<li><div class="item-title">Integrum：反射任意 Python 模块自动生成 MCP 服务器</div><div class="item-body">CLI 反射函数签名与 docstring，自动构建并部署标准 MCP server，让 LLM 经结构化接口安全调用 scikit-learn 等底层算法库，规避无约束代码执行风险。MCP 工具供给的效率工具。</div><div class="item-src">来源：<a href="https://www.rebabel.net/en/state-of-ai-report-2026-released-ai-rd-reaches-tipping-point-ai-daily-2026-10-11/" target="_blank" rel="noopener">AI Daily/rebabel</a></div></li>
+<li><div class="item-title">DigUp：独立开发者开源本地多模态文件语义搜索（macOS）</div><div class="item-body">纯 Swift + llama.cpp Metal 实现，全离线跑 865MB EmbeddingGemma 2 权重，音频/视频/文档/代码统一向量空间索引，自然语言毫秒级定位视频时间点或合同条款。纯本地 RAG 的完整落地案例。</div><div class="item-src">来源：<a href="https://www.rebabel.net/en/state-of-ai-report-2026-released-ai-rd-reaches-tipping-point-ai-daily-2026-10-11/" target="_blank" rel="noopener">AI Daily/rebabel</a></div></li>
+<li><div class="item-title">LumaBrowser：开源本地 LLM 系统级浏览器</div><div class="item-body">集成 VRAM 自动热加载、任务触发器、类 JEV 路由与代码执行沙盒，既是个人 agent 运行时，也支持跨设备标签流共享与协作执行。本地 agent 运行时 + 浏览器形态，值得持续观察。</div><div class="item-src">来源：<a href="https://www.rebabel.net/en/state-of-ai-report-2026-released-ai-rd-reaches-tipping-point-ai-daily-2026-10-11/" target="_blank" rel="noopener">AI Daily/rebabel</a></div></li>
+<li><div class="item-title">Open Academic Paper Gen：多智能体学术写作工具，带引文核验</div><div class="item-body">GitHub 开源，选题、文献聚类、初稿生成全流程覆盖；经 Crossref/DOI 验证引文真实性，要求从检索原文提取支撑段落与 PDF 页码，并标注论证不足项——压制幻觉引用的工程机制有参考价值。</div><div class="item-src">来源：<a href="https://www.rebabel.net/en/state-of-ai-report-2026-released-ai-rd-reaches-tipping-point-ai-daily-2026-10-11/" target="_blank" rel="noopener">AI Daily/rebabel</a></div></li>
+<li><div class="item-title">HugAgent：&quot;数字分身&quot;预测能力评测框架</div><div class="item-body">MIT 等机构基于真实访谈构建个人模拟，检验大模型能否预测个体在未见新情境下的立场变化（54 名参与者、1742 个评测项）；模型模拟&quot;当前信念&quot;达 77.56%，但信念动态更新任务降至 68.61%。入选 EMNLP 2026 Main Oral——个性化 agent 评测的新维度。</div><div class="item-src">来源：<a href="https://news.marsbit.co/20261011191816770289.html" target="_blank" rel="noopener">MarsBit/新智元</a>、<a href="https://arxiv.org/abs/2510.15144" target="_blank" rel="noopener">论文</a></div></li>
+</ul></section><section class="tab-panel" id="s3" style="--sec:#f59e0b"><ul class="items">
+<li><div class="item-title">OrcaRouter：零加价统一推理路由发布（10.11）</div><div class="item-body">Continuum AI 发布托管版 + MIT 开源可自托管的 Lite 版（默认 SQLite，无需 Postgres/K8s）；BYOK 零加价（OpenRouter 约抽 5%），托管版宣称 sub-50ms 故障转移、自适应感知路由；盈利点在上层（缓存、治理、审计）。网关选型出现&quot;数据平面免费&quot;新报价模型。</div><div class="item-src">来源：<a href="https://pr.rivertonjournal.com/article/OrcaRouter-Launches-the-Open-LLM-API-Router-Zero-Markup-MIT-Licensed-100-Models/69fdd822d56b553ce63b4a0f" target="_blank" rel="noopener">PR Newswire</a>、<a href="https://pr.millismedwaynews.com/article/OrcaRouter-Launches-the-Open-LLM-API-Router-Zero-Markup-MIT-Licensed-100-Models/69fdd822d56b553ce63b4a0f" target="_blank" rel="noopener">转发稿</a> 互证</div></li>
+<li><div class="item-title">DeepSeek V4.1 Flash 第三方转售出现明显价差（10.11）</div><div class="item-body">OpenRouter 聚合平台上 Relace 与 Open Inference 的输入价显著低于官方 $0.15/百万 token；聚合层算力套利再现——切高流量前务必核验渠道可靠性与价格稳定性。</div><div class="item-src">来源：<a href="https://wisevoter.com/world/2026/10/11/deepseek-v4-1-flash-pricing-discrepancy" target="_blank" rel="noopener">wisevoter</a>，单信源、聚合站点，谨慎采信</div></li>
+<li><div class="item-title">甲骨文推 Fusion Claw：推理与计算执行分离（10.11）</div><div class="item-body">agent 只评估上下文、组装工具，大量计算交给确定性引擎，避免把数百万条记录塞进昂贵上下文窗口；执行在隔离容器内，附权限上限与策略约束；Gartner 提示仍在早期试点、易被锁定在 Oracle 应用与云上。企业 agent 落地招标时的比对样本。</div><div class="item-src">来源：<a href="https://neodrop.ai/post/mS_SmJ6TwiC" target="_blank" rel="noopener">新浪 AI 早报/neodrop</a></div></li>
+<li><div class="item-title">腾讯开源 5B 全模态解析模型 Youtu-Parsing-Omni，附 vLLM 插件（10.11）</div><div class="item-body">文档/图像/图表/流程图/音频视频统一输出结构化 JSON（一套 schema），官方称开源权重中最好的一档，同时提供 vLLM 插件与推理示例。做文档智能与多模态 RAG 的：六类输入压进一套 schema 可减少&quot;每模态接一个模型&quot;的工程量。</div><div class="item-src">来源：<a href="https://neodrop.ai/post/mS_SmJ6TwiC" target="_blank" rel="noopener">新浪 AI 早报/neodrop</a></div></li>
+
+</ul></section><section class="tab-panel" id="s4" style="--sec:#f43f5e"><ul class="items">
+<li><div class="item-title">Byteification：&lt;1% 预训练算力把已有分词器模型改造为字节级模型（Nature 10.7，窗口内多信源刷屏）</div><div class="item-body">两阶段蒸馏——prefill 时 1 字节 lookahead + 解码时预测融合边界；对 OLMo 3 7B、Qwen3 8B、Llama 3 8B 等逆向改造仅用约 49.1B tokens（&lt;1% 预训练预算），参数量变化 ±5% 以内；Bolmo 7B 在 STEM 上比字节级基线 BLT 7B 绝对提升 16.5%，字符级推理（拼写、代码、生物序列）大幅增强。工程意义：字节级模型的 tokenizer 短板可用低成本改造绕过，且 post-training 可通过 task arithmetic 迁移。</div><div class="item-src">来源：<a href="https://aiweekly.co/alerts/byteification-converts-subword-llms-to-byte-level-at-1-cost" target="_blank" rel="noopener">AI Weekly</a>、<a href="https://techxplore.com/news/2026-10-easier-ai-letter.html" target="_blank" rel="noopener">TechXplore</a>、<a href="https://www.rebabel.net/en/state-of-ai-report-2026-released-ai-rd-reaches-tipping-point-ai-daily-2026-10-11/" target="_blank" rel="noopener">AI Daily</a> 三信源互证</div></li>
+<li><div class="item-title">NULLs（Natively Unlearnable LLMs）获 COLM 隐私安全研讨会最佳论文</div><div class="item-body">训练时把每层神经元拆为共享子集 + 记忆槽，每个数据源分配稀疏掩码；部署时&quot;遗忘&quot;只需关闭对应掩码、无需重训，8000 个神经元可支持数百万独立数据源；Wikipedia 6M 文章实验效果接近从零重训，抗对抗提取/再学习远超梯度式后置遗忘法。对合规删除、版权数据下线的直接工程路径。</div><div class="item-src">来源：<a href="https://www.rebabel.net/en/state-of-ai-report-2026-released-ai-rd-reaches-tipping-point-ai-daily-2026-10-11/" target="_blank" rel="noopener">AI Daily</a>、<a href="https://ar-forum.github.io/assets/nulls.pdf" target="_blank" rel="noopener">论文页</a></div></li>
+<li><div class="item-title">Unpaired Rosetta：无需配对数据实现跨模态对齐</div><div class="item-body">用几何聚类 + 距离置换优化，把纯视觉 DINOv2 和纯文本 Qwen3 的高维嵌入空间直接对齐，图像与文本可来自完全不相干的数据集——挑战&quot;多模态学习必须海量图文对&quot;的常规认知。垂直领域（医疗影像、工业）缺配对数据时仍可做多模态对齐的可能。</div><div class="item-src">来源：<a href="https://www.rebabel.net/en/state-of-ai-report-2026-released-ai-rd-reaches-tipping-point-ai-daily-2026-10-11/" target="_blank" rel="noopener">AI Daily</a>，单信源，待进一步验证</div></li>
+<li><div class="item-title">Memento 3：冻结 LLM 的递归自改进（arXiv 10.11）</div><div class="item-body">让冻结的 LLM agent 通过显式&quot;世界模型&quot;不断学习，reflective rulebook 机制让有限观察下仍可修正环境理解，无需重训即可在陌生环境中持续学习。生产 agent 低成本持续进化、不走 fine-tune 重部署流程的可能。</div><div class="item-src">来源：<a href="https://mahmoudsamour.github.io/nexus-pulse/" target="_blank" rel="noopener">Daily Intelligence Dossier</a>，单信源，arXiv 原文待读</div></li>
+<li><div class="item-title">GMC-GRPO：异步 RL 后训练的收敛分析与新算法（arXiv）</div><div class="item-body">刻画 stale rollout 下 GRPO 类算法梯度估计量二阶矩与偏差的权衡，提出 group mass capping 加权估计器，把延迟项对阈值的依赖从 O(ε⁻⁴) 降到 O(ε⁻²)；Qwen3 推理基准上大 rollout 延迟下最稳。自建异步 RL 管线的调参依据。</div><div class="item-src">来源：<a href="https://arxiv.org/abs/2610.01896" target="_blank" rel="noopener">arXiv</a></div></li>
+
+</ul></section><section class="tab-panel" id="s5" style="--sec:#06b6d4"><ul class="items">
+<li><div class="item-title">陶哲轩 Math 2.0 讲座幻灯片（HN 297 points / 355 comments，10.11）</div><div class="item-body">AI 与数学的未来——机器证明、&quot;验证 vs 理解&quot;之争；评论区是数学家与开发者关于如何与 AI 协作的最长讨论串之一。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50043026" target="_blank" rel="noopener">HN</a></div></li>
+<li><div class="item-title">Karpathy：人们对 LLM 能力的认知差距正在拉大（HN 184 points / 277 comments）</div><div class="item-body">基准分数与真实体验脱节，不同人群的心理模型严重分化；讨论聚焦&quot;到底该怎么评估模型真实能力&quot;。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50047422" target="_blank" rel="noopener">HN</a></div></li>
+<li><div class="item-title">500B tokens 实录：AI agent 反编译第一人称射击游戏（HN 138 points / 103 comments）</div><div class="item-body">三个月、5000 亿 token，把一款 FPS 反编译成可读、可编译的 C++；作者强调重点不是反编译本身，而是 agent 编排、基础设施与 harness 优化的工程经验。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50039092" target="_blank" rel="noopener">HN</a></div></li>
+<li><div class="item-title">高通 CEO 称 AI 公司希望 2028 年手机持续运行 100B 参数模型（Reddit r/LocalLLaMA，经趋势报告记录 547 upvotes / 260 comments）</div><div class="item-body">社区普遍质疑内存与功耗可行性；端侧推理被解读为数据中心成本失控后的&quot;逃生阀&quot;。</div><div class="item-src">来源：<a href="https://www.reddit.com/comments/1x2z14s" target="_blank" rel="noopener">Reddit</a></div></li>
+<li><div class="item-title">10 人创业公司自建 4× AMD R9700 推理集群（Reddit r/LocalLLaMA，经趋势报告记录 589 upvotes / 270 comments）</div><div class="item-body">自建本地推理的成本摊销与隐私动机；热评&quot;OpenAI/Anthropic 的丧钟&quot;。</div><div class="item-src">来源：<a href="https://www.reddit.com/comments/1x2u742" target="_blank" rel="noopener">Reddit</a></div></li>
+<li><div class="item-title">Qwen3.8-27B 专用 CUDA megakernel 在单张 RTX 3090 跑出 ~140 tok/s（Reddit r/LocalLLaMA 10.11 新帖）</div><div class="item-body">比 llama.cpp 快 1.4–1.9 倍、KL 散度仅 0.0009；与昨日同主题帖相关但为新的独立工程帖，&quot;窄推理引擎打败通用引擎&quot;趋势的又一实例。</div><div class="item-src">来源：<a href="https://techyon.pages.dev/posts/update-qwen-38-27b-140-toks-on-single-rtx-3090-megakernel-kl-divergence-00009-vs-llamacpp/" target="_blank" rel="noopener">Techyon 聚合</a></div></li>
+<li><div class="item-title">消费级 GPU 稀缺三连（Reddit r/LocalLLaMA，经趋势报告记录）</div><div class="item-body">AMD 被曝上调 GDDR6 供货价（145 upvotes / 56 comments）、&quot;No more RTX 5090&quot;断货帖（283 / 249）、假 RTX 4090 流入市场（110 / 21）——涨价、断货、造假，本地推理党的硬件焦虑达到新高度。</div><div class="item-src">来源：<a href="https://www.reddit.com/comments/1x2hs1e" target="_blank" rel="noopener">断货帖</a>、<a href="https://www.reddit.com/comments/1x2xatx" target="_blank" rel="noopener">AMD 涨价帖</a>、<a href="https://www.reddit.com/comments/1x2xniv" target="_blank" rel="noopener">假 4090 帖</a></div></li>
+<li><div class="item-title">为陶哲轩正名：他其实要求给 AI 数学更多算力（Reddit r/singularity，经趋势报告记录 208 upvotes / 73 comments）</div><div class="item-body">纠正&quot;减速派&quot;误读——陶要的是 AI 给出可解释的推理步骤，而不只是答案；评论指出社区习惯把任何谨慎都 flatten 成&quot;decel&quot;。</div><div class="item-src">来源：<a href="https://www.reddit.com/comments/1x2w1ek" target="_blank" rel="noopener">Reddit</a></div></li>
+<li><div class="item-title">Codex&quot;又蠢又懒&quot;集中吐槽（V2EX 47 回复 / 5674 浏览，10.10 发帖延续到 10.11）</div><div class="item-body">对 Codex 6/6.1 质量退化的集中吐槽——过度思考、慢、不听指令；中文开发者实战体感样本。</div><div class="item-src">来源：<a href="https://www.v2ex.com/t/1247408" target="_blank" rel="noopener">V2EX</a></div></li>
+<li><div class="item-title">Codex 额度重置规律摸索（V2EX 24+12 回复）</div><div class="item-body">用户集体摸索 Codex 额度重置的时间规律（&quot;下午 15:00~16:00 重置？&quot;等），续昨日的上下文窗口/计费讨论，直接关乎 coding agent 使用成本。</div><div class="item-src">来源：<a href="https://www.v2ex.com/t/1247751" target="_blank" rel="noopener">V2EX</a>、<a href="https://www.v2ex.com/t/1247790" target="_blank" rel="noopener">V2EX</a></div></li>
+</ul></section>
+  </div>
+</div></main>
+</div>
+<script>
+(function(){
+  var btns=Array.prototype.slice.call(document.querySelectorAll('.sections button'));
+  var panels=Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
+  var secTitle=document.getElementById('secTitle');
+  var secDesc=document.getElementById('secDesc');
+  var secData=[["模型与 API", "#3b82f6", "本板块今日偏少：窗口内确认 3 条实质新闻；国内无实质性新模型/API 发布，未凑数。"], ["开源与工具链", "#10b981", ""], ["Agent 与应用开发", "#8b5cf6", ""], ["部署与推理优化", "#f59e0b", "本板块今日偏淡：窗口内确认 4 条实质新闻；已剔除与 Agent 板块重复的 Claude 动态工作流、与昨日简报重复的 jitLLM，未凑数。"], ["研究前沿", "#f43f5e", "本板块今日偏轻：窗口内有真实工程适用性的新研究较少，按&quot;宁缺毋滥&quot;收录 5 条；除 Byteification 外多为单信源/单论文。"], ["社区热议", "#06b6d4", ""]];
+  if(!btns.length||!panels.length)return;
+  function show(i,hash){
+    btns.forEach(function(b,j){b.classList.toggle('active',j===i);});
+    panels.forEach(function(p,j){p.style.display=j===i?'':'none';});
+    if(secTitle&&secData[i]){secTitle.textContent=secData[i][0];secTitle.style.setProperty('--sec',secData[i][1]);}
+    if(secDesc&&secData[i]){var nt=secData[i][2]||'';secDesc.innerHTML=nt?'<p>'+nt+'</p>':'';secDesc.style.display=nt?'':'none';secDesc.style.setProperty('--sec',secData[i][1]);}
+    if(hash!==false){try{history.replaceState(null,'','#s'+i);}catch(e){}}
+    window.scrollTo(0,0);var cs=document.getElementById('contentScroll');if(cs)cs.scrollTo(0,0);
+  }
+  btns.forEach(function(b,i){b.addEventListener('click',function(){show(i);});});
+  var m=location.hash.match(/#s(\d+)/),init=m?Math.min(parseInt(m[1],10),btns.length-1):0;
+  show(init,false);
+})();
+</script>
+</body>
+</html>
