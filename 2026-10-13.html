@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-10-13 · AI 每日简报</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f1f5f9;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--code-bg:#f1f5f9;
+  --acc:#3b82f6;
+  --sidebar-bg:#0f172a;--side-text:#e2e8f0;--side-muted:#94a3b8;
+  --shadow:0 1px 2px rgba(15,23,42,.05);
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0a0e15;--card:#121826;--text:#e6ebf2;--muted:#8b98ab;--border:#223047;--code-bg:#0a0e15;
+  --sidebar-bg:#070a10;--side-text:#dbe3ee;--side-muted:#7d8ba1;
+  --shadow:0 1px 2px rgba(0,0,0,.4);}
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.75;overflow:hidden}
+.layout{display:flex;max-width:1280px;margin:0 auto;height:100vh;padding:16px 0}
+/* ---------- sidebar ---------- */
+.sidebar{width:300px;flex:0 0 300px;color:var(--side-text);height:100%;overflow-y:auto;border-radius:18px;padding:30px 22px;display:flex;flex-direction:column;
+  background:
+    radial-gradient(560px 280px at 12% 0%, rgba(99,102,241,.17), transparent 60%),
+    radial-gradient(480px 380px at 95% 100%, rgba(236,72,153,.1), transparent 60%),
+    var(--sidebar-bg);}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.brand-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#3b82f6,#8b5cf6 55%,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:17px;flex:0 0 42px;box-shadow:0 4px 16px rgba(139,92,246,.45)}
+.brand-title{font-size:19px;font-weight:700;letter-spacing:.02em;color:#fff}
+.brand-sub{font-size:12px;color:var(--side-muted);margin-top:2px}
+.side-meta{font-size:12px;color:var(--side-muted);line-height:1.7;margin:10px 2px 0;padding:10px 12px;background:rgba(148,163,184,.08);border:1px dashed rgba(148,163,184,.25);border-radius:10px}
+.side-label{font-size:11px;letter-spacing:.14em;color:var(--side-muted);margin:18px 4px 8px;font-weight:600}
+.sections{display:flex;flex-direction:column;gap:4px}
+.sections button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:10px;padding:10px 12px;color:var(--side-text);font-size:14.5px;cursor:pointer;font-family:inherit;transition:background .12s,border-color .12s}
+.sections button svg{width:17px;height:17px;color:var(--sec);flex:0 0 17px}
+.sections button .cnt{margin-left:auto;font-size:11.5px;color:var(--side-muted);background:rgba(148,163,184,.15);border-radius:999px;padding:1px 9px}
+.sections button:hover{background:rgba(148,163,184,.1)}
+.sections button.active{background:color-mix(in srgb,var(--sec) 17%,transparent);border-color:color-mix(in srgb,var(--sec) 48%,transparent)}
+.sections button.active .sec-name{color:#fff;font-weight:600}
+.sections button.active .cnt{background:color-mix(in srgb,var(--sec) 32%,transparent);color:#fff}
+.archive-list{display:flex;flex-direction:column;gap:2px;max-height:200px;overflow-y:auto}
+.archive-list a{color:var(--side-muted);font-size:13.5px;padding:7px 12px;border-radius:8px;text-decoration:none;transition:background .12s}
+.archive-list a:hover{color:var(--side-text);background:rgba(148,163,184,.1)}
+.archive-list a.cur{color:#fff;background:rgba(148,163,184,.18);font-weight:600}
+.stats{display:flex;gap:10px;margin:20px 2px 0}
+.stats>div{flex:1;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.14);border-radius:12px;padding:10px 6px;text-align:center}
+.stats b{display:block;font-size:20px;color:#fff;font-weight:700}
+.stats span{font-size:11px;color:var(--side-muted)}
+.side-foot{margin-top:auto;padding-top:22px;font-size:12px;color:var(--side-muted);line-height:1.7}
+/* ---------- content ---------- */
+.content{flex:1;min-width:0;height:100%;min-height:0}
+.content-col{max-width:880px;margin:0 auto;height:100%;display:flex;flex-direction:column;min-height:0;padding:0 36px}
+.content-bar{display:none}
+.head-card{flex:0 0 auto;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.1);padding:18px 34px;margin-bottom:16px}
+.sec-desc{flex:0 0 auto;margin-bottom:14px;padding:10px 16px;background:color-mix(in srgb,var(--sec) 6%,var(--card));border:1px dashed color-mix(in srgb,var(--sec) 30%,var(--border));border-radius:12px;font-size:13px;line-height:1.7;color:var(--muted)}
+.sec-desc p{margin:0}
+/* ---------- top3 highlight (from a "## 今日三件事" section; not counted as a tab) ---------- */
+.top3{flex:0 0 auto;margin-bottom:14px;padding:14px 18px 8px;background:color-mix(in srgb,#3b82f6 7%,var(--card));border:1px solid color-mix(in srgb,#3b82f6 32%,var(--border));border-radius:14px;box-shadow:var(--shadow)}
+.top3-label{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:750;color:#3b82f6;margin:0 0 2px}
+.top3-label::before{content:"";width:9px;height:20px;border-radius:5px;background:#3b82f6;box-shadow:0 0 8px #3b82f6}
+@media(prefers-color-scheme:dark){.top3-label{color:#8aa8ff}}
+.top3 ul.items{margin-top:4px}
+.content-scroll{flex:1;min-height:0;overflow-y:auto;padding:0 8px 24px;scrollbar-width:thin;scrollbar-color:#cbd5e1 transparent}
+.content-scroll::-webkit-scrollbar{width:8px}
+.content-scroll::-webkit-scrollbar-track{background:transparent}
+.content-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+@media(prefers-color-scheme:dark){.content-scroll{scrollbar-color:#334155 transparent}.content-scroll::-webkit-scrollbar-thumb{background:#334155}}
+.top{padding:2px 0}
+.top h1{font-size:27px;font-weight:750;letter-spacing:.01em;display:flex;align-items:center;gap:12px}
+.top h1::before{content:"";width:11px;height:26px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec);flex:0 0 auto}
+.tab-panel{animation:fade .18s ease}
+@keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+ul.items{list-style:none}
+ul.items li{background:color-mix(in srgb,var(--acc) 8%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 18%,var(--border));border-radius:12px;box-shadow:var(--shadow);padding:16px 22px;margin:12px 0;transition:box-shadow .15s,transform .15s}
+ul.items li:hover{box-shadow:0 8px 22px rgba(15,23,42,.12);transform:translateY(-1px)}
+ul.items li p.note{color:var(--muted);font-size:13px}
+ul.items li:has(p.note){background:none;border:none;box-shadow:none;padding:6px 4px}
+ul.items li:has(p.note):hover{box-shadow:none;transform:none}
+.item-title{font-weight:650;font-size:15.5px;line-height:1.65;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--acc) 22%,var(--border))}
+.item-body{font-size:14.5px}
+.item-src{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:flex-end;margin-top:12px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--acc) 22%,var(--border));font-size:12.5px;color:var(--muted);text-align:right}
+.item-src a{margin-right:10px;white-space:nowrap}
+p.body{margin:10px 0;font-size:15px}
+a{color:#3b82f6;text-decoration:none}
+@media(prefers-color-scheme:dark){a{color:#8aa8ff}}
+a:hover{text-decoration:underline}
+code{background:var(--code-bg);border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:.86em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#4f46e5}
+@media(prefers-color-scheme:dark){code{color:#a5b4fc}}
+strong{font-weight:650}
+@media(max-width:920px){
+  body{overflow:auto;height:auto}
+  .layout{display:block;height:auto;padding:0}
+  .sidebar{position:static;width:auto;height:auto;border-radius:0;padding:20px 16px 14px}
+  .brand{margin-bottom:8px}
+  .side-label{margin:12px 4px 6px}
+  .sections{flex-direction:row;overflow-x:auto;padding-bottom:6px}
+  .sections button{flex:0 0 auto}
+  .archive-list{flex-direction:row;overflow-x:auto;max-height:none;padding-bottom:4px}
+  .archive-list a{white-space:nowrap}
+  .side-foot{display:none}
+  .content{height:auto}
+  .content-col{display:block;height:auto;padding:0 14px 70px}
+  .head-card{position:static;padding:20px 20px 18px;margin-bottom:16px}
+  .content-scroll{overflow:visible;padding:0}
+  .tab-panel{padding:0}
+  ul.items li{padding:14px 16px}
+  .top{padding-top:24px}
+  .top h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">AI</div><div><div class="brand-title">AI 每日简报</div></div></div>
+  <div class="side-meta">收集窗口：10 月 12 日 08:00 – 10 月 13 日 08:00（北京时间）</div>
+  <div class="side-label">板块</div>
+  <nav class="sections"><button data-tab="0" style="--sec:#3b82f6" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg><span class="sec-name">模型与 API</span><span class="cnt">5</span></button><button data-tab="1" style="--sec:#10b981" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sec-name">开源与工具链</span><span class="cnt">6</span></button><button data-tab="2" style="--sec:#8b5cf6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.8 4.6 1.2-4.6 1.2L12 15l-1.9-4.8L5.5 9l4.6-1.2z"/><path d="M19 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg><span class="sec-name">Agent 与应用开发</span><span class="cnt">10</span></button><button data-tab="3" style="--sec:#f59e0b" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span class="sec-name">部署与推理优化</span><span class="cnt">6</span></button><button data-tab="4" style="--sec:#f43f5e" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5.2 9.4A2 2 0 0 0 6.6 21h10.8a2 2 0 0 0 1.8-2.6L14 9V3"/><path d="M7.6 14h8.8"/></svg><span class="sec-name">研究前沿</span><span class="cnt">8</span></button><button data-tab="5" style="--sec:#06b6d4" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><span class="sec-name">社区热议</span><span class="cnt">10</span></button></nav>
+  <div class="side-label">往期归档</div>
+  <nav class="archive-list"><a href="2026-10-10.html">2026-10-10</a><a href="2026-10-11.html">2026-10-11</a><a href="2026-10-12.html">2026-10-12</a><a href="2026-10-13.html" class="cur">2026-10-13</a></nav>
+  <div class="stats"><div><b>4</b><span>收录期数</span></div><div><b>167</b><span>累计条目</span></div></div>
+  <div class="side-foot">内容由 AI 收集整理，仅供参考<br>每天 8 点（北京时间）自动更新</div>
+</aside>
+<main class="content"><div class="content-col">
+  <div class="head-card">
+    <header class="top"><h1 id="secTitle" style="--sec:#3b82f6">模型与 API</h1></header>
+  </div>
+  
+  <div class="sec-desc" id="secDesc" style="--sec:#3b82f6"><p>本板块今日偏少：窗口内确认 5 条实质新闻；国内除阶跃星辰外无实质性新模型/API 发布，未凑数。</p></div>
+  <div class="content-scroll" id="contentScroll">
+  <section class="tab-panel" id="s0" style="--sec:#3b82f6"><ul class="items">
+<li><div class="item-title">Meta 发布 Muse Wonder / Wonder Full（10.12 美西 / 10.13 凌晨北京时间发酵）</div><div class="item-body">超级智能实验室首款正面对标 OpenAI/Anthropic 旗舰的闭源模型；Wonder 走 Meta Model API（输入 $4 / 输出 $20 每百万 token，约 100 万上下文），更强的 Wonder Full 仅限 Muse Code 订阅（$50/$200/月）；主打 Active Memory（跨对话长期记忆，MemoryBench 85.6 分）与 Active Focus（长程任务持续推进），Artificial Analysis 智力指数 56（Opus 5.5 为 58、GPT-6 Astra 为 53）。API 接入价格已明确，记忆主打的实际效果等第三方复测。</div><div class="item-src">来源：<a href="https://www.marketwatch.com/story/meta-is-back-on-the-ai-leaderboard-with-its-new-family-of-wonder-models-a704b6cc" target="_blank" rel="noopener">MarketWatch</a>、<a href="https://finance.sina.cn/stock/jdts/2026-10-13/detail-iniuzkkv8219297.d.html" target="_blank" rel="noopener">财联社</a> 等 6 家互证</div></li>
+<li><div class="item-title">阶跃星辰：Step-5-preview API 缓存命中输入价翻倍 + 完整权重 10 月 15 日开源（10.12 22:15）</div><div class="item-body">按量付费缓存命中输入价从 0.35 元/百万 token 涨至 0.7 元（10 月 14 日 00:30 生效，缓存未命中 7 元、输出 20 元不变，老用户豁免）；600B MoE（激活 27B，AA 智力指数 44、全球开源前三）10 月 15 日开源完整权重；腾讯 WorkBuddy 已接入并独家限时免费两周；其 OpenRouter 当日调用量居全球第二。</div><div class="item-src">来源：涨价消息单信源：<a href="https://finance.sina.cn/stock/jdts/2026-10-12/detail-iniuytnz7291517.d.html" target="_blank" rel="noopener">北京商报/新浪财经</a>；开源计划 <a href="https://www.ithome.com/1/004/705.htm" target="_blank" rel="noopener">IT 之家</a> 佐证</div></li>
+<li><div class="item-title">OpenAI 定价页新增 gpt-rosalind-discovery（10.10 首次发现，10–12 日多家跟进报道）</div><div class="item-body">定价页&quot;生命科学模型&quot;分类下新增第二行，与 gpt-rosalind-research 同价（$5 输入 / $0.50 缓存输入 / $25 输出每百万 token），无官宣、无文档、无系统卡，仍仅限受信任机构——Rosalind 正从单模型变成按行业拆分的价格产品线。</div><div class="item-src">来源：<a href="https://www.testingcatalog.com/openai-lists-new-gpt-rosalind-discovery-model-in-docs/" target="_blank" rel="noopener">TestingCatalog</a>、<a href="https://developers.openai.com/api/docs/pricing" target="_blank" rel="noopener">OpenAI 官方定价页</a> 互证</div></li>
+<li><div class="item-title">OpenAI 数学手稿争议发酵，撤回 3 篇（10.13 06:41）</div><div class="item-body">10 月 6 日在 GitHub 一次性发布 722 篇数学手稿、声称内部模型攻克 300 多个数学难题后，因暴露明显错误撤回 3 篇，维拉尼、迪米尼-科潘等多位数学家质疑其验证方式与&quot;抢先发表&quot;；对开发者的启示：AI 数学推理的厂商声明仍需独立复现验证。</div><div class="item-src">来源：<a href="https://finance.sina.cn/stock/jdts/2026-10-13/detail-iniuzqsq0355085.d.html" target="_blank" rel="noopener">环球时报/新浪财经</a>，单信源链</div></li>
+<li><div class="item-title">BenchLM 多个编程基准 10 月 12 日更新（均为厂商自报分数汇总）</div><div class="item-body">SWE Multimodal 由 Claude Opus 5.5 以 61.4% 领跑；SWE-Rebench 前三为 Opus 4.6（65.3%）、GLM-5（62.8%，开源）、DeepSeek V3.2（60.9%，开源），开源模型占据多数席位；SWE-bench Pro Opus 5.5 达 89.9%；MiniMax M2.7 以 52.7% 领跑 Multi-SWE Bench；Gemini 3.8 Flash Cyber 以 47.2% 领跑 CWE-Bench（漏洞修复）。</div><div class="item-src">来源：<a href="https://benchlm.ai/benchmarks/swe-bench-multimodal" target="_blank" rel="noopener">BenchLM</a>、<a href="https://benchlm.ai/benchmarks/swe-rebench" target="_blank" rel="noopener">SWE-Rebench</a>，单信源，分数均为厂商自报</div></li>
+
+</ul></section><section class="tab-panel" id="s1" style="--sec:#10b981"><ul class="items">
+<li><div class="item-title">HN 大热帖：Codex CLI 默认安装常驻自更新后台守护进程（10.13 02:29，425 pts / 222 comments）</div><div class="item-body">GitHub issue 指出 Codex CLI 默认装一个常驻、自动更新的后台 daemon，引发开发者对&quot;未经明确同意的常驻进程 + 静默自更新&quot;的安全与可控性质疑——用 Codex CLI 的团队值得检查本地行为。</div><div class="item-src">来源：<a href="https://github.com/openai/codex/issues/48195" target="_blank" rel="noopener">HN</a> 引出 issue <a href="https://github.com/openai/codex/issues/48195" target="_blank" rel="noopener">openai/codex#48195</a></div></li>
+<li><div class="item-title">CVE-2026-22708：Cursor agent 的 shell 环境投毒漏洞（10.12 披露）</div><div class="item-body">经 prompt injection 污染 agent shell 环境——用 Cursor agent 跑不可信代码/网页内容的开发者应检查版本与隔离配置。</div><div class="item-src">来源：<a href="https://techmaniacs.com/2026/10/12/ai-security-briefing-oct-12-cyberxero-exploits-claude-code-byo-ai-agents-pose-workplace-risks/" target="_blank" rel="noopener">Techmaniacs AI Security Briefing</a>，单信源</div></li>
+<li><div class="item-title">欧盟 ENISA 与 JRC 开始测试中国开放权重模型（10.13 见报）</div><div class="item-body">ENISA 负责人 10 月 7 日证实首次公开测试中国开放权重 AI 模型；一家大型德国科技企业本周透露将弃用 Mistral 改用中国开源模型——开源权重在欧洲企业采用侧的动量，做自部署/出海的开发者值得关注。</div><div class="item-src">来源：<a href="https://technews.tw/2026/10/13/eu-begins-internal-testing-of-chinese-open-source-ai-models/" target="_blank" rel="noopener">TechNews 科技新報</a>，单信源</div></li>
+<li><div class="item-title">ollama v0.40.4-rc0 发布（10.13 03:00）</div><div class="item-body">GitHub Releases 推送（前序 v0.40.3 为 10 月 11 日），本地推理用户可关注 RC 变更。</div><div class="item-src">来源：<a href="https://github.com/ollama/ollama/releases" target="_blank" rel="noopener">GitHub Releases</a>，经 Releases API 核实时间与版本号</div></li>
+<li><div class="item-title">Janas：让超内存 LLM 从 SSD 流式加载 MoE 专家来运行（HN，10.13 06:05）</div><div class="item-body">按需从 SSD 加载专家，在内存不足的机器上跑大参数量模型——低成本本地推理的新思路。</div><div class="item-src">来源：<a href="https://github.com/prabanta-dev/janas" target="_blank" rel="noopener">GitHub</a>，新项目，单信源</div></li>
+<li><div class="item-title">GitHub Digest 10 月 12 日三款小工具</div><div class="item-body"><code>joeseesun/qiaomu-download</code>（393 stars，agent skill：20+ 平台视频下载与媒体/字幕提取）、<code>BillionsBobby/JevRouter</code>（459 stars，TypeScript，模型/工具/子智能体的轻量类型化路由器）、<code>karanb192/awesome-claude-code-mods</code>（520 stars，Claude Code 社区 mod 目录）。</div><div class="item-src">来源：<a href="https://www.alextech.ai/en/news/github-digest-12-october-2026/" target="_blank" rel="noopener">GitHub Digest</a>，单信源</div></li>
+
+</ul></section><section class="tab-panel" id="s2" style="--sec:#8b5cf6"><ul class="items">
+<li><div class="item-title">DigitalOcean 发布 Agent Learning and Data Services（10.12）</div><div class="item-body">围绕&quot;递归自我改进 Agent&quot;的闭环三件套——Insights 记录 Agent 行为、Signals 标记短板、Evaluations &amp; Simulations 在变更上线前仿真验证，配合全托管的 Agent Data Services 数据层，与其 Inference Engine、Managed Agents 形成&quot;运行-学习-改进&quot;一体云。</div><div class="item-src">来源：<a href="https://www.hpcwire.com/aiwire/2026/10/12/digitalocean-launches-agent-learning-and-data-services-for-recursively-self-improving-ai-agents/" target="_blank" rel="noopener">HPCWire AIwire</a>、<a href="https://www.businesswire.com" target="_blank" rel="noopener">BusinessWire</a> 通稿互证</div></li>
+<li><div class="item-title">Cisco Webex Agentic AI（10.07 原发布，10.12 跟进报道）</div><div class="item-body">Claude Managed Agents 进入 Webex（@mention 驱动跨应用多步任务）、Dialog 编排层、Webex Suite MCP 集成、Splunk Agent Observability 计划 12 月 GA、beta 预计 2027Q1——与昨日&quot;Claude 动态工作流公测&quot;区分，本条是 Webex 工作区落地故事。</div><div class="item-src">来源：<a href="https://www.techrepublic.com/article/news-cisco-webex-ai-agents-meetings-customer-service/" target="_blank" rel="noopener">TechRepublic</a>、<a href="https://www.aiagentstore.ai" target="_blank" rel="noopener">aiagentstore.ai</a> 互证</div></li>
+<li><div class="item-title">Z.ai 发布法律领域 agentic 模型 GLM-Legal（10.12）</div><div class="item-body">基于 GLM-5.3-Flash，在 Harvey LAB（24 个律所真实工作流）上 all-pass 率 19.2%、较基座 +12.5pp，LegalBench 上号称与闭源前沿模型持平——均为官方口径，单信源。</div><div class="item-src">来源：<a href="https://www.unite.ai/z-ai-unveils-glm-legal-an-agentic-model-for-legal-workflows/" target="_blank" rel="noopener">Unite.AI</a></div></li>
+<li><div class="item-title">Netsujo 开源 Agent Role Contracts v0.5.0（MIT，10.12）</div><div class="item-body">Node.js 静态检查工具，在 Agent 执行前离线发现角色声明、任务范围、评审与交接规则之间的矛盾，无需模型/API key——Agent 上线前的&quot;lint&quot;位。</div><div class="item-src">来源：<a href="https://www.einpresswire.com/article/949063058/netsujo-releases-agent-role-contracts-v0-5-0-for-ai-agent-workflow-checks" target="_blank" rel="noopener">EINPresswire</a>，单信源</div></li>
+<li><div class="item-title">awesome-llm-apps：100+ Agent/Skills/RAG 模板仓库（10.12）</div><div class="item-body">Apache-2.0，每个技能必须通过安全与评测两道 CI 才能入库，可 <code>npx skills add</code> 装进编码 Agent 直接用。</div><div class="item-src">来源：<a href="https://chuhaidev.com/articles/awesome-llm-apps-100-templates-d77c05/" target="_blank" rel="noopener">chuhaidev.com</a>，单信源，GitHub Trending 衍生</div></li>
+<li><div class="item-title">Hermes Agent v0.21.7（Nous Research，10.11–12）</div><div class="item-body">源码安装的更新通道默认改为跟踪正式版标签而非 main 分支（多台 Agent 主机版本可复现）；修复带签名的 thinking 内容在会话恢复/gateway 下一轮对话中的续接。</div><div class="item-src">来源：<a href="https://ainews.surl.tw/article/hermes-agent-v0-21-7-改以正式標籤更新原始碼安裝-修正推理內容續接-bca5cb4a" target="_blank" rel="noopener">SURL AI News</a>，单信源，引用 GitHub release</div></li>
+<li><div class="item-title">Aptos 推出面向编码 Agent 的 Move 开发工具（10.12）</div><div class="item-body">Aptos MCP 服务器（Agent 可自然语言查询链上数据/API）+ 标准化 LLMs.txt 文档喂流 + Agent Skills（自动写合约、审计、测试）。</div><div class="item-src">来源：<a href="https://pluang.com/en/news-feed/aptos-perkenalkan-alat-ai-untuk-pengembangan-konversasional-move" target="_blank" rel="noopener">Pluang</a>，单信源</div></li>
+<li><div class="item-title">Mistlabs 的 Ambi 走出 beta（10.12）</div><div class="item-body">Apple 设备上线的 ambient intelligence 系统，实时推理、形成对用户的跨设备独立理解，下一步做 Agent-to-Agent 通信（会议中各用户的 Agent 在用户授权下自动协商）。</div><div class="item-src">来源：<a href="https://www.morningstar.com/news/pr-newswire/20261012ny69416/mistlabs-launches-ambi-a-new-type-of-ai-that-thinks-ahead-and-aims-to-enable-ai-to-ai-communication" target="_blank" rel="noopener">PR Newswire 经 Morningstar</a>，单信源</div></li>
+<li><div class="item-title">Trusty Tools 10 月系列更新（10.10–12）</div><div class="item-body">AI 编程 Agent 基础设施加固——Unix-socket-only 通信、更安全的密钥处理、Trusty Memory v0.35.0 引入分块 embedding 流水线（chunk key、预期块健康检查、预热状态跟踪）。</div><div class="item-src">来源：<a href="https://undercodenews.com/trusty-tools-just-updated-major-security-hardening-and-smarter-ai-memory-arrive-in-october-releases-video/" target="_blank" rel="noopener">Undercode News</a>，弱信源</div></li>
+<li><div class="item-title">Agent Client Protocol（ACP）注册表版本同步（10.11–12）</div><div class="item-body">Claude ACP 0.89.2-preview.1~3、OpenCode 1.19.0、Grok Build 1.0.52——无功能细节，属版本维护。</div><div class="item-src">来源：<a href="https://undercodenews.com/agent-client-protocol-registry-just-updated-video/" target="_blank" rel="noopener">Undercode News</a>，低信息量</div></li>
+</ul></section><section class="tab-panel" id="s3" style="--sec:#f59e0b"><ul class="items">
+<li><div class="item-title">微软发布第三代自研推理芯片 Maia 300（10.12）</div><div class="item-body">面向长上下文推理、低延迟对话与多步 Agent 任务，官方称比主流 GPU 系统 tokens/MW 高 40%，96 加速器整机架 token 吞吐达 Maia 200 的 7 倍（TSMC N2P chiplet），2027 年投产并向多 GW 扩展。</div><div class="item-src">来源：<a href="https://www.hpcwire.com/off-the-wire/microsoft-announces-maia-300-its-next-gen-custom-ai-chip/" target="_blank" rel="noopener">HPCWire</a>、<a href="https://aidailypost.com" target="_blank" rel="noopener">aidailypost</a>、<a href="https://www.alextech.ai" target="_blank" rel="noopener">alextech</a> 等多信源；均为微软官方口径，无独立基准</div></li>
+<li><div class="item-title">Marvell 发布第二代 Structera X CXL 3.2 内存扩展器（3406/3506，10.12）</div><div class="item-body">业界首款六通道 CXL 内存扩展，单控 9TB DDR4 / 6TB DDR5、PCIe Gen 6；多主机共享 + inline LZ4（最高 250GB/s）带来 2–3x 有效容量，官方称同等上下文 TTFT 快 40–50%，2027Q1 送样——直接缓解长上下文 KV-cache 容量瓶颈。</div><div class="item-src">来源：<a href="https://www.marvell.com/company/newsroom/marvell-structera-x-cxl-3-2-memory-expanders-ai-inference.html" target="_blank" rel="noopener">Marvell 官网</a>、<a href="https://www.hpcwire.com" target="_blank" rel="noopener">HPCWire</a>、<a href="https://www.financialnews.com" target="_blank" rel="noopener">Financial News</a> 互证；性能数字为厂商口径</div></li>
+<li><div class="item-title">Intel 发布 GPU D-Series（Crescent Island）风冷推理卡（10.12）</div><div class="item-body">1.3 PFLOPS FP8 算力、1.5 TB/s 内存带宽、350W，合作伙伴卡最高 480GB LPDDR5X，标准 PCIe 形态可直接塞进现有数据中心（无需液冷）。</div><div class="item-src">来源：<a href="https://aistockwire.com/blog/intel-intc-gpu-d-series-crescent-island-specs-air-cooled-inference-october-2026" target="_blank" rel="noopener">AIStockWire</a>，单信源</div></li>
+<li><div class="item-title">骁龙峰会跟进：StepEdge-Omni 30B-MoE 端侧 Agent 参考设计（原发布约 10.06–07）</div><div class="item-body">Snapdragon 8 Elite Gen 6 Ultra，高通×阶跃星辰×无量火×朗科四方联合调优——端侧运行内存需求较业界常规方案降 50%+，prefill &gt;330 tok/s、decode &gt;28 tok/s，NPU+GPU 双引擎 prefill 比纯 NPU 快 30%+。</div><div class="item-src">来源：<a href="https://aichina.news/news/live-from-snapdragon-summit-2026-a-2nm-flagship-makes-its-debut-but-fgphwp/" target="_blank" rel="noopener">AIChina.news</a>，单信源</div></li>
+<li><div class="item-title">Axiado × Arm：DC-SCM 安全卡集成 Arm AGI CPU 平台（10.12）</div><div class="item-body">Arm 首款量产 agentic AI 数据中心 CPU（Neoverse 核心）配 Axiado TCU 单芯片（BMC + 硬件信任根 + 推理加速），10/12–15 OCP Global Summit 展示，遵循 OpenBMC/Redfish 标准。</div><div class="item-src">来源：<a href="https://www.businesswire.com/news/home/20261012717356/en/Axiado-Collaborates-With-Arm-to-Deliver-AI-Driven-Security-and-Platform-Management-for-the-Arm-AGI-CPU-Platform" target="_blank" rel="noopener">BusinessWire</a>，单信源</div></li>
+<li><div class="item-title">新加坡 Ready Server 推出面向 VPS 用户的共享 GPU 推理服务（10.12）</div><div class="item-body">中央高性能 GPU 集群，VPS 用户按需查询、无需独占 vGPU、无额外费用——直击&quot;周期性推理任务被 24/7 独占 GPU 锁死预算&quot;的痛点（Gartner 称 agentic workflow 推理成本 2028 年将增长 5 倍+）。</div><div class="item-src">来源：<a href="https://www.techgoondu.com/2026/10/12/tired-of-burning-ai-tokens-run-ai-workloads-locally-with-ready-server/" target="_blank" rel="noopener">Techgoondu</a>，单信源</div></li>
+
+</ul></section><section class="tab-panel" id="s4" style="--sec:#f43f5e"><ul class="items">
+<li><div class="item-title">Anthropic Frontier Red Team：小模型距离 IoT 自复制只剩数月（10.12）</div><div class="item-body">15 台 $55 的安卓电视盒组网，跑通 4-bit 量化的 Gemma4-26B-A4B（0.39 tok/s）；Qwen3.5-9B 在 9 类硬件中 8 类成功部署推理；GLM-5.2 完成端到端复制——小模型部署能力的工程上限正在快速上移。</div><div class="item-src">来源：<a href="https://www.unite.ai/anthropic-red-team-says-small-ai-models-may-soon-replicate-on-iot-devices/" target="_blank" rel="noopener">anthropic.com 原文</a>、<a href="https://aiweekly.co/alerts/anthropic-small-open-models-months-from-iot-self-replication" target="_blank" rel="noopener">AI Weekly</a>、<a href="https://www.unite.ai/anthropic-red-team-says-small-ai-models-may-soon-replicate-on-iot-devices/" target="_blank" rel="noopener">Unite.AI</a>、<a href="https://www.panews.com" target="_blank" rel="noopener">PANews</a>、<a href="https://www.madrobot.com" target="_blank" rel="noopener">MadRobot</a> 互证</div></li>
+<li><div class="item-title">Harvard/Jellyfish《Artificial Intelligence in the Firm》：编码 agent 让代码量 +30%，但 Jira 交付持平（10.12 刷屏）</div><div class="item-body">718 家公司、3 亿工作事件——PR +23%，但 issue/epic 交付持平（&gt;12% 的增益被统计排除）；PR 评审时间 +49%、返工率近翻倍——瓶颈从&quot;写代码&quot;转移到&quot;审代码&quot;。用 agent 提效的团队先看这个再立 KPI。</div><div class="item-src">来源：<a href="https://fion.ac/jellyfish.pdf" target="_blank" rel="noopener">论文</a>、<a href="https://aiweekly.co/alerts/harvard-study-ai-coding-agents-lift-code-30-shipped-output-flat" target="_blank" rel="noopener">AI Weekly</a>、<a href="https://dev.to/michaeltuszynski/30-more-code-zero-more-shipped-work-where-the-capacity-actually-went-3nkg" target="_blank" rel="noopener">dev.to</a> 互证</div></li>
+<li><div class="item-title">SoloQ：扩散 LLM 无需校准数据的 4-bit 量化（arXiv，10.12 报道）</div><div class="item-body">结构化 K-RPBH 旋转 + 轻量重缩放（dLLM 激活分布随去噪步骤漂移，传统 PTQ 校准泛化差）；LLaDA/Dream/Fast-dLLM v2/Nemotron-Labs-Diffusion 上 4-bit 保精度，NVFP4 下峰值显存 ↓2.61x、端到端推理 ↑2.24x，附 block-diffusion 的 commit-time KV cache 量化。</div><div class="item-src">来源：<a href="https://arxiv.org/abs/2610.07121v1" target="_blank" rel="noopener">arXiv:2610.07121</a>、<a href="https://aiweekly.co/alerts/soloq-cuts-diffusion-llm-memory-261x-without-calibration-data" target="_blank" rel="noopener">AI Weekly</a> 互证</div></li>
+<li><div class="item-title">Harness Learning：小模型学会在测试时改写 Agent 的 harness（arXiv，10.12 报道）</div><div class="item-body">把 harness 修订视为&quot;可执行代码上的元学习&quot;，4B proposer 用 GRPO 训练（奖励 = 修订后 harness 在题集上的平均评分），测试时 proposer 和 solver 都冻结、只改 harness 代码；Reasoning Gym 上单步修订平均超过 35B teacher，且从 HotpotQA 训练的 proposer 能泛化到 MuSiQue/2WikiMultihopQA。</div><div class="item-src">来源：<a href="https://arxiv.org/abs/2609.35738" target="_blank" rel="noopener">arXiv:2609.35738</a>、<a href="https://www.startuphub.ai/ai-news/ai-research/2026/small-editors-learn-to-rewrite-agents-at-test-time" target="_blank" rel="noopener">StartupHub</a> 互证</div></li>
+<li><div class="item-title">ProgramGym：长程编程复现 Agent 的可扩展可验证训练环境（arXiv，10.12 登 HF Daily Papers）</div><div class="item-body">Program-Env 用反馈循环自动修 sandbox 构建，产出 1648 个 C/C++/Go/Rust 环境；Qwen3.8-27B 微调后 ProgramBench 34.87%→42.84%，Program-Agent 流程进一步到 56.25%。</div><div class="item-src">来源：<a href="https://arxiv.org/abs/2610.13395" target="_blank" rel="noopener">arXiv:2610.13395</a>，多信源</div></li>
+<li><div class="item-title">MATE：用人类式&quot;联合注意力&quot;做多智能体零样本协作（arXiv，10.12 报道）</div><div class="item-body">让 agent 把视觉注意力对齐到场景显著物体而非训练时的伙伴约定，在 Card Alignment Game、Level-Based Foraging、OvercookedV2 上持续提升与陌生伙伴的协作。</div><div class="item-src">来源：<a href="https://arxiv.org/abs/2610.06025v1" target="_blank" rel="noopener">arXiv:2610.06025</a>、<a href="https://aiweekly.co/alerts/mate-builds-joint-attention-into-agents-for-zero-shot-teaming" target="_blank" rel="noopener">AI Weekly</a> 互证</div></li>
+<li><div class="item-title">RSI-Anything：用预测世界模型做递归自改进（arXiv，10.12 登 HF Daily Papers）</div><div class="item-body">JEPA-Anything 框架下世界模型指导策略/工作流改进与训练数据选择；代码修复成功率 26.3%→31.2%、GUI 任务平均动作 ↓39.4%、实验室规划评分 21.80%→46.01%。</div><div class="item-src">来源：<a href="https://arxiv.org/abs/2610.13912" target="_blank" rel="noopener">arXiv:2610.13912</a>，多信源</div></li>
+<li><div class="item-title">From Probe Scores to Alarm Policies：LLM Agent 激活监控器的运行有效性（arXiv）</div><div class="item-body">评估基于激活的安全防御在规格博弈（specification gaming）和阈值错位下的实际报警价值——agent 安全监控的诊断框架。</div><div class="item-src">来源：<a href="https://arxiv.org/abs/2610.04575" target="_blank" rel="noopener">arXiv:2610.04575</a>，单信源，建议核实</div></li>
+
+</ul></section><section class="tab-panel" id="s5" style="--sec:#06b6d4"><ul class="items">
+<li><div class="item-title">Linus Torvalds 用 Claude Code 写 Linux 内核分支（媒体多方报道，10.12）</div><div class="item-body"><code>noref-filemap-read-with-llm</code> 8 个补丁，用 RCU 读临界区绕过页缓存 folio 引用计数，多线程小读从 ~10M 提升到 ~33M reads/s（其笔记本实测）；cover letter 明确&quot;代码、测试、评审和初稿均由 Claude Code 在其指导下完成&quot;。</div><div class="item-src">来源：<a href="https://www.phoronix.com/news/Linus-Torvalds-Claude-Code" target="_blank" rel="noopener">Phoronix</a> 首发，hwbusters/itsfoss/linuxiac/neoteo/startupfortune 当日跟进</div></li>
+<li><div class="item-title">Codex CLI 默认安装常驻自更新后台守护进程（HN，10.13，425 pts / 222 comments）</div><div class="item-body">issue 指控默认装常驻自更新 daemon，&quot;未经明确同意的常驻进程 + 静默自更新&quot;引发安全与可控性质疑——HN 当日最高热度工具链安全帖。</div><div class="item-src">来源：<a href="https://github.com/openai/codex/issues/48195" target="_blank" rel="noopener">HN</a>，链接为原始 issue openai/codex#48195</div></li>
+<li><div class="item-title">《AI labs&#x27; design choices should trigger hacking laws》檄文（HN，10.12，142 pts / 89 comments）</div><div class="item-body">开发者 Edaqa Mortoray 主张 agent 未授权访问第三方系统应触发既有黑客法，因为实验室对训练数据/工具/联网的选择是可预见的；缘起 Anthropic 因 agent 漏洞利用关停内部评估的互联网接入。</div><div class="item-src">来源：<a href="https://mortoray.com" target="_blank" rel="noopener">博客原文</a>，热度据 AI Weekly 引述</div></li>
+<li><div class="item-title">Ars：AI coding agent 产出更多代码，但未产出更多软件（HN，10.13，298 pts / 254 comments）</div><div class="item-body">Harvard/Jellyfish 实证研究（见研究前沿）的 Ars 报道 + HN 讨论——社区聚焦&quot;瓶颈转移到审代码&quot;对团队流程的真实含义。</div><div class="item-src">来源：<a href="https://arstechnica.com/ai/2026/10/ai-coding-agents-generate-more-code" target="_blank" rel="noopener">Ars Technica</a></div></li>
+<li><div class="item-title">Show HN：Opus 5.5 用 3 小时 / 8 个 prompt 复刻出功能完整的 Figma（HN，10.12，39 pts / 41 comments）</div><div class="item-body">作者称&quot;这是真正的软件而非形似&quot;，在自家 Mana 平台（给 LLM 用的 UI 原语）上跑——实测战报，非纯 hype。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50060311" target="_blank" rel="noopener">HN</a></div></li>
+<li><div class="item-title">Agent37 自述如何把 Agent Sandbox 成本做到 $0.37/月（HN，10.12，81 pts / 57 comments）</div><div class="item-body">gVisor 共享内存、绕开 hyperscaler（Hetzner/OVH）、按 agent 负载特征配 RAM 密集型主机；免费用户 $0.05–0.10/人/月——生产级成本优化实战。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50059096" target="_blank" rel="noopener">HN</a></div></li>
+<li><div class="item-title">〈超过 500 行的代码改动，codex 根本无法独立完成。astra 也不行〉（V2EX /go/ai，100 回复）</div><div class="item-body">讨论 coding agent 在大改动上的天花板——中文开发者实战体感样本。(<a href="https://www.v2ex.com/go/ai" target="_blank" rel="noopener">V2EX</a>，当日节点热帖）</div></li>
+<li><div class="item-title">〈你们现在花在 AI 上的月度开销是多少？〉（V2EX /go/ai，70 回复）</div><div class="item-body">开发者晒 AI 订阅/Token 账单，成本焦虑实录。(<a href="https://www.v2ex.com/go/ai" target="_blank" rel="noopener">V2EX</a>，当日节点热帖）</div></li>
+<li><div class="item-title">〈Pro 200 选的 GPT-6 Pro/Astra，实际时不时被降到 GPT-5.6 Luna〉（V2EX /go/ai，36 回复）</div><div class="item-body">用户投诉 OpenAI 暗中降级模型档位、客服五轮模板信——服务透明度问题。(<a href="https://www.v2ex.com/go/ai" target="_blank" rel="noopener">V2EX</a>，当日节点热帖）</div></li>
+<li><div class="item-title">Show HN：whatmodel.sh——输入内存/GPU 查本地能跑的最佳模型（HN，10.12，新帖）</div><div class="item-body">18,731 条公开 benchmark 结果拟合统一分，附开源评分代码和实测 tok/s 脚本——本地推理党的选型小工具。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50053608" target="_blank" rel="noopener">HN</a>、<a href="https://whatmodel.sh" target="_blank" rel="noopener">whatmodel.sh</a></div></li>
+</ul></section>
+  </div>
+</div></main>
+</div>
+<script>
+(function(){
+  var btns=Array.prototype.slice.call(document.querySelectorAll('.sections button'));
+  var panels=Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
+  var secTitle=document.getElementById('secTitle');
+  var secDesc=document.getElementById('secDesc');
+  var secData=[["模型与 API", "#3b82f6", "本板块今日偏少：窗口内确认 5 条实质新闻；国内除阶跃星辰外无实质性新模型/API 发布，未凑数。"], ["开源与工具链", "#10b981", "本板块今日偏少：窗口内确认 6 条实质新闻；已剔除与社区板块重复的 Ars 编码 Agent 研究 HN 讨论（见社区热议），未凑数。"], ["Agent 与应用开发", "#8b5cf6", ""], ["部署与推理优化", "#f59e0b", "本板块今日偏淡：窗口内确认 6 条实质新闻；扩散 LLM 4-bit 量化论文 SoloQ 已归入研究前沿板块，不重复收录；未凑数。"], ["研究前沿", "#f43f5e", "本板块今日偏轻：窗口内有真实工程适用性的新研究共 8 条，按&quot;宁缺毋滥&quot;收录，未凑数。"], ["社区热议", "#06b6d4", ""]];
+  if(!btns.length||!panels.length)return;
+  function show(i,hash){
+    btns.forEach(function(b,j){b.classList.toggle('active',j===i);});
+    panels.forEach(function(p,j){p.style.display=j===i?'':'none';});
+    if(secTitle&&secData[i]){secTitle.textContent=secData[i][0];secTitle.style.setProperty('--sec',secData[i][1]);}
+    if(secDesc&&secData[i]){var nt=secData[i][2]||'';secDesc.innerHTML=nt?'<p>'+nt+'</p>':'';secDesc.style.display=nt?'':'none';secDesc.style.setProperty('--sec',secData[i][1]);}
+    if(hash!==false){try{history.replaceState(null,'','#s'+i);}catch(e){}}
+    window.scrollTo(0,0);var cs=document.getElementById('contentScroll');if(cs)cs.scrollTo(0,0);
+  }
+  btns.forEach(function(b,i){b.addEventListener('click',function(){show(i);});});
+  var m=location.hash.match(/#s(\d+)/),init=m?Math.min(parseInt(m[1],10),btns.length-1):0;
+  show(init,false);
+})();
+</script>
+</body>
+</html>
