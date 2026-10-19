@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-10-19 · AI 每日简报</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f1f5f9;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--code-bg:#f1f5f9;
+  --acc:#3b82f6;
+  --sidebar-bg:#0f172a;--side-text:#e2e8f0;--side-muted:#94a3b8;
+  --shadow:0 1px 2px rgba(15,23,42,.05);
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0a0e15;--card:#121826;--text:#e6ebf2;--muted:#8b98ab;--border:#223047;--code-bg:#0a0e15;
+  --sidebar-bg:#070a10;--side-text:#dbe3ee;--side-muted:#7d8ba1;
+  --shadow:0 1px 2px rgba(0,0,0,.4);}
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.75;overflow:hidden}
+.layout{display:flex;max-width:1280px;margin:0 auto;height:100vh;padding:16px 0}
+/* ---------- sidebar ---------- */
+.sidebar{width:300px;flex:0 0 300px;color:var(--side-text);height:100%;overflow-y:auto;border-radius:18px;padding:30px 22px;display:flex;flex-direction:column;
+  background:
+    radial-gradient(560px 280px at 12% 0%, rgba(99,102,241,.17), transparent 60%),
+    radial-gradient(480px 380px at 95% 100%, rgba(236,72,153,.1), transparent 60%),
+    var(--sidebar-bg);}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.brand-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#3b82f6,#8b5cf6 55%,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:17px;flex:0 0 42px;box-shadow:0 4px 16px rgba(139,92,246,.45)}
+.brand-title{font-size:19px;font-weight:700;letter-spacing:.02em;color:#fff}
+.brand-sub{font-size:12px;color:var(--side-muted);margin-top:2px}
+.side-meta{font-size:12px;color:var(--side-muted);line-height:1.7;margin:10px 2px 0;padding:10px 12px;background:rgba(148,163,184,.08);border:1px dashed rgba(148,163,184,.25);border-radius:10px}
+.side-label{font-size:11px;letter-spacing:.14em;color:var(--side-muted);margin:18px 4px 8px;font-weight:600}
+.sections{display:flex;flex-direction:column;gap:4px}
+.sections button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:10px;padding:10px 12px;color:var(--side-text);font-size:14.5px;cursor:pointer;font-family:inherit;transition:background .12s,border-color .12s}
+.sections button svg{width:17px;height:17px;color:var(--sec);flex:0 0 17px}
+.sections button .cnt{margin-left:auto;font-size:11.5px;color:var(--side-muted);background:rgba(148,163,184,.15);border-radius:999px;padding:1px 9px}
+.sections button:hover{background:rgba(148,163,184,.1)}
+.sections button.active{background:color-mix(in srgb,var(--sec) 17%,transparent);border-color:color-mix(in srgb,var(--sec) 48%,transparent)}
+.sections button.active .sec-name{color:#fff;font-weight:600}
+.sections button.active .cnt{background:color-mix(in srgb,var(--sec) 32%,transparent);color:#fff}
+.archive-list{display:flex;flex-direction:column;gap:2px;max-height:200px;overflow-y:auto}
+.archive-list a{color:var(--side-muted);font-size:13.5px;padding:7px 12px;border-radius:8px;text-decoration:none;transition:background .12s}
+.archive-list a:hover{color:var(--side-text);background:rgba(148,163,184,.1)}
+.archive-list a.cur{color:#fff;background:rgba(148,163,184,.18);font-weight:600}
+.stats{display:flex;gap:10px;margin:20px 2px 0}
+.stats>div{flex:1;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.14);border-radius:12px;padding:10px 6px;text-align:center}
+.stats b{display:block;font-size:20px;color:#fff;font-weight:700}
+.stats span{font-size:11px;color:var(--side-muted)}
+.side-foot{margin-top:auto;padding-top:22px;font-size:12px;color:var(--side-muted);line-height:1.7}
+/* ---------- content ---------- */
+.content{flex:1;min-width:0;height:100%;min-height:0}
+.content-col{max-width:880px;margin:0 auto;height:100%;display:flex;flex-direction:column;min-height:0;padding:0 36px}
+.content-bar{display:none}
+.head-card{flex:0 0 auto;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.1);padding:18px 34px;margin-bottom:16px}
+.sec-desc{flex:0 0 auto;margin-bottom:14px;padding:10px 16px;background:color-mix(in srgb,var(--sec) 6%,var(--card));border:1px dashed color-mix(in srgb,var(--sec) 30%,var(--border));border-radius:12px;font-size:13px;line-height:1.7;color:var(--muted)}
+.sec-desc p{margin:0}
+.content-scroll{flex:1;min-height:0;overflow-y:auto;padding:0 8px 24px;scrollbar-width:thin;scrollbar-color:#cbd5e1 transparent}
+.content-scroll::-webkit-scrollbar{width:8px}
+.content-scroll::-webkit-scrollbar-track{background:transparent}
+.content-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+@media(prefers-color-scheme:dark){.content-scroll{scrollbar-color:#334155 transparent}.content-scroll::-webkit-scrollbar-thumb{background:#334155}}
+.top{padding:2px 0}
+.top h1{font-size:27px;font-weight:750;letter-spacing:.01em;display:flex;align-items:center;gap:12px}
+.top h1::before{content:"";width:11px;height:26px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec);flex:0 0 auto}
+.tab-panel{animation:fade .18s ease}
+@keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+ul.items{list-style:none}
+ul.items li{background:color-mix(in srgb,var(--acc) 8%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 18%,var(--border));border-radius:12px;box-shadow:var(--shadow);padding:16px 22px;margin:12px 0;transition:box-shadow .15s,transform .15s}
+ul.items li:hover{box-shadow:0 8px 22px rgba(15,23,42,.12);transform:translateY(-1px)}
+ul.items li p.note{color:var(--muted);font-size:13px}
+ul.items li:has(p.note){background:none;border:none;box-shadow:none;padding:6px 4px}
+ul.items li:has(p.note):hover{box-shadow:none;transform:none}
+.item-title{font-weight:650;font-size:15.5px;line-height:1.65;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--acc) 22%,var(--border))}
+.item-body{font-size:14.5px}
+.item-src{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:flex-end;margin-top:12px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--acc) 22%,var(--border));font-size:12.5px;color:var(--muted);text-align:right}
+.item-src a{margin-right:10px;white-space:nowrap}
+p.body{margin:10px 0;font-size:15px}
+a{color:#3b82f6;text-decoration:none}
+@media(prefers-color-scheme:dark){a{color:#8aa8ff}}
+a:hover{text-decoration:underline}
+code{background:var(--code-bg);border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:.86em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#4f46e5}
+@media(prefers-color-scheme:dark){code{color:#a5b4fc}}
+strong{font-weight:650}
+@media(max-width:920px){
+  body{overflow:auto;height:auto}
+  .layout{display:block;height:auto;padding:0}
+  .sidebar{position:static;width:auto;height:auto;border-radius:0;padding:20px 16px 14px}
+  .brand{margin-bottom:8px}
+  .side-label{margin:12px 4px 6px}
+  .sections{flex-direction:row;flex-wrap:wrap;overflow:visible;padding-bottom:6px;gap:8px}
+  .sections button{flex:0 0 auto;width:auto}
+  .archive-list{flex-direction:row;overflow-x:auto;max-height:none;padding-bottom:4px}
+  .archive-list a{white-space:nowrap}
+  .side-foot{display:none}
+  .content{height:auto}
+  .content-col{display:block;height:auto;padding:0 14px 70px}
+  .head-card{position:static;padding:20px 20px 18px;margin-bottom:16px}
+  .content-scroll{overflow:visible;padding:0}
+  .tab-panel{padding:0}
+  ul.items li{padding:14px 16px}
+  .top{padding-top:24px}
+  .top h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">AI</div><div><div class="brand-title">AI 每日简报</div></div></div>
+  <div class="side-meta">收集窗口：10 月 18 日 08:00 – 10 月 19 日 08:00（北京时间）</div>
+  <div class="side-label">板块</div>
+  <nav class="sections"><button data-tab="0" style="--sec:#ff5a36" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg><span class="sec-name">今日热点</span><span class="cnt">10</span></button><button data-tab="1" style="--sec:#3b82f6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg><span class="sec-name">模型与 API</span><span class="cnt">3</span></button><button data-tab="2" style="--sec:#10b981" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sec-name">开源与工具链</span><span class="cnt">1</span></button><button data-tab="3" style="--sec:#8b5cf6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.8 4.6 1.2-4.6 1.2L12 15l-1.9-4.8L5.5 9l4.6-1.2z"/><path d="M19 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg><span class="sec-name">Agent 与应用开发</span><span class="cnt">5</span></button><button data-tab="4" style="--sec:#f59e0b" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span class="sec-name">部署与推理优化</span><span class="cnt">5</span></button><button data-tab="5" style="--sec:#f43f5e" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5.2 9.4A2 2 0 0 0 6.6 21h10.8a2 2 0 0 0 1.8-2.6L14 9V3"/><path d="M7.6 14h8.8"/></svg><span class="sec-name">研究前沿</span><span class="cnt">0</span></button><button data-tab="6" style="--sec:#06b6d4" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><span class="sec-name">社区热议</span><span class="cnt">10</span></button></nav>
+  <div class="side-label">往期归档</div>
+  <nav class="archive-list"><a href="2026-10-10.html">2026-10-10</a><a href="2026-10-11.html">2026-10-11</a><a href="2026-10-12.html">2026-10-12</a><a href="2026-10-13.html">2026-10-13</a><a href="2026-10-14.html">2026-10-14</a><a href="2026-10-15.html">2026-10-15</a><a href="2026-10-16.html">2026-10-16</a><a href="2026-10-17.html">2026-10-17</a><a href="2026-10-18.html">2026-10-18</a><a href="2026-10-19.html" class="cur">2026-10-19</a></nav>
+  <div class="stats"><div><b>10</b><span>收录期数</span></div><div><b>528</b><span>累计条目</span></div></div>
+  <div class="side-foot">内容由 AI 收集整理，仅供参考<br>每天 8 点（北京时间）自动更新</div>
+</aside>
+<main class="content"><div class="content-col">
+  <div class="head-card">
+    <header class="top"><h1 id="secTitle" style="--sec:#ff5a36">今日热点</h1></header>
+  </div>
+  <div class="sec-desc" id="secDesc" style="--sec:#ff5a36;display:none"></div>
+  <div class="content-scroll" id="contentScroll">
+  <section class="tab-panel" id="s0" style="--sec:#ff5a36"><ul class="items">
+<li><div class="item-title">vLLM v0.32.0：引擎内建 <code>/v1/systemone</code> 决策端点，CORS 默认收紧是 breaking change</div><div class="item-body">814 commits 大版本——路由/分类/打分在引擎内直接求解并返回带校准概率的结构化答案，不再把 token 流回 Python 解析 JSON；配套 Apache-2.0 的 Decision 3.0 决策模型家族（0.8B–27B）；<code>--allowed-origins</code> 默认从 <code>[&quot;*&quot;]</code> 改为 <code>[]</code>——有浏览器直连 vLLM 的升级前先把白名单域名写进启动参数，否则前端请求全 400。</div><div class="item-src">来源：<a href="https://github.com/vllm-project/vllm/releases" target="_blank" rel="noopener">GitHub Releases</a></div></li>
+<li><div class="item-title">MCP SDK OAuth 漏洞修复不完整：只升级 SDK 堵不住凭证泄露</div><div class="item-body">10 月 6 日 CVE 的新复现证实，升级到修复版后若 <code>ClientCredentialsProvider</code> 未传 <code>expectedIssuer</code>，恶意 server 照样能引走 refresh token/client secret，升级前存下的无 issuer 字段 token 同样会泄——三件事缺一不可：升级到 @modelcontextprotocol/sdk 1.31.0+（Python client 2.2.0）、所有建 provider 的地方显式传 <code>expectedIssuer</code>、清空升级前存的 token 并轮换可能已外泄的 secret。</div><div class="item-src">来源：<a href="https://medium.com/@waseemaofficial/upgrading-your-mcp-sdk-wont-close-the-oauth-hole-on-its-own-df6637b93c38" target="_blank" rel="noopener">Medium</a></div></li>
+<li><div class="item-title">DeepSeek search/fetch $0.75/千次，HN 526pts 激辩定价与反爬</div><div class="item-body">Exa $4/千次、Brave $5、Kagi $12 之下 DeepSeek 是最便宜的一档，但最高赞追问的是反爬页面（Cloudflare 复选框/Anubis 验证）返回什么——用免费窗口跑一周真实任务，同时测&quot;每完成任务美元数&quot;和反爬拦截率，别只看 $0.75 单价做替换决策。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50138531" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">南芥智能发布 Mio 1.0 Lite：国产模型&quot;群体智能&quot;路由，9 项基准平均 77.15</div><div class="item-body">技术报告《Toward Collective Model Intelligence》与代码已开源，调度 Kimi K3、GLM 5.3、Qwen 3.8 Max、DeepSeek V4.1 Flash 协同，在 AutomationBench、BFCL V3、IFBench、GPQA Diamond 等 9 项基准上平均分超 GPT-6.1 Sol 6.35 分、成本低 94%——做 agent 的直接拉代码复现&quot;多模型协作路由&quot;在自家任务上验证得分-成本曲线，厂商自测分数不要直接写进选型或采购报告。</div><div class="item-src">来源：<a href="https://finance.sina.cn/stock/jdts/2026-10-18/detail-inivrrfr6640371.d.html" target="_blank" rel="noopener">新浪科技</a></div></li>
+<li><div class="item-title">&quot;网站正在对 AI agent 关门&quot;：HN 讨论 Cloudflare/Vercel 系统性封禁 agent 流量</div><div class="item-body">有人称 GPT 内置浏览已&quot;被封到没法用&quot;，高赞预测网站会分化出给 agent 读的 XML/JSON/YAML 版本——做 agent 产品不要把核心链路押在爬虫上，优先官方 API/MCP（参考 Vercel Shop 的 UCP 模式），并把&quot;被目标站封禁&quot;写进架构风险评估。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50141657" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">Kimi K3.1 灰度传闻：官网前端出现 k3d1-agent 与新 bot 模块</div><div class="item-body">月之暗面官网大模型指纹再次变化，页面前端发现 <code>k3d1-agent</code> 字样并新增疑似 Kimi Bot 的 bot 模块（玩法对标 xAI Grok Bot / OpenAI Dots）——有灰度资格的团队可盯官网前端指纹变化验证是否拿到灰度入口，API 侧不要提前硬编码 <code>k3.1</code> 类模型名，等官方公告确认模型 ID 再接入。</div><div class="item-src">来源：<a href="https://finance.sina.cn/tech/2026-10-18/detail-inivrzvi7795482.d.html?vt=4" target="_blank" rel="noopener">新浪科技</a></div></li>
+<li><div class="item-title">跟进：&quot;中转血亏&quot;帖冲到 1152 回复，Tibo day13 额度重置完成</div><div class="item-body">昨日 839 回复的血亏帖今日涨到 1152 回复/13235 浏览；V2EX 同步多帖报告&quot;ChatGPT 今天额度消耗明显加快&quot;与&quot;频繁性能下降告警、疑为恢复 5h 限额铺垫&quot;——生产环境不要押宝 20x 共享额度或远低于官方价的中转，用自有订阅+消耗监控，中转用户做好涨价/跑路预案。</div><div class="item-src">来源：<a href="https://linux.do/t/topic/3035608" target="_blank" rel="noopener">主帖</a></div></li>
+<li><div class="item-title">Claude Code v2.1.302：fork subagents 在 SDK 与 App 端默认开启</div><div class="item-body">fork 型子代理（继承父会话上下文）此前只在终端默认开，现扩展到 <code>claude -p</code>、Agent SDK、桌面端和 VS Code；新增 <code>CLAUDE_CODE_AUTO_MODE_MODEL</code>（自选 auto-mode 分类器模型）、hooks 同类事件最多 12 个并发节流——在 CI/SDK 里跑 Claude Code 的升级后先跑几轮对比，出问题用 <code>CLAUDE_CODE_FORK_SUBAGENT=0</code> 钉回旧行为；还在用 claude.ai/design 的立刻迁出（12 月 14 日关闭）。</div><div class="item-src">来源：<a href="https://aiweekly.co/alerts/claude-code-21302-turns-on-fork-subagents-in-sdk-and-apps" target="_blank" rel="noopener">AIWeekly</a></div></li>
+<li><div class="item-title">Perplexity Decider V1.2 上线：27B + 4B Flash，Decisions API $0.02/$0.01 每百万 token</div><div class="item-body">支持文本+图像（最高 1.6MP）多问题联合决策，Vercel AI Gateway changelog 已确认上线；但 HF 仓库私有需授权——做分类/路由/打分的先在 Vercel AI Gateway 或 OpenRouter 上用 Flash 版跑自家 rubric，对比现有方案的准确率与延迟，别按&quot;开源权重&quot;规划本地部署。</div><div class="item-src">来源：<a href="https://vercel.com/changelog/perplexity-decider-v1-2-models-now-available-on-ai-gateway" target="_blank" rel="noopener">Vercel Changelog</a></div></li>
+<li><div class="item-title">V2EX：ChatGPT 额度消耗明显加快，多人举证是计费 bug 被修复</div><div class="item-body">多人反馈同任务额度消耗变快，有用户贴图举证——老 Pro 20x 用户降级到 5x 后仍按 20x 计额度，10 月 18 日凌晨该 bug 被修复导致体感&quot;快 4 倍&quot;；评论区多人已转用&quot;Claude 做规划、DeepSeek 4.1 Flash 做执行&quot;的拆分用法——先查 billing/token 明细核对真实消耗再扩量，别凭体感续费。</div><div class="item-src">来源：<a href="https://www.v2ex.com/t/1249541" target="_blank" rel="noopener">帖子</a></div></li>
+</ul></section><section class="tab-panel" id="s1" style="--sec:#3b82f6"><ul class="items">
+
+<li><div class="item-title">Kimi K3.1 灰度传闻：官网指纹变化，前端出现 k3d1-agent 与新 bot 模块（10.18）</div><div class="item-body">快科技经新浪科技 10-18 20:16 报道——月之暗面官网大模型指纹再次变化，页面前端发现 <code>k3d1-agent</code> 字样，并新增疑似 Kimi Bot 的 bot 模块（玩法对标 xAI Grok Bot / OpenAI Dots）；K2.8 在 Preview 测试一个多月后预计也将出正式版。有灰度资格的团队可盯官网前端指纹变化验证是否拿到灰度入口；API 侧不要提前硬编码 <code>k3.1</code> 类模型名，等官方公告与模型 ID 确认后再接入。</div><div class="item-src">来源：<a href="https://finance.sina.cn/tech/2026-10-18/detail-inivrzvi7795482.d.html?vt=4" target="_blank" rel="noopener">新浪科技</a></div></li>
+<li><div class="item-title">南芥智能发布 Mio 1.0 Lite：国产模型&quot;群体智能&quot;路由，9 项基准平均 77.15 居首（10.18）</div><div class="item-body">新智元 via 新浪科技 10-18 15:59——技术报告《Toward Collective Model Intelligence》与代码已在 GitHub 开源（https://github.com/SinapisAI/collective-model-intelligence）；调度 Kimi K3、GLM 5.3、Qwen 3.8 Max、DeepSeek V4.1 Flash 等国产模型协同，在 AutomationBench、BFCL V3、IFBench、GPQA Diamond 等 9 项基准上平均分超 GPT-6.1 Sol 6.35 分、成本低 94%，BFCL V3 得 77.50（Claude Opus 5.5 为 66.00）成本约其 1/40。做 agent 的直接拉代码复现&quot;多模型协作路由&quot;，在自家任务上验证得分-成本曲线；厂商自测分数不要直接写进选型或采购报告。</div><div class="item-src">来源：<a href="https://finance.sina.cn/stock/jdts/2026-10-18/detail-inivrrfr6640371.d.html" target="_blank" rel="noopener">新浪科技</a></div></li>
+<li><div class="item-title">Perplexity Decider V1.2 决策模型家族上线：27B + 4B Flash，Decisions API $0.02/$0.01 每百万 token（10.17–18）</div><div class="item-body">Vercel AI Gateway changelog（约 10.17）确认 <code>perplexity/pplx-decider-v1.2</code>（27B）与 <code>pplx-decider-flash-v1.2</code>（4B）上线，支持文本+图像（最高 1.6MP）多问题联合决策；OpenRouter 显示 Decisions 定价 27B 为 $0.02、Flash 为 $0.01 每百万 token；dailyaibrief 10-18 报道其 Decision Index 0.3 自测 68.09（v1.1 为 62.30），但 HF 仓库私有需授权——&quot;Apache 2.0 开源&quot;的说法存疑。做分类/路由/打分的先在 Vercel AI Gateway 或 OpenRouter 上用 Flash 版跑自家 rubric，对比 Jev 或现有方案的准确率与延迟；别按&quot;开源权重&quot;规划本地部署，HF 仓库目前私有。</div><div class="item-src">来源：<a href="https://vercel.com/changelog/perplexity-decider-v1-2-models-now-available-on-ai-gateway" target="_blank" rel="noopener">Vercel Changelog</a>、<a href="https://openrouter.ai/perplexity/pplx-decider-v1-27b" target="_blank" rel="noopener">OpenRouter</a></div></li>
+</ul></section><section class="tab-panel" id="s2" style="--sec:#10b981"><ul class="items">
+
+<li><div class="item-title">LiteLLM v1.106.0：Docker 镜像全部启用 cosign 签名（10.18）</div><div class="item-body">olud.ai 发布追踪——所有 Docker 镜像改用 commit 0112e53 引入的 key 做 cosign 签名，用户可验签。生产环境拉 LiteLLM 镜像的把 <code>cosign verify</code> 加进部署流水线并 pin 摘要，别再拉未签名镜像。</div><div class="item-src">来源：<a href="https://olud.ai/news/2026-10-18.html" target="_blank" rel="noopener">olud.ai</a></div></li>
+</ul></section><section class="tab-panel" id="s3" style="--sec:#8b5cf6"><ul class="items">
+
+<li><div class="item-title">MCP SDK OAuth 漏洞修复不完整：光升级 SDK 堵不住凭证泄露（10.18）</div><div class="item-body">针对 10 月 6 日披露的 MCP SDK OAuth 凭证劫持漏洞（TypeScript CVE-2026-104850 / Python GHSA-qx49-fqc8-xw99），新复现证实：升级到修复版后，若 ClientCredentialsProvider 未传 <code>expectedIssuer</code>，恶意 server 照样能把 refresh token/client secret 引走；升级前存下的无 issuer 字段 token 同样会泄。三件事缺一不可：①升级到 @modelcontextprotocol/sdk 1.31.0+（Python client 2.2.0）；②所有建 provider 的地方显式传 <code>expectedIssuer</code>；③清空升级前存的 token 并轮换可能已外泄的 secret，同时只连可信 MCP server。</div><div class="item-src">来源：<a href="https://medium.com/@waseemaofficial/upgrading-your-mcp-sdk-wont-close-the-oauth-hole-on-its-own-df6637b93c38" target="_blank" rel="noopener">Medium</a></div></li>
+<li><div class="item-title">Claude Code v2.1.302：fork subagents 在 SDK 与 App 端默认开启（10.18）</div><div class="item-body">fork 型子代理（继承父会话上下文）此前只在终端默认开，现扩展到 <code>claude -p</code>、Agent SDK、桌面端和 VS Code；新增 <code>CLAUDE_CODE_AUTO_MODE_MODEL</code>（自选 auto-mode 分类器模型）、hooks 同类事件最多 12 个并发节流、Read 工具拒绝 &gt;128MB 图片；独立版 Claude Design 将于 12 月 14 日关闭。在 CI/SDK 里跑 Claude Code 的升级后先跑几轮对比——子代理行为变化可能改变输出或拉高 token，出问题用 <code>CLAUDE_CODE_FORK_SUBAGENT=0</code> 钉回旧行为；还在用 claude.ai/design 的立刻迁出。</div><div class="item-src">来源：<a href="https://aiweekly.co/alerts/claude-code-21302-turns-on-fork-subagents-in-sdk-and-apps" target="_blank" rel="noopener">AIWeekly</a>、<a href="http://dev.to/akaranjkar08/claude-code-21293-to-21302-settings-worth-enabling-now-4job" target="_blank" rel="noopener">DEV</a></div></li>
+<li><div class="item-title">Taskade 推出 TSK-Bench（TSK-1）：测&quot;模型能交付什么&quot;而非&quot;知道什么&quot;（10.19）</div><div class="item-body">给同一真实应用需求，在 Taskade Genesis 里从零构建完整可运行应用，再像真实用户一样填表、改配置、加功能，按界面/任务/记忆/适应四个维度打分（满分 100）；2026 年 7 月 30 日–9 月 30 日共跑 37 组测试，全部用例（含失败）公开。10 月数据：GPT 88 居首，Claude、DeepSeek、Kimi、Grok 均为 75，GLM 63、Qwen 50、Gemini 44；注意 Taskade 自己卖这些模型的运行服务，榜单读数先打折。做&quot;一句话生成完整应用/内部工具&quot;选型时，把 TSK-1 作为 SWE-bench 之外的第二参考（SWE-bench 只看代码对错，TSK-1 测&quot;跑起来数据丢不丢、改需求跟不跟得上&quot;），但别直接抄榜单下单，先拿自己业务的 3–5 个真实 prompt 在候选模型上复测一轮。</div><div class="item-src">来源：<a href="https://www.taskade.com/tsk" target="_blank" rel="noopener">Taskade</a></div></li>
+<li><div class="item-title">Munshi：4B 小模型只负责&quot;读&quot;，日期/金额算术全写进 Python，Temporal 做带超时的 durable 执行（10.18）</div><div class="item-body">作者用 Tinker 在 Qwen3.5-4B 上做 LoRA 微调解析 WhatsApp 订房消息（68-token prompt），发现微调只把&quot;读&quot;做到 75%、算术全错——把日历/人数/金额规则搬进 135 行 Python 后提到 95%，30 条冻结测试集 30/30 打平老师模型 Gemma 4；房间预留用 Temporal workflow 做带超时的 durable 执行，worker 被 SIGKILL、整个 server 宕机后定时器照样按时触发且 0 重复执行。做业务 agent 的抄这套架构：日期/数字/金额逻辑一律写代码不靠模型猜；带超时和重试的多步流程改用 Temporal 这类 durable workflow，不要用裸 LLM 循环硬扛。</div><div class="item-src">来源：<a href="https://dev.to/arqamwd/my-fine-tuned-4b-lost-to-its-teacher-75-to-875-moving-the-arithmetic-into-code-made-it-30-for-33ka" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">10 MCP Servers That Make Vibe-Coded Apps Less Fragile（10.18）</div><div class="item-body">Context7（查最新库文档防编造 API）、GitHub（读 issue/CI）、Playwright（真浏览器走查）、TDK CLI（本地多进程栈）、Supabase、Figma、Sentry、Filesystem、Chrome DevTools、Notion/Linear——把 agent 的&quot;猜&quot;换成&quot;查&quot;。给 coding agent 优先接 Context7、Playwright、GitHub MCP 这三个；每个 MCP 按最小权限 scope，只给项目相关目录和资源，部署前人工 review agent 写的内容。</div><div class="item-src">来源：<a href="https://dev.to/tdk-cli/10-mcp-servers-that-make-vibe-coded-apps-less-fragile-2oa4" target="_blank" rel="noopener">帖子</a></div></li>
+</ul></section><section class="tab-panel" id="s4" style="--sec:#f59e0b"><ul class="items">
+
+<li><div class="item-title">vLLM v0.32.0：引擎内建结构化决策端点 /v1/systemone，CORS 默认收紧（10.18）</div><div class="item-body">814 commits 大版本。新增 <code>POST /v1/systemone</code>——路由/分类/打分这类决策直接在引擎内求解并返回带校准概率的结构化答案，不再把 token 流回 Python 解析 JSON，避免 KV cache 被丢弃、省去一次 prefill；低精度 KV 全面铺开（NVFP4 覆盖 SM8x/SM90/SM12x，GLM-5.x 在 SM100 默认 FP8 KV 省一半显存）；安全修复 3 个 GHSA（chat template 资源耗尽、tokenizer max_token_id、ZMQ socket 耗尽），<code>--allowed-origins</code> 默认从 <code>[&quot;*&quot;]</code> 改为 <code>[]</code>。升级前做两件事：①有浏览器前端直连 vLLM 的，把白名单域名写进 <code>--allowed-origins</code>，否则升级后前端请求全 400（curl/SDK/网关不受影响）；②按 breaking changes（弃 Python 3.10、移除 cascade attention、<code>max_tokens</code> 不再预留上下文）做回归测试；想省显存就试 <code>--kv-cache-dtype fp8/nvfp4</code>。</div><div class="item-src">来源：<a href="https://github.com/vllm-project/vllm/releases" target="_blank" rel="noopener">GitHub Releases</a>、<a href="https://reidmarlow.com/why-vllm-baked-decision-routing-into-the-engine/" target="_blank" rel="noopener">reidmarlow.com</a></div></li>
+<li><div class="item-title">跟进：llama.cpp b11717——Hexagon 后端补齐 Q1_0/Q2_0 支持（10.18）</div><div class="item-body">补齐昨日 b11716 的超低比特支持——新增 hadamard MUL_MAT 和 flat/tiled 格式的 GET_ROW，同时优化 q8_1 量化器。骁龙/Hexagon NPU 端侧用户现在可用 Q1_0/Q2_0 做实验，先用小模型验证精度-内存权衡再铺开。</div><div class="item-src">来源：<a href="https://github.com/ggml-org/llama.cpp/releases" target="_blank" rel="noopener">GitHub Releases</a></div></li>
+<li><div class="item-title">llama.cpp b11721：CUDA 融合 Qwen4Exp（Qwen3.8）四连内核（10.19）</div><div class="item-body">把 SCALE→SIGMOID→SCALE→hc_post 链路融合成单个内核（此前 Vulkan 已有同类融合）。在 CUDA 上跑 Qwen3.8 的直接拉最新构建吃融合收益，无需改配置。</div><div class="item-src">来源：<a href="https://github.com/ggml-org/llama.cpp/releases" target="_blank" rel="noopener">GitHub Releases</a></div></li>
+<li><div class="item-title">llama.cpp 后端兼容修复双连发：b11720 全后端 non-contiguous SUM，b11718 恢复 Intel SYCL ESIMD（10.18–10.19）</div><div class="item-body">b11720 让 ggml 在 CPU/CUDA/Vulkan/WebGPU 全后端支持非连续 SUM 算子，此前在 Vulkan/WebGPU 上因 SUM 报错的模型现在可跑；b11718 恢复 FFN 路径的 ESIMD 内核并扩展到 Q8_0 融合。遇到 SUM 算子报错的先升级再排查；Intel 显卡用户升级后重跑 FFN 密集模型基准确认性能回升。</div><div class="item-src">来源：<a href="https://github.com/ggml-org/llama.cpp/releases" target="_blank" rel="noopener">GitHub Releases</a></div></li>
+<li><div class="item-title">Ollama v0.40.7-rc0：Responses API 的 effort 参数放开给非 thinking 模型（10.18）</div><div class="item-body">llama-server 自动推断 draft 的 speculative 类型；MLX runner 新增 PPLX Decider v1.2 支持。对非 thinking 模型传 effort 不再被拒绝——但这是 rc 版，先在测试环境验证再升级生产。</div><div class="item-src">来源：<a href="https://github.com/ollama/ollama/releases" target="_blank" rel="noopener">GitHub Releases</a></div></li>
+</ul></section><section class="tab-panel" id="s5" style="--sec:#f43f5e"></section><section class="tab-panel" id="s6" style="--sec:#06b6d4"><ul class="items">
+<li><div class="item-title">DeepSeek search/fetch 每千次 $0.75，HN 激辩定价与反爬</div><div class="item-body">评论区核心是横向比价——Exa $4/千次、Brave $5、Kagi $12，DeepSeek 是最便宜的一档；但最高赞追问的是反爬：遇到 Cloudflare 复选框/Anubis 验证的页面会返回什么，有人分享自建搜索 MCP 比 OpenAI/Anthropic 内置搜索便宜 15–20 倍的经验。接入前先用免费窗口跑一周真实任务，同时测&quot;每完成任务美元数&quot;和被反爬拦截的比例，别只看 $0.75 单价做决策。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50138531" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">Show HN：Sphinx——push 前先 quiz 你&quot;AI 写的代码你真懂吗&quot;</div><div class="item-body">一个接进 coding agent 工作流的 hook，每次 push 到生产前弹窗出题，确认你理解 AI 生成的代码；评论区偏怀疑——&quot;在乎的人不会用这个学代码，不在乎的人继续不在乎&quot;，还有人指出与 sphinx-doc 重名。别直接照搬，先在小团队试点&quot;AI 代码理解度 quiz&quot;是否真减少线上事故，或降级为 pre-push checklist 试效果。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50137950" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">网站正在对 AI agent 关门</div><div class="item-body">转 The Verge 报道，讨论集中在 Cloudflare/Vercel 等对 agent 流量的系统性封禁，有人称 GPT 内置浏览已&quot;被封到没法用&quot;；高赞预测是网站会分化出给 agent 读的 XML/JSON/YAML 版本。做 agent 产品不要把核心链路押在爬虫上，优先官方 API/MCP（参考 Vercel Shop 的 UCP 模式），并把&quot;被目标站封禁&quot;写进架构风险评估。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50141657" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">Together AI 的 Hybrid Reasoning Agents：latent 空间思考、文本行动</div><div class="item-body">讨论论文提出的 latent+文本混合推理架构（HybridLink 切换、连续工作记忆），评论追问最多的是&quot;到底是更快了还是更准了&quot;，作者已放出代码（togethercomputer/HybridAgent）与评测细节。先读它的评测章节（arxiv html #S5）确认&quot;latent 推理提升智能而非仅省 token&quot;是否成立，再决定要不要在长 horizon agent 里跟进这条路线。</div><div class="item-src">来源：<a href="https://news.ycombinator.com/item?id=50145337" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">跟进：Tibo 完成 day13 额度重置，&quot;中转血亏&quot;帖冲到 1152 回复</div><div class="item-body">昨日 839 回复的血亏帖今日涨到 1152 回复/13235 浏览；V2EX 同步更新——Tibo 发推称重置完成、&quot;重置卡先留着&quot;（<a href="https://www.v2ex.com/t/1249683" target="_blank" rel="noopener">帖</a>，7回复），day13 重置帖（<a href="https://www.v2ex.com/t/1249692" target="_blank" rel="noopener">帖</a>，9回复），另有多例报告&quot;ChatGPT 今天额度消耗明显加快&quot;（<a href="https://www.v2ex.com/t/1249541" target="_blank" rel="noopener">帖</a>，23回复）与&quot;频繁出现性能下降告警、疑为恢复 5h 限额铺垫&quot;（<a href="https://www.v2ex.com/t/1248752" target="_blank" rel="noopener">帖</a>，14回复）。生产环境不要押宝 20x 共享额度或远低于官方价的中转：用自有订阅+消耗监控，中转用户做好涨价/跑路预案。</div><div class="item-src">来源：<a href="https://linux.do/t/topic/3035608" target="_blank" rel="noopener">主帖</a></div></li>
+<li><div class="item-title">&quot;全网都吹 D 老师 1017，但我有不同意见&quot;</div><div class="item-body">开发调优区对 DeepSeek v4.1-Flash-1017 的质疑帖，讨论集中在实际 agent 任务中的翻车案例，与昨日 HN 一边倒好评形成对照；另有实用帖&quot;如何判断是不是新版 ds1017&quot;（<a href="https://linux.do/t/topic/3041235" target="_blank" rel="noopener">帖</a>，16帖/605浏览）教用 API 返回核验版本。模型选型别被单方评测带偏，用自己的 agent 任务跑 A/B，版本以 API 实际返回的 model 字段为准。</div><div class="item-src">来源：<a href="https://linux.do/t/topic/3041939" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">Codex/ChatGPT 任务中途被打断就&quot;罢工&quot;</div><div class="item-body">多人反馈在 agent 执行任务途中临时插入新问题或需求，agent 直接停摆而非恢复。给 agent 系统加&quot;中断恢复&quot;设计——任务检查点+可恢复的状态机，并明确告诉用户&quot;打断后可从哪一步继续&quot;，而不是假设用户不会中途插话。</div><div class="item-src">来源：<a href="https://www.v2ex.com/t/1249579" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">用 Tinker 微调 Qwen3-8B：50 样本打败 2500 样本，agent 自行训练烧光预算</div><div class="item-body">一篇 serverless 微调实战复盘——50 样本 prompt 复杂度打分得 86%、2500 样本反而 76%（AI 生成的训练标签自相矛盾，数据越多噪声越多）；更惨的是让 agent 自行生成训练数据，它未经监督连开 18 个训练会话烧光余额。微调前先做 50 样本烟雾测试验证任务可学性再加数据；绝不给 agent 开无监督的付费 API 权限（预算上限+关键操作人工确认）；分类/打分任务关掉 thinking 模式省 token。</div><div class="item-src">来源：<a href="https://dev.to/gramli/fine-tuning-qwen3-8b-with-tinker-from-50-to-76-accuracy-and-burning-through-my-budget-48mh" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">别再发布坏掉的 Vibe Code：凌晨 2 点救命的 10 项检查</div><div class="item-body">针对 AI 生成代码上线翻车的检查清单帖，14 条评论在补各自的生产事故案例。把这 10 项（及评论区补充）做成团队 pre-deploy checklist，比事后救火便宜得多；重点看&quot;AI 最容易漏的边界条件&quot;几条。</div><div class="item-src">来源：<a href="https://dev.to/tdk-cli/bookmark-it-stop-shipping-broken-vibe-code-10-checks-that-save-your-app-at-2-am-1308" target="_blank" rel="noopener">帖子</a></div></li>
+<li><div class="item-title">更好的 Opencode2api，支持免费调用</div><div class="item-body">把 OpenCode 接成 API 格式的开源中转工具帖，11348 浏览说明需求真实。可以拿来做低成本实验，但别上生产——免费中转的稳定性与 key 隐私风险自担，先读 issue 区再决定。</div><div class="item-src">来源：<a href="https://linux.do/t/topic/2752998" target="_blank" rel="noopener">帖子</a></div></li>
+</ul></section>
+  </div>
+</div></main>
+</div>
+<script>
+(function(){
+  var btns=Array.prototype.slice.call(document.querySelectorAll('.sections button'));
+  var panels=Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
+  var secTitle=document.getElementById('secTitle');
+  var secDesc=document.getElementById('secDesc');
+  var secData=[["今日热点", "#ff5a36", ""], ["模型与 API", "#3b82f6", "注：本板块今日偏少（3 条）。"], ["开源与工具链", "#10b981", "注：本板块今日偏少（1 条）。"], ["Agent 与应用开发", "#8b5cf6", "注：本板块今日偏少（5 条）。"], ["部署与推理优化", "#f59e0b", "注：本板块今日偏少（5 条）。"], ["研究前沿", "#f43f5e", "注：本板块今日 0 条——arXiv 在窗口内未发布新公告批次（最新为 10-15 批次，昨日已覆盖）；补抓 10-16–10-18 提交的下一批次安排在下一轮运行时优先执行。"], ["社区热议", "#06b6d4", ""]];
+  if(!btns.length||!panels.length)return;
+  function show(i,hash){
+    btns.forEach(function(b,j){b.classList.toggle('active',j===i);});
+    panels.forEach(function(p,j){p.style.display=j===i?'':'none';});
+    if(secTitle&&secData[i]){secTitle.textContent=secData[i][0];secTitle.style.setProperty('--sec',secData[i][1]);}
+    if(secDesc&&secData[i]){var nt=secData[i][2]||'';secDesc.innerHTML=nt?'<p>'+nt+'</p>':'';secDesc.style.display=nt?'':'none';secDesc.style.setProperty('--sec',secData[i][1]);}
+    if(hash!==false){try{history.replaceState(null,'','#s'+i);}catch(e){}}
+    var cs=document.getElementById('contentScroll');
+    if(window.matchMedia('(max-width:920px)').matches){var hc=document.querySelector('.head-card');if(hc)hc.scrollIntoView({block:'start'});}
+    else{window.scrollTo(0,0);}
+    if(cs)cs.scrollTo(0,0);
+  }
+  btns.forEach(function(b,i){b.addEventListener('click',function(){show(i);});});
+  var m=location.hash.match(/#s(\d+)/),init=m?Math.min(parseInt(m[1],10),btns.length-1):0;
+  show(init,false);
+})();
+</script>
+</body>
+</html>
