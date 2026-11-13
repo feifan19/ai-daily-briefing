@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-11-13 · AI 每日简报 · B</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f1f5f9;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--code-bg:#f1f5f9;
+  --acc:#3b82f6;
+  --sidebar-bg:#0f172a;--side-text:#e2e8f0;--side-muted:#94a3b8;
+  --shadow:0 1px 2px rgba(15,23,42,.05);
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0a0e15;--card:#121826;--text:#e6ebf2;--muted:#8b98ab;--border:#223047;--code-bg:#0a0e15;
+  --sidebar-bg:#070a10;--side-text:#dbe3ee;--side-muted:#7d8ba1;
+  --shadow:0 1px 2px rgba(0,0,0,.4);}
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.75;overflow:hidden}
+.layout{display:flex;max-width:1280px;margin:0 auto;height:100vh;padding:16px 0}
+/* ---------- sidebar ---------- */
+.sidebar{width:300px;flex:0 0 300px;color:var(--side-text);height:100%;overflow-y:auto;border-radius:18px;padding:30px 22px;display:flex;flex-direction:column;
+  background:
+    radial-gradient(560px 280px at 12% 0%, rgba(99,102,241,.17), transparent 60%),
+    radial-gradient(480px 380px at 95% 100%, rgba(236,72,153,.1), transparent 60%),
+    var(--sidebar-bg);}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.brand-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#3b82f6,#8b5cf6 55%,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:17px;flex:0 0 42px;box-shadow:0 4px 16px rgba(139,92,246,.45)}
+.brand-title{font-size:19px;font-weight:700;letter-spacing:.02em;color:#fff}
+.brand-sub{font-size:12px;color:var(--side-muted);margin-top:2px}
+.side-meta{font-size:12px;color:var(--side-muted);line-height:1.7;margin:10px 2px 0;padding:10px 12px;background:rgba(148,163,184,.08);border:1px dashed rgba(148,163,184,.25);border-radius:10px}
+.side-label{font-size:11px;letter-spacing:.14em;color:var(--side-muted);margin:18px 4px 8px;font-weight:600}
+.variant-switch{display:flex;gap:6px;margin:14px 2px 0}
+.variant-switch a{flex:1;text-align:center;font-size:12.5px;font-weight:600;color:var(--side-muted);background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.18);border-radius:9px;padding:7px 4px;text-decoration:none}
+.variant-switch a:hover{color:var(--side-text);background:rgba(148,163,184,.14)}
+.variant-switch a.cur{color:#fff;background:rgba(59,130,246,.55);border-color:rgba(59,130,246,.8)}
+.sections{display:flex;flex-direction:column;gap:4px}
+.sections button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:10px;padding:10px 12px;color:var(--side-text);font-size:14.5px;cursor:pointer;font-family:inherit;transition:background .12s,border-color .12s}
+.sections button svg{width:17px;height:17px;color:var(--sec);flex:0 0 17px}
+.sections button .cnt{margin-left:auto;font-size:11.5px;color:var(--side-muted);background:rgba(148,163,184,.15);border-radius:999px;padding:1px 9px}
+.sections button:hover{background:rgba(148,163,184,.1)}
+.sections button.active{background:color-mix(in srgb,var(--sec) 17%,transparent);border-color:color-mix(in srgb,var(--sec) 48%,transparent)}
+.sections button.active .sec-name{color:#fff;font-weight:600}
+.sections button.active .cnt{background:color-mix(in srgb,var(--sec) 32%,transparent);color:#fff}
+.archive-list{display:flex;flex-direction:column;gap:2px;max-height:200px;overflow-y:auto}
+.archive-list a{color:var(--side-muted);font-size:13.5px;padding:7px 12px;border-radius:8px;text-decoration:none;transition:background .12s}
+.archive-list a:hover{color:var(--side-text);background:rgba(148,163,184,.1)}
+.archive-list a.cur{color:#fff;background:rgba(148,163,184,.18);font-weight:600}
+.stats{display:flex;gap:10px;margin:20px 2px 0}
+.stats>div{flex:1;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.14);border-radius:12px;padding:10px 6px;text-align:center}
+.stats b{display:block;font-size:20px;color:#fff;font-weight:700}
+.stats span{font-size:11px;color:var(--side-muted)}
+.side-foot{margin-top:auto;padding-top:22px;font-size:12px;color:var(--side-muted);line-height:1.7}
+/* ---------- content ---------- */
+.content{flex:1;min-width:0;height:100%;min-height:0}
+.content-col{max-width:880px;margin:0 auto;height:100%;display:flex;flex-direction:column;min-height:0;padding:0 36px}
+.content-bar{display:none}
+.head-card{flex:0 0 auto;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.1);padding:18px 34px;margin-bottom:16px}
+.sec-desc{flex:0 0 auto;margin-bottom:14px;padding:10px 16px;background:color-mix(in srgb,var(--sec) 6%,var(--card));border:1px dashed color-mix(in srgb,var(--sec) 30%,var(--border));border-radius:12px;font-size:13px;line-height:1.7;color:var(--muted)}
+.sec-desc p{margin:0}
+.content-scroll{flex:1;min-height:0;overflow-y:auto;padding:0 8px 24px;scrollbar-width:thin;scrollbar-color:#cbd5e1 transparent}
+.content-scroll::-webkit-scrollbar{width:8px}
+.content-scroll::-webkit-scrollbar-track{background:transparent}
+.content-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+@media(prefers-color-scheme:dark){.content-scroll{scrollbar-color:#334155 transparent}.content-scroll::-webkit-scrollbar-thumb{background:#334155}}
+.top{padding:2px 0}
+.top h1{font-size:27px;font-weight:750;letter-spacing:.01em;display:flex;align-items:center;gap:12px}
+.top h1::before{content:"";width:11px;height:26px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec);flex:0 0 auto}
+.tab-panel{animation:fade .18s ease}
+@keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+ul.items{list-style:none}
+ul.items li{background:color-mix(in srgb,var(--acc) 8%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 18%,var(--border));border-radius:12px;box-shadow:var(--shadow);padding:16px 22px;margin:12px 0;transition:box-shadow .15s,transform .15s}
+ul.items li:hover{box-shadow:0 8px 22px rgba(15,23,42,.12);transform:translateY(-1px)}
+ul.items li p.note{color:var(--muted);font-size:13px}
+ul.items li:has(p.note){background:none;border:none;box-shadow:none;padding:6px 4px}
+ul.items li:has(p.note):hover{box-shadow:none;transform:none}
+.item-title{font-weight:650;font-size:15.5px;line-height:1.65;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--acc) 22%,var(--border))}
+.hot-badge{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;background:rgba(255,90,54,.14);color:#ff5a36;font-size:12px;font-weight:700;vertical-align:1px;white-space:nowrap}
+.item-body{font-size:14.5px}
+.item-src{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:flex-end;margin-top:12px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--acc) 22%,var(--border));font-size:12.5px;color:var(--muted);text-align:right}
+.item-src a{margin-right:10px;white-space:nowrap}
+p.body{margin:10px 0;font-size:15px}
+a{color:#3b82f6;text-decoration:none}
+@media(prefers-color-scheme:dark){a{color:#8aa8ff}}
+a:hover{text-decoration:underline}
+code{background:var(--code-bg);border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:.86em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#4f46e5}
+@media(prefers-color-scheme:dark){code{color:#a5b4fc}}
+strong{font-weight:650}
+@media(max-width:920px){
+  body{overflow:auto;height:auto}
+  .layout{display:block;height:auto;padding:0}
+  .sidebar{position:static;width:auto;height:auto;border-radius:0;padding:20px 16px 14px}
+  .brand{margin-bottom:8px}
+  .side-label{margin:12px 4px 6px}
+  .sections{flex-direction:row;flex-wrap:wrap;overflow:visible;padding-bottom:6px;gap:8px}
+  .sections button{flex:0 0 auto;width:auto}
+  .archive-list{flex-direction:row;overflow-x:auto;max-height:none;padding-bottom:4px}
+  .archive-list a{white-space:nowrap}
+  .side-foot{display:none}
+  .content{height:auto}
+  .content-col{display:block;height:auto;padding:0 14px 70px}
+  .head-card{position:static;padding:20px 20px 18px;margin-bottom:16px}
+  .content-scroll{overflow:visible;padding:0}
+  .tab-panel{padding:0}
+  ul.items li{padding:14px 16px}
+  .top{padding-top:24px}
+  .top h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">AI</div><div><div class="brand-title">AI 每日简报 · B</div></div></div>
+  <nav class="variant-switch"><a href="/ai-daily-briefing/" class="">A · 现有方案</a><a href="/ai-daily-briefing/b/" class="cur">B · RSS 采集</a></nav>
+  <div class="side-meta">B · feedparser + trafilatura + RSSHub<br>收集窗口：11 月 12 日 08:00 – 11 月 13 日 08:00（北京时间）</div>
+  <div class="side-label">板块</div>
+  <nav class="sections"><button data-tab="0" style="--sec:#ff5a36" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg><span class="sec-name">今日热点</span><span class="cnt">10</span></button><button data-tab="1" style="--sec:#3b82f6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg><span class="sec-name">模型与 API</span><span class="cnt">10</span></button><button data-tab="2" style="--sec:#10b981" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sec-name">开源与工具链</span><span class="cnt">10</span></button><button data-tab="3" style="--sec:#8b5cf6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.8 4.6 1.2-4.6 1.2L12 15l-1.9-4.8L5.5 9l4.6-1.2z"/><path d="M19 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg><span class="sec-name">Agent 与应用开发</span><span class="cnt">10</span></button><button data-tab="4" style="--sec:#f59e0b" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span class="sec-name">部署与推理优化</span><span class="cnt">8</span></button><button data-tab="5" style="--sec:#f43f5e" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5.2 9.4A2 2 0 0 0 6.6 21h10.8a2 2 0 0 0 1.8-2.6L14 9V3"/><path d="M7.6 14h8.8"/></svg><span class="sec-name">研究前沿</span><span class="cnt">2</span></button><button data-tab="6" style="--sec:#06b6d4" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><span class="sec-name">社区热议</span><span class="cnt">10</span></button></nav>
+  <div class="side-label">往期归档</div>
+  <nav class="archive-list"><a href="2026-11-13.html" class="cur">2026-11-13</a><a href="2026-11-12.html">2026-11-12</a><a href="2026-11-11.html">2026-11-11</a><a href="2026-11-10.html">2026-11-10</a><a href="2026-11-09.html">2026-11-09</a><a href="2026-11-08.html">2026-11-08</a><a href="2026-11-07.html">2026-11-07</a><a href="2026-11-06.html">2026-11-06</a></nav>
+  <div class="stats"><div><b>8</b><span>收录期数</span></div><div><b>486</b><span>累计条目</span></div></div>
+  <div class="side-foot">内容由 AI 收集整理，仅供参考<br>每天 8 点（北京时间）自动更新</div>
+</aside>
+<main class="content"><div class="content-col">
+  <div class="head-card">
+    <header class="top"><h1 id="secTitle" style="--sec:#ff5a36">今日热点</h1></header>
+  </div>
+  <div class="sec-desc" id="secDesc" style="--sec:#ff5a36;display:none"></div>
+  <div class="content-scroll" id="contentScroll">
+  <section class="tab-panel" id="s0" style="--sec:#ff5a36"><ul class="items">
+<li><div class="item-title">跟进：黄仁勋辞任英伟达 CEO<span class="hot-badge">🔥 热门</span></div><div class="item-body">昨日 B 稿收的是董事会准备罢免的消息；新进展是黄仁勋已即刻辞去总裁、CEO 及董事职务，CFO Colette Kress 兼任临时 CEO，董事会启动永久 CEO 遴选；他已同意下周到国会作证，众议院民主党人就对华销售与特朗普交易启动第二项调查；HN 主帖 2,765 分、2,634 评论。依赖英伟达路线图做采购与算力规划的团队，先把交接期的长期采购承诺往后放，别在新 CEO 未定前锁定。</div><div class="item-src">来源：<a href="https://techcrunch.com/2026/11/12/jensen-huang-is-out-at-nvidia-who-is-colette-kress-his-interim-replacement/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://techcrunch.com/2026/11/12/jensen-huang-agrees-to-testify-before-congress/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://apnews.com/article/nvidia-megaspeed-china-singapore-huang-5403f152a601cf82ce939f1d24fffa0f" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">Google 发布 Gemini 4 Hydrogen<span class="hot-badge">🔥 热门</span></div><div class="item-body">面向日常编码与 Agent 任务的快速模型，接替 3.8 Flash 位置，1M 上下文、新增 xhigh 思考级别、API 有免费层；Antigravity 的 Orchestrator 让旗舰模型做规划评审、Hydrogen 执行；HN 主帖 435 分、282 评论，社区讨论称速度约 2.5 倍、但 API 单价翻了一倍。把高频轻量编码任务先从旗舰模型切一小部分到 Hydrogen 跑成本—延迟对照，别直接全量替换。</div><div class="item-src">来源：<a href="https://deepmind.google/blog/introducing-gemini-4-hydrogen/" target="_blank" rel="noopener">Google DeepMind Blog</a>、<a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">跟进：Anthropic IPO<span class="hot-badge">🔥 热门</span></div><div class="item-body">昨日 B 稿收的是 IPO 路演视频；新进展是 Anthropic IPO 专页已上线、路演进行中，HN 主帖 790 分、784 评论，评论主线是估值、上市时间与对开源路线的影响。等招股细节落定再评估其对 Claude 定价与开源投入的影响，别按路演视频里的口径排期。(<a href="https://ipo.anthropic.com/us/" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">Microsoft 365 大面积故障<span class="hot-badge">🔥 热门</span></div><div class="item-body">美东时间周四下午 1 点前开始，全球用户无法访问 Outlook 网页与客户端，微软确认部分基础设施多区域负载过高；HN 主帖 419 分、407 评论，另有 401 分的求证帖。依赖 Outlook 与 M365 连接器的团队先确认自家任务是否受影响并重跑失败项，别等用户报障。</div><div class="item-src">来源：<a href="https://www.theverge.com/tech/1032226/microsoft-outlook-is-down" target="_blank" rel="noopener">The Verge</a>、<a href="https://status.cloud.microsoft/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">Fireworks AI 遭网络攻击，Notion 客户聊天记录泄露</div><div class="item-body">攻击者通过其云服务商攻入 Fireworks 开发系统，拿到部分客户数据，包括 Notion 客户的聊天记录；这是 Fireworks 两个月内第二次数据泄露。用 Fireworks 跑过敏感数据的团队立即轮换相关凭证并核查调用日志，别只等厂商通告。(<a href="https://techcrunch.com/2026/11/12/cyberattack-on-fireworks-ai-allowed-hackers-to-access-notion-customers-chat-transcripts/" target="_blank" rel="noopener">TechCrunch</a>，单信源）</div></li>
+<li><div class="item-title">任天堂 DMCA 下架 200+ Switch 项目<span class="hot-badge">🔥 热门</span></div><div class="item-body">11 月 6–9 日 4 份通知下架约 217 个仓库，包括改机芯片固件与模拟器副本；HN 263 分、203 评论，讨论焦点是改机芯片固件首次成为目标。做模拟器或硬件改机相关开发的团队先确认自家仓库是否在通知范围内，别等下架才备份。</div><div class="item-src">来源：<a href="https://www.ign.com/articles/nintendo-takes-down-switch-emulators-and-mod-chip-firmware-in-massive-github-dmca-sweep" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">MiniMax 开源“源神”SOTA 生图模型<span class="hot-badge">🔥 热门</span></div><div class="item-body">多模态生图模型 H3-Image 开源，原生 4K，“CAD 拆解”玩法走红：丢一张参考图能把实物拆解成零件图并标注；厂商称一张两毛。做电商图、产品拆解图的团队先拿自家图实测出图质量与成本，别按演示效果直接排期。(<a href="https://www.qbitai.com/2026/11/509440.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+<li><div class="item-title">跟进：Anthropic 地区限制生效，Claude KYC 封号潮</div><div class="item-body">生效首日 V2EX 出现一波封号帖：有人任务中途突然被弹 KYC，有人称删号重注册后 KYC 消失（free 账号），有人问被封后退款未到账；另有用户称走 Apple ID 注册现在要海外手机号验证、一号一机。仍在用 Claude 的国内开发者先确认账号状态与合规路径，别在封号后才找替代。</div><div class="item-src">来源：<a href="https://www.v2ex.com/t/1256603#reply10" target="_blank" rel="noopener">V2EX</a>、<a href="https://www.v2ex.com/t/1256636#reply1" target="_blank" rel="noopener">V2EX</a>、<a href="https://www.v2ex.com/t/1256591#reply4" target="_blank" rel="noopener">V2EX</a></div></li>
+<li><div class="item-title">Rust 1.100 发布<span class="hot-badge">🔥 热门</span></div><div class="item-body">HN 332 分、141 评论，开发者关注新版语言与工具链变化。升级前先在 CI 跑一遍自家仓库的测试与 lint，别直接升生产工具链。</div><div class="item-src">来源：<a href="https://blog.rust-lang.org/2026/11/12/Rust-1.100.0/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">中国前沿模型被指带有出口管制 GPU 指纹</div><div class="item-body">Unemployment Labs 的检查点取证报告称，多个中国前沿模型的检查点带有出口管制 GPU 的指纹特征；HN 96 分、23 评论。引用该报告时先读方法部分，把“指纹匹配”与“训练证据”分开说，别直接写成违规结论。(<a href="https://unemploymentlabs.com/checkpoint-forensics" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+</ul></section><section class="tab-panel" id="s1" style="--sec:#3b82f6"><ul class="items">
+<li><div class="item-title">跟进：黄仁勋辞任英伟达 CEO<span class="hot-badge">🔥 热门</span></div><div class="item-body">昨日 B 稿收的是董事会准备罢免的消息；新进展是黄仁勋已即刻辞去总裁、CEO 及董事职务，CFO Colette Kress 兼任临时 CEO，董事会启动永久 CEO 遴选；他已同意下周到国会作证，众议院民主党人就对华销售与特朗普交易启动第二项调查；HN 主帖 2,765 分、2,634 评论。依赖英伟达路线图做采购与算力规划的团队，先把交接期的长期采购承诺往后放，别在新 CEO 未定前锁定。</div><div class="item-src">来源：<a href="https://techcrunch.com/2026/11/12/jensen-huang-is-out-at-nvidia-who-is-colette-kress-his-interim-replacement/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://techcrunch.com/2026/11/12/jensen-huang-agrees-to-testify-before-congress/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://apnews.com/article/nvidia-megaspeed-china-singapore-huang-5403f152a601cf82ce939f1d24fffa0f" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">Google 发布 Gemini 4 Hydrogen<span class="hot-badge">🔥 热门</span></div><div class="item-body">面向日常编码与 Agent 任务的快速模型，接替 3.8 Flash 位置，1M 上下文、新增 xhigh 思考级别、API 有免费层；Antigravity 的 Orchestrator 让旗舰模型做规划评审、Hydrogen 执行；HN 主帖 435 分、282 评论，社区讨论称速度约 2.5 倍、但 API 单价翻了一倍。把高频轻量编码任务先从旗舰模型切一小部分到 Hydrogen 跑成本—延迟对照，别直接全量替换。</div><div class="item-src">来源：<a href="https://deepmind.google/blog/introducing-gemini-4-hydrogen/" target="_blank" rel="noopener">Google DeepMind Blog</a>、<a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">谷歌搜索 AI Mode 升级：复杂问题回答更好</div><div class="item-body">Search 的 AI Mode 接入 Gemini 4 Hydrogen，官方称对复杂问题的回答质量提升；The Verge 与 TechCrunch 同日报。依赖搜索做问答的团队先拿自家复杂查询对照新旧回答质量，别直接按发布口径改提示词。</div><div class="item-src">来源：<a href="https://www.theverge.com/ai-artificial-intelligence/1032505/google-search-ai-mode-gemini-4-hydrogen" target="_blank" rel="noopener">The Verge</a>、<a href="https://techcrunch.com/2026/11/12/googles-latest-search-upgrade-promises-better-answers-to-your-most-complicated-questions/" target="_blank" rel="noopener">TechCrunch</a></div></li>
+<li><div class="item-title">跟进：Anthropic IPO<span class="hot-badge">🔥 热门</span></div><div class="item-body">昨日 B 稿收的是 IPO 路演视频；新进展是 Anthropic IPO 专页已上线、路演进行中，HN 主帖 790 分、784 评论，评论主线是估值、上市时间与对开源路线的影响。等招股细节落定再评估其对 Claude 定价与开源投入的影响，别按路演视频里的口径排期。(<a href="https://ipo.anthropic.com/us/" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">Fireworks AI 遭网络攻击，Notion 客户聊天记录泄露</div><div class="item-body">攻击者通过其云服务商攻入 Fireworks 开发系统，拿到部分客户数据，包括 Notion 客户的聊天记录；这是 Fireworks 两个月内第二次数据泄露。用 Fireworks 跑过敏感数据的团队立即轮换相关凭证并核查调用日志，别只等厂商通告。(<a href="https://techcrunch.com/2026/11/12/cyberattack-on-fireworks-ai-allowed-hackers-to-access-notion-customers-chat-transcripts/" target="_blank" rel="noopener">TechCrunch</a>，单信源）</div></li>
+<li><div class="item-title">Muse 可代打电话给美国商家，付费订阅才有</div><div class="item-body">Meta 的消费级 AI 助手 Muse 在 9 月测试后正式上线代打电话功能，可代用户打给美国商家；目前仅付费订阅用户可用，Muse 用户已超 1000 万。做电话 Agent 的团队先对照它的接通率与合规边界，别直接把客服外呼切过去。(<a href="https://techcrunch.com/2026/11/12/muse-can-now-place-calls-to-u-s-businesses-if-you-pay/" target="_blank" rel="noopener">TechCrunch</a>，单信源）</div></li>
+<li><div class="item-title">Anthropic 玻璃翼计划被质疑：近 4 万个候补漏洞，只修了 217 条</div><div class="item-body">量子位报道，Anthropic 的 Glasswing 漏洞处理计划遭质疑，称近 4 万个候补漏洞中只修了 217 条。评估厂商安全水位时先核对漏洞修复口径与时间范围，别把赏金计划的覆盖数字当成已验证的安全水平。(<a href="https://www.qbitai.com/2026/11/509291.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+<li><div class="item-title">补收：3.5 万个 Grok 搭建的应用公开暴露</div><div class="item-body">安全公司 Claroc 报告：抽查的 3.5 万多个用 Grok 搭建的应用无需登录即可访问，其中一部分直接暴露企业机密与个人隐私，包括 SpaceX/X 与特斯拉的内部资料、ICU 患者的化验结果与影像检查。用 Grok 或同类工具搭过内部应用的团队，立即逐个检查发布设置并轮换已暴露的凭证。(<a href="https://www.qbitai.com/2026/11/509355.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+<li><div class="item-title">李彦宏：Token 越烧越多、利润却没涨，企业要重新设计组织</div><div class="item-body">百度创始人李彦宏在 2026 百度世界大会上称，不少企业 Token 花费持续增长、收入利润却不见涨，问题不在用了几个 AI 工具，而在没有围绕 AI 重新设计组织与业务流程；今年大会主题定为“下一幕：智能组织”。扩 Agent 投入前先算清 Token 投入产出与流程改造成本，别只按用量增长排预算。(<a href="https://www.infoq.cn/article/JPf7ud6wuk9fYmUDoMjo?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">英伟达私下确认可追踪芯片防走私</div><div class="item-body">MIT Technology Review 报道，英伟达私下确认其有能力追踪芯片以打击走私，尽管业界公开质疑这一做法的可行性。关注对华芯片管制的团队先把“技术上能追踪”与“政策上会追踪”分开，别直接推断出口管制会收紧。(<a href="https://www.technologyreview.com/2026/11/12/1148483/nvidia-chip-tracking/" target="_blank" rel="noopener">MIT Technology Review</a>，单信源）</div></li>
+</ul>
+<p class="body">本板块今日收录 10 条。</p></section><section class="tab-panel" id="s2" style="--sec:#10b981"><ul class="items">
+<li><div class="item-title">MiniMax 开源“源神”SOTA 生图模型<span class="hot-badge">🔥 热门</span></div><div class="item-body">多模态生图模型 H3-Image 开源，原生 4K，“CAD 拆解”玩法走红：丢一张参考图能把实物拆解成零件图并标注；厂商称一张两毛。做电商图、产品拆解图的团队先拿自家图实测出图质量与成本，别按演示效果直接排期。(<a href="https://www.qbitai.com/2026/11/509440.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+<li><div class="item-title">LLMON：LLM 原生标记语言，进 Granite 4.1 3B 与 8B</div><div class="item-body">IBM 在 Granite 4.1 中引入 LLMON，一种面向 LLM 的原生标记语言，用于在长轨迹上下文里结构化系统提示、历史对话、检索文档、工具返回与推理链。做长程 Agent 上下文组织的团队先读它的标记设计，对照自家上下文压缩方案再决定是否试。(<a href="https://huggingface.co/blog/ibm-granite/llmon-an-llm-native-markup-language-now-in-granite" target="_blank" rel="noopener">Hugging Face Blog</a>，单信源）</div></li>
+<li><div class="item-title">smolmaxxing：在 1GB 机顶盒与 2013 年 iPad Air 上跑 16B MoE</div><div class="item-body">HN 266 分、88 评论；小米电视盒子 3 代（1.9GB 内存、约 1GB 可用）跑 Qwen3.5-2B 约 7.7 tok/s、16B Ling-mini-2.0 约 5.1 tok/s，2013 年 iPad Air 跑 1-bit 模型 24–26 tok/s；靠 llama.cpp 补丁与 160 组实验记录。想在低端设备跑本地模型的团队，先按它的实验记录对照自家内存预算，别直接照搬 1-bit 量化当生产配置。</div><div class="item-src">来源：<a href="https://github.com/hyperionaidev/smolmaxxing/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">Rust 1.100 发布<span class="hot-badge">🔥 热门</span></div><div class="item-body">HN 332 分、141 评论，开发者关注新版语言与工具链变化。升级前先在 CI 跑一遍自家仓库的测试与 lint，别直接升生产工具链。</div><div class="item-src">来源：<a href="https://blog.rust-lang.org/2026/11/12/Rust-1.100.0/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">.NET 11 正式发布，C# 15 补上 union types</div><div class="item-body">11 月 10 日发布，STS 标准支持期、两年支持，.NET 10 仍是 LTS；C# 15 终于加入 union types，解决“要么返回结果、要么返回错误”的表达问题。升级前先确认自家依赖是否支持 STS 版本，别把 LTS 项目直接切过去。(<a href="https://www.oschina.net/news/503542/microsoft-announcing-dotnet-11" target="_blank" rel="noopener">开源中国</a>，单信源）</div></li>
+<li><div class="item-title">HF：3D 生成模型微调权威指南</div><div class="item-body">Hugging Face 博客给出 TRELLIS.2 的微调脚本与容器，可在自家 3D 资产上微调，本地与 HF Jobs 都能跑。做 3D 生成的团队先按指南跑一轮小规模微调验证流程，别直接上全量资产。(<a href="https://huggingface.co/blog/3d-lora-finetuning" target="_blank" rel="noopener">Hugging Face Blog</a>，单信源）</div></li>
+<li><div class="item-title">Show HN：AgentRun——开源、自改进的 Managed Agents</div><div class="item-body">HN 72 分、12 评论，开源的自改进托管 Agent 框架。想自托管 Agent 的团队先在沙箱里跑通一轮任务，确认改进机制可控再接生产。(<a href="https://github.com/Parcha-ai/agentrun/blob/main/README.md" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">Show HN：Cerulion——ROS 2 兼容的机器人运行时</div><div class="item-body">支持多进程回放的机器人运行时，兼容 ROS 2。做具身/机器人开发的团队先对照它的回放能力与自家调试流程，别直接替换现有运行时。(<a href="https://github.com/cerulion-inc/cerulion" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">Apple Foundation Models framework</div><div class="item-body">HN 89 分、12 评论，苹果的端侧基础模型框架文档。做 iOS 端侧 AI 功能的团队先读框架的模型调用与隐私约束，再决定是否接入。(<a href="https://developer.apple.com/foundation-models-framework/" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">谷歌采用 DPoP 增强 OAuth 2.0，抵御令牌窃取与重放</div><div class="item-body">谷歌 OAuth 平台新增对 DPoP 的支持，用非对称密钥把令牌绑定到客户端，令牌被盗也无法重放；目前仅对刷新令牌启用，短效访问令牌仍用标准持有者令牌。接谷歌 OAuth 的团队先确认自家刷新令牌流程是否兼容 DPoP，别等令牌被盗才补。(<a href="https://www.infoq.cn/article/FQHBH7cfSYPFUUdbmyui?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+</ul>
+<p class="body">本板块今日收录 10 条。</p></section><section class="tab-panel" id="s3" style="--sec:#8b5cf6"><ul class="items">
+<li><div class="item-title">Nectar 上线 AI Agent，自动做创作者发现与触达</div><div class="item-body">面向品牌的网红营销 Agent，自动发现创作者、管理触达与合作、追踪 campaign 结果。做创作者营销的团队先拿一个小 campaign 对照它与人工的触达转化率，别直接把全量预算切过去。(<a href="https://techcrunch.com/2026/11/12/nectar-launches-an-ai-agent-to-automate-creator-discovery-and-outreach-for-brands/" target="_blank" rel="noopener">TechCrunch</a>，单信源）</div></li>
+<li><div class="item-title">智能体 AI 架构中记忆、知识与上下文的系统化方案</div><div class="item-body">InfoQ 文章拆解 Agent 架构的瓶颈转移：难点不再是检索，而是决定 Agent 应该知道什么、何时知道、记住多久、何时遗忘，提出“上下文即控制平面”的范式。给 Agent 加记忆前先按“知道什么—何时知道—记住多久”三问审计自家上下文，别只堆检索。(<a href="https://www.infoq.cn/article/COuPKpA6rTf05C6JM10y?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">从“搜到知识”到“理解约束”：差旅 Agent 的业务语义与上下文工程</div><div class="item-body">AICon 北京分享，Agent 进入企业流程后，问题从“怎么做出来”变成“哪些工作能交出去、结果如何验收、权限与风险如何收住”，重心转向上下文、执行环境与反馈回路设计。把 Agent 接进企业流程前，先把验收标准与权限边界写成可执行规则，别只堆能力。(<a href="https://www.infoq.cn/article/V5Fwpg9gOBefx6xADcdd?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">我看了 300 个付费 n8n AI 模板，扒了定价与浏览规律</div><div class="item-body">作者拉取 n8n 公开模板 API，9,847 个模板中有 2,484 个 AI 模板，分析付费模板的定价与浏览量分布。想在 n8n 上卖模板或采购模板的团队，先按这份分布定价与选型，别只看头部模板的标价。(<a href="https://dev.to/druveai/i-looked-at-300-paid-n8n-ai-templates-here-is-what-people-charge-and-what-gets-looked-at-13i4" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">Claude Code 额度总在任务中途用完，我做了个 Linux 面板盯着它</div><div class="item-body">作者用 Claude Code、Antigravity 与 Copilot 时常在任务中途撞上限，于是做了 CotaBar Linux 面板，把各工具的用量集中显示。额度常在关键时刻用完的团队先给用量加告警与备用模型，别等任务断在中途。(<a href="https://dev.to/davicjc/i-kept-running-out-of-claude-code-quota-mid-task-so-i-put-the-limits-on-my-linux-panel-1472" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">怎么用 OpenTelemetry 追踪分析 Claude Code 编码会话</div><div class="item-body">作者团队每天用 Claude Code 构建 Agent 平台，会话变慢或结果不对时看不到中间发生了什么，于是用 OpenTelemetry 追踪记录命令执行与工具返回。调优编码 Agent 前先把会话追踪接上，别只凭对话记录猜瓶颈。(<a href="https://dev.to/manojnaidu_yandrapu_c4276/how-do-you-analyze-your-coding-sessions-with-opentelemetry-traces-from-claude-code-i08" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">AI 说 bug 修好了？先跑三项检查再信</div><div class="item-body">AI 编码助手说修好 bug 时，要三份证据：可复现的 bug、修前失败的回归测试、新鲜的测试输出；文章给出三条可复用的 skill 思路。把 AI 的“修好了”接入评审流程前，先把这三项检查写进验收清单，别只看它说修好了。(<a href="https://dev.to/skillpi/ai-says-the-bug-is-fixed-here-are-three-checks-to-run-1e0e" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">做一个语音克隆演示应用</div><div class="item-body">Dev.to 教程，讲如何搭建语音克隆演示应用。做语音克隆演示前先确认声音授权与使用边界，别拿真人声音直接上线演示。(<a href="https://dev.to/voice_developer/build-a-voice-cloning-demo-app-3dbc" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">Stack Overflow：结构化输出抽邮件数据丢值</div><div class="item-body">开发者用 OpenAI 结构化输出从邮件里抽 JSON 字段，遇到模型返回 null 或跳过原文中存在的值，严格 JSON Schema 下还伴随超时与空行输出问题。做邮件抽取的团队先在自家样本上对照宽松 schema 与严格 schema 的召回率，别直接上严格模式。(<a href="https://stackoverflow.com/questions/80016369/openai-structured-outputs-model-returns-null-or-skips-values-that-exist-in-the" target="_blank" rel="noopener">Stack Overflow</a>，单信源）</div></li>
+<li><div class="item-title">许愿一个跨 Harness Agent 与跨机器管理的应用</div><div class="item-body">V2EX 用户发布 myco，一个跨 Harness Agent 与跨机器管理的应用，欢迎体验。跑多个 Harness、多台机器的团队先在备用环境试它的管理能力，别直接把生产 Agent 交给它管。</div><div class="item-src">来源：<a href="https://www.v2ex.com/t/1256613#reply0" target="_blank" rel="noopener">V2EX</a>、<a href="https://github.com/chenhg5/myco" target="_blank" rel="noopener">GitHub</a></div></li>
+</ul>
+<p class="body">本板块今日收录 10 条。</p></section><section class="tab-panel" id="s4" style="--sec:#f59e0b"><ul class="items">
+<li><div class="item-title">Microsoft 365 大面积故障<span class="hot-badge">🔥 热门</span></div><div class="item-body">美东时间周四下午 1 点前开始，全球用户无法访问 Outlook 网页与客户端，微软确认部分基础设施多区域负载过高；HN 主帖 419 分、407 评论，另有 401 分的求证帖。依赖 Outlook 与 M365 连接器的团队先确认自家任务是否受影响并重跑失败项，别等用户报障。</div><div class="item-src">来源：<a href="https://www.theverge.com/tech/1032226/microsoft-outlook-is-down" target="_blank" rel="noopener">The Verge</a>、<a href="https://status.cloud.microsoft/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">谷歌终于让 PyTorch 原生跑上 TPU</div><div class="item-body">TorchTPU 是 Google 与 Meta 合作的开源项目，给 TPU 提供原生 PyTorch 后端，少量代码修改即可跑 PyTorch 工作负载，支持即时执行、编译执行、分布式计算与硬件专属优化；旧的 PyTorch/XLA 方案需侵入式改代码、编译延迟严重。在 TPU 上跑 PyTorch 的团队先拿现有工作负载对照 TorchTPU 的即时执行模式，别直接按 XLA 的旧经验排期。(<a href="https://www.infoq.cn/article/Fikt82HLToqb6ZANB2xj?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">苹果正在开发把 Mac 变成私有 AI 推理服务器的应用</div><div class="item-body">爆料人 Aaron Perris 11 月 10 日发现苹果内部 Mac 应用 Harbor，定位是把 Mac 变成私有 AI 推理服务器，在自家硬件上跑开源权重模型、数据不出机器。想本地跑开源模型的团队先等 Harbor 的正式发布与模型支持清单，别按爆料直接采购硬件。(<a href="https://www.oschina.net/news/503540/apple-new-mac-app-coming-to-make-running-local-ai-models-easy" target="_blank" rel="noopener">开源中国</a>，单信源）</div></li>
+<li><div class="item-title">22 年老 PostgreSQL bug 变成远程代码执行</div><div class="item-body">作者把一个 22 年的 PostgreSQL 类型混淆原语做成 RCE，编号 CVE-2026-6460；HN 126 分、14 评论。自托管 PostgreSQL 的团队先核对自家版本是否在影响范围并安排补丁，别等公开利用出现。</div><div class="item-src">来源：<a href="https://mehmetince.net/part-3-6-how-i-ended-up-turning-a-22-year-old-postgresql-type-confusion-primitive-into-rce-cve-2026-6460/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">AWS Lambda Web Functions 在最后请求后约 7 分钟仍按内存计费</div><div class="item-body">HN 64 分、28 评论，Lambda Web Functions 空闲后内存计费还会延续约 7 分钟。用 Lambda Web Functions 的团队先按自家调用模式算清这笔闲置成本，别只看单次调用价。(<a href="https://www.easel.sh/blog/lambda-web-functions-idle-memory" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">incident.io 的 AI 开支：人均月 4,500 美元降到 1,600 美元</div><div class="item-body">The Pragmatic Engineer 的 Pulse 栏目披露，这家弹性初创公司的 AI 开支已从 8 月的人均每月 4,500 美元降到现在的 1,600 美元。AI 开支失控的团队先按它的削减路径审计自家调用，别只调模型降价。(<a href="https://blog.pragmaticengineer.com/the-pulse-details-of-incident-ios-ai-spend/" target="_blank" rel="noopener">The Pragmatic Engineer</a>，单信源）</div></li>
+<li><div class="item-title">怎么按服务归因 AI Gateway 的支出</div><div class="item-body">Dev.to 文章讲用有状态 Actor 按服务归因 AI Gateway 的花费。多服务共用一个网关的团队先把支出归因接上，别等账单超了才分账。(<a href="https://dev.to/sonam_gupta_dba00ec9473e5/how-to-attribute-ai-gateway-spend-by-service-with-stateful-actors-cb7" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">PostgreSQL 18.7、17.12、16.16、15.20、14.25 与 19 RC 2 发布</div><div class="item-body">HN 100 分、12 评论，多版本补丁齐发，另有 19 RC 2。自托管 PostgreSQL 的团队先按自家版本对照补丁清单安排升级，别只升最新大版本。</div><div class="item-src">来源：<a href="https://www.postgresql.org/about/news/postgresql-187-1712-1616-1520-1425-and-19-rc-2-released-3442/" target="_blank" rel="noopener">Hacker News</a></div></li>
+</ul>
+<p class="body">本板块今日偏少，仅收录 8 条。本角度无专用 RSS 源，条目来自通用 feed 与 HN/Dev.to 交叉。</p></section><section class="tab-panel" id="s5" style="--sec:#f43f5e"><p class="body">注：arXiv 三库本窗口 0 篇；周四批次约 11 月 13 日 09:00（北京时间）公布，晚于本期窗口；以下为 HN 上的研究报告与讨论。</p>
+<ul class="items">
+<li><div class="item-title">中国前沿模型被指带有出口管制 GPU 指纹</div><div class="item-body">Unemployment Labs 的检查点取证报告称，多个中国前沿模型的检查点带有出口管制 GPU 的指纹特征；HN 96 分、23 评论。引用该报告时先读方法部分，把“指纹匹配”与“训练证据”分开说，别直接写成违规结论。(<a href="https://unemploymentlabs.com/checkpoint-forensics" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">AI 模型知道“妇女、和平与安全”是什么，只是不主动提</div><div class="item-body">博客文章指出，模型对“妇女、和平与安全”议题有知识，只是在对话中不会主动提起；HN 21 分、25 评论。做模型行为评估的团队先把“知道但不提”列入评测维度，别只测知识覆盖。(<a href="https://blog.cip.org/p/ai-models-know-what-women-peace-and" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+</ul>
+<p class="body">本板块今日偏少，仅收录 2 条。</p></section><section class="tab-panel" id="s6" style="--sec:#06b6d4"><ul class="items">
+<li><div class="item-title">HN 黄仁勋辞职<span class="hot-badge">🔥 热门</span></div><div class="item-body">主帖 2,765 分、2,634 评论，HN 当日最热；评论主线是间谍指控、出口管制与英伟达治理，官方通告未给原因。读评论时把猜测与已确认事实分开，别把 HN 的阴谋论当新闻。</div><div class="item-src">来源：<a href="https://apnews.com/article/nvidia-megaspeed-china-singapore-huang-5403f152a601cf82ce939f1d24fffa0f" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN Anthropic IPO<span class="hot-badge">🔥 热门</span></div><div class="item-body">主帖 790 分、784 评论，IPO 专页上线、路演进行中；评论主线是估值、上市时间与对开源路线的影响。看讨论时把路演宣传与招股文件里的硬数字分开，别按评论区的估值争论做判断。</div><div class="item-src">来源：<a href="https://ipo.anthropic.com/us/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN Gemini 4 Hydrogen 讨论<span class="hot-badge">🔥 热门</span></div><div class="item-body">主帖 435 分、282 评论，开发者关注定价、终端基准的实际表现与从 3.8 Flash 替换的成本。先看评论区的实测反馈再决定是否切量。</div><div class="item-src">来源：<a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN 任天堂 DMCA 清理 200+ Switch 项目<span class="hot-badge">🔥 热门</span></div><div class="item-body">263 分、203 评论；11 月 6–9 日 4 份通知下架约 217 个仓库，包括改机芯片固件与模拟器副本，首次针对改机芯片固件。做模拟器或硬件改机相关开发的团队先确认自家仓库是否在通知范围内，别等下架才备份。</div><div class="item-src">来源：<a href="https://www.ign.com/articles/nintendo-takes-down-switch-emulators-and-mod-chip-firmware-in-massive-github-dmca-sweep" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN：数据中心要电，低收入农村居民买单<span class="hot-badge">🔥 热门</span></div><div class="item-body">164 分、165 评论，康奈尔报道：数据中心用电成本正转嫁给低收入与农村居民。规划算力选址的团队先把电价与社区成本算进选址模型，别只看机房租金。</div><div class="item-src">来源：<a href="https://news.cornell.edu/stories/2026/11/data-centers-need-power-lower-income-rural-residents-pay-price" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN：经济学人——为什么该预期一场 AI 崩盘</div><div class="item-body">72 分、40 评论，经济学人社论认为 AI 投资热可能迎来调整。读的时候把“估值回调”与“技术停滞”分开，别把一篇社论当成行业拐点。</div><div class="item-src">来源：<a href="https://www.economist.com/leaders/2026/11/12/why-you-should-expect-an-ai-crash" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">跟进：AI Agent 发现玛雅遗址是乌龙，遗址去年已发表</div><div class="item-body">昨日 B 稿收的是“作者称自己的 AI Agent 找到一处未标注的玛雅遗址”；新进展是 The Verge 核查发现，该遗址去年已发表在学术期刊上，并非未标注的新发现。把 Agent 的“发现类”输出一律当未验证线索处理，引用前先找领域专家复核，别直接写进报告或立项依据。(<a href="https://www.theverge.com/ai-artificial-intelligence/1032125/ai-agents-maya-site-archeology-discovery" target="_blank" rel="noopener">The Verge</a>，单信源）</div></li>
+<li><div class="item-title">跟进：Claude KYC 封号潮，V2EX 众生相</div><div class="item-body">Anthropic 地区限制生效首日，V2EX 出现一波封号帖：有人任务中途突然被弹 KYC，有人称删号重注册后 KYC 消失（free 账号），有人问被封后退款未到账；另有用户称走 Apple ID 注册现在要海外手机号验证、一号一机。仍在用 Claude 的国内开发者先确认账号状态，别在封号后才找替代。</div><div class="item-src">来源：<a href="https://www.v2ex.com/t/1256603#reply10" target="_blank" rel="noopener">V2EX</a>、<a href="https://www.v2ex.com/t/1256636#reply1" target="_blank" rel="noopener">V2EX</a>、<a href="https://www.v2ex.com/t/1256591#reply4" target="_blank" rel="noopener">V2EX</a></div></li>
+<li><div class="item-title">V2EX：Gemini 4 Hydrogen 替换 3.8 Flash，Carbon 重回 T1</div><div class="item-body">有用户称 Hydrogen 已替换 3.8 Flash 位置，速度约 2.5 倍但 API 单价翻了一倍；另有用户称 Gemini 4 Carbon 开放后重回 T1 级 coding 能力，已退订 GPT、用上 Gemini Ultra。切模型前先拿自家任务实测 Carbon 与 Hydrogen 的性价比，别跟风退订。</div><div class="item-src">来源：<a href="https://www.v2ex.com/t/1256643#reply1" target="_blank" rel="noopener">V2EX</a>、<a href="https://www.v2ex.com/t/1256628#reply5" target="_blank" rel="noopener">V2EX</a></div></li>
+<li><div class="item-title">OpenAI 论坛：上下文窗口满的投诉集中爆发</div><div class="item-body">三帖同日集中抱怨 ChatGPT 过早触顶上下文、永久锁定长对话：写作者丢了人物与剧情设定，开发者反复重建技术上下文；诉求是加上下文用量表与一键续写。长对话承载重要项目的用户先定期把关键上下文备份到外部文档，别等锁定后才抢救。</div><div class="item-src">来源：<a href="https://community.openai.com/t/the-context-window-full-issue-is-abserious-problem-and-needs-a-solution/1415655" target="_blank" rel="noopener">OpenAI 开发者论坛</a>、<a href="https://community.openai.com/t/feature-request-stop-killing-long-conversations-without-warning-add-a-context-meter-and-one-click-continuation/1415642" target="_blank" rel="noopener">OpenAI 开发者论坛</a>、<a href="https://community.openai.com/t/chatgpts-premature-context-limits-are-disrupting-development-work-and-causing-repeated-loss-of-productivity/1415630" target="_blank" rel="noopener">OpenAI 开发者论坛</a></div></li>
+</ul>
+<p class="body">本板块今日收录 10 条。</p></section>
+  </div>
+</div></main>
+</div>
+<script>
+(function(){
+  var btns=Array.prototype.slice.call(document.querySelectorAll('.sections button'));
+  var panels=Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
+  var secTitle=document.getElementById('secTitle');
+  var secDesc=document.getElementById('secDesc');
+  var secData=[["今日热点", "#ff5a36", ""], ["模型与 API", "#3b82f6", ""], ["开源与工具链", "#10b981", ""], ["Agent 与应用开发", "#8b5cf6", ""], ["部署与推理优化", "#f59e0b", ""], ["研究前沿", "#f43f5e", ""], ["社区热议", "#06b6d4", ""]];
+  if(!btns.length||!panels.length)return;
+  function show(i,hash){
+    btns.forEach(function(b,j){b.classList.toggle('active',j===i);});
+    panels.forEach(function(p,j){p.style.display=j===i?'':'none';});
+    if(secTitle&&secData[i]){secTitle.textContent=secData[i][0];secTitle.style.setProperty('--sec',secData[i][1]);}
+    if(secDesc&&secData[i]){var nt=secData[i][2]||'';secDesc.innerHTML=nt?'<p>'+nt+'</p>':'';secDesc.style.display=nt?'':'none';secDesc.style.setProperty('--sec',secData[i][1]);}
+    if(hash!==false){try{history.replaceState(null,'','#s'+i);}catch(e){}}
+    var cs=document.getElementById('contentScroll');
+    if(window.matchMedia('(max-width:920px)').matches){var hc=document.querySelector('.head-card');if(hc)hc.scrollIntoView({block:'start'});}
+    else{window.scrollTo(0,0);}
+    if(cs)cs.scrollTo(0,0);
+  }
+  btns.forEach(function(b,i){b.addEventListener('click',function(){show(i);});});
+  var m=location.hash.match(/#s(\d+)/),init=m?Math.min(parseInt(m[1],10),btns.length-1):0;
+  show(init,false);
+})();
+</script>
+</body>
+</html>
