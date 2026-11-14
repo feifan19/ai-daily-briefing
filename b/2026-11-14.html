@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-11-14 · AI 每日简报 · B</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f1f5f9;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--code-bg:#f1f5f9;
+  --acc:#3b82f6;
+  --sidebar-bg:#0f172a;--side-text:#e2e8f0;--side-muted:#94a3b8;
+  --shadow:0 1px 2px rgba(15,23,42,.05);
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0a0e15;--card:#121826;--text:#e6ebf2;--muted:#8b98ab;--border:#223047;--code-bg:#0a0e15;
+  --sidebar-bg:#070a10;--side-text:#dbe3ee;--side-muted:#7d8ba1;
+  --shadow:0 1px 2px rgba(0,0,0,.4);}
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.75;overflow:hidden}
+.layout{display:flex;max-width:1280px;margin:0 auto;height:100vh;padding:16px 0}
+/* ---------- sidebar ---------- */
+.sidebar{width:300px;flex:0 0 300px;color:var(--side-text);height:100%;overflow-y:auto;border-radius:18px;padding:30px 22px;display:flex;flex-direction:column;
+  background:
+    radial-gradient(560px 280px at 12% 0%, rgba(99,102,241,.17), transparent 60%),
+    radial-gradient(480px 380px at 95% 100%, rgba(236,72,153,.1), transparent 60%),
+    var(--sidebar-bg);}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.brand-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#3b82f6,#8b5cf6 55%,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:17px;flex:0 0 42px;box-shadow:0 4px 16px rgba(139,92,246,.45)}
+.brand-title{font-size:19px;font-weight:700;letter-spacing:.02em;color:#fff}
+.brand-sub{font-size:12px;color:var(--side-muted);margin-top:2px}
+.side-meta{font-size:12px;color:var(--side-muted);line-height:1.7;margin:10px 2px 0;padding:10px 12px;background:rgba(148,163,184,.08);border:1px dashed rgba(148,163,184,.25);border-radius:10px}
+.side-label{font-size:11px;letter-spacing:.14em;color:var(--side-muted);margin:18px 4px 8px;font-weight:600}
+.variant-switch{display:flex;gap:6px;margin:14px 2px 0}
+.variant-switch a{flex:1;text-align:center;font-size:12.5px;font-weight:600;color:var(--side-muted);background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.18);border-radius:9px;padding:7px 4px;text-decoration:none}
+.variant-switch a:hover{color:var(--side-text);background:rgba(148,163,184,.14)}
+.variant-switch a.cur{color:#fff;background:rgba(59,130,246,.55);border-color:rgba(59,130,246,.8)}
+.sections{display:flex;flex-direction:column;gap:4px}
+.sections button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:10px;padding:10px 12px;color:var(--side-text);font-size:14.5px;cursor:pointer;font-family:inherit;transition:background .12s,border-color .12s}
+.sections button svg{width:17px;height:17px;color:var(--sec);flex:0 0 17px}
+.sections button .cnt{margin-left:auto;font-size:11.5px;color:var(--side-muted);background:rgba(148,163,184,.15);border-radius:999px;padding:1px 9px}
+.sections button:hover{background:rgba(148,163,184,.1)}
+.sections button.active{background:color-mix(in srgb,var(--sec) 17%,transparent);border-color:color-mix(in srgb,var(--sec) 48%,transparent)}
+.sections button.active .sec-name{color:#fff;font-weight:600}
+.sections button.active .cnt{background:color-mix(in srgb,var(--sec) 32%,transparent);color:#fff}
+.archive-list{display:flex;flex-direction:column;gap:2px;max-height:200px;overflow-y:auto}
+.archive-list a{color:var(--side-muted);font-size:13.5px;padding:7px 12px;border-radius:8px;text-decoration:none;transition:background .12s}
+.archive-list a:hover{color:var(--side-text);background:rgba(148,163,184,.1)}
+.archive-list a.cur{color:#fff;background:rgba(148,163,184,.18);font-weight:600}
+.stats{display:flex;gap:10px;margin:20px 2px 0}
+.stats>div{flex:1;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.14);border-radius:12px;padding:10px 6px;text-align:center}
+.stats b{display:block;font-size:20px;color:#fff;font-weight:700}
+.stats span{font-size:11px;color:var(--side-muted)}
+.side-foot{margin-top:auto;padding-top:22px;font-size:12px;color:var(--side-muted);line-height:1.7}
+/* ---------- content ---------- */
+.content{flex:1;min-width:0;height:100%;min-height:0}
+.content-col{max-width:880px;margin:0 auto;height:100%;display:flex;flex-direction:column;min-height:0;padding:0 36px}
+.content-bar{display:none}
+.head-card{flex:0 0 auto;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.1);padding:18px 34px;margin-bottom:16px}
+.sec-desc{flex:0 0 auto;margin-bottom:14px;padding:10px 16px;background:color-mix(in srgb,var(--sec) 6%,var(--card));border:1px dashed color-mix(in srgb,var(--sec) 30%,var(--border));border-radius:12px;font-size:13px;line-height:1.7;color:var(--muted)}
+.sec-desc p{margin:0}
+.content-scroll{flex:1;min-height:0;overflow-y:auto;padding:0 8px 24px;scrollbar-width:thin;scrollbar-color:#cbd5e1 transparent}
+.content-scroll::-webkit-scrollbar{width:8px}
+.content-scroll::-webkit-scrollbar-track{background:transparent}
+.content-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+@media(prefers-color-scheme:dark){.content-scroll{scrollbar-color:#334155 transparent}.content-scroll::-webkit-scrollbar-thumb{background:#334155}}
+.top{padding:2px 0}
+.top h1{font-size:27px;font-weight:750;letter-spacing:.01em;display:flex;align-items:center;gap:12px}
+.top h1::before{content:"";width:11px;height:26px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec);flex:0 0 auto}
+.tab-panel{animation:fade .18s ease}
+@keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+ul.items{list-style:none}
+ul.items li{background:color-mix(in srgb,var(--acc) 8%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 18%,var(--border));border-radius:12px;box-shadow:var(--shadow);padding:16px 22px;margin:12px 0;transition:box-shadow .15s,transform .15s}
+ul.items li:hover{box-shadow:0 8px 22px rgba(15,23,42,.12);transform:translateY(-1px)}
+ul.items li p.note{color:var(--muted);font-size:13px}
+ul.items li:has(p.note){background:none;border:none;box-shadow:none;padding:6px 4px}
+ul.items li:has(p.note):hover{box-shadow:none;transform:none}
+.item-title{font-weight:650;font-size:15.5px;line-height:1.65;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--acc) 22%,var(--border))}
+.hot-badge{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;background:rgba(255,90,54,.14);color:#ff5a36;font-size:12px;font-weight:700;vertical-align:1px;white-space:nowrap}
+.item-body{font-size:14.5px}
+.item-src{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:flex-end;margin-top:12px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--acc) 22%,var(--border));font-size:12.5px;color:var(--muted);text-align:right}
+.item-src a{margin-right:10px;white-space:nowrap}
+p.body{margin:10px 0;font-size:15px}
+a{color:#3b82f6;text-decoration:none}
+@media(prefers-color-scheme:dark){a{color:#8aa8ff}}
+a:hover{text-decoration:underline}
+code{background:var(--code-bg);border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:.86em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#4f46e5}
+@media(prefers-color-scheme:dark){code{color:#a5b4fc}}
+strong{font-weight:650}
+@media(max-width:920px){
+  body{overflow:auto;height:auto}
+  .layout{display:block;height:auto;padding:0}
+  .sidebar{position:static;width:auto;height:auto;border-radius:0;padding:20px 16px 14px}
+  .brand{margin-bottom:8px}
+  .side-label{margin:12px 4px 6px}
+  .sections{flex-direction:row;flex-wrap:wrap;overflow:visible;padding-bottom:6px;gap:8px}
+  .sections button{flex:0 0 auto;width:auto}
+  .archive-list{flex-direction:row;overflow-x:auto;max-height:none;padding-bottom:4px}
+  .archive-list a{white-space:nowrap}
+  .side-foot{display:none}
+  .content{height:auto}
+  .content-col{display:block;height:auto;padding:0 14px 70px}
+  .head-card{position:static;padding:20px 20px 18px;margin-bottom:16px}
+  .content-scroll{overflow:visible;padding:0}
+  .tab-panel{padding:0}
+  ul.items li{padding:14px 16px}
+  .top{padding-top:24px}
+  .top h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">AI</div><div><div class="brand-title">AI 每日简报 · B</div></div></div>
+  <nav class="variant-switch"><a href="/ai-daily-briefing/" class="">A · 现有方案</a><a href="/ai-daily-briefing/b/" class="cur">B · RSS 采集</a></nav>
+  <div class="side-meta">B · feedparser + trafilatura + RSSHub<br>收集窗口：11 月 13 日 08:00 – 11 月 14 日 08:00（北京时间）</div>
+  <div class="side-label">板块</div>
+  <nav class="sections"><button data-tab="0" style="--sec:#ff5a36" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg><span class="sec-name">今日热点</span><span class="cnt">10</span></button><button data-tab="1" style="--sec:#3b82f6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg><span class="sec-name">模型与 API</span><span class="cnt">10</span></button><button data-tab="2" style="--sec:#10b981" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sec-name">开源与工具链</span><span class="cnt">9</span></button><button data-tab="3" style="--sec:#8b5cf6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.8 4.6 1.2-4.6 1.2L12 15l-1.9-4.8L5.5 9l4.6-1.2z"/><path d="M19 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg><span class="sec-name">Agent 与应用开发</span><span class="cnt">12</span></button><button data-tab="4" style="--sec:#f59e0b" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span class="sec-name">部署与推理优化</span><span class="cnt">7</span></button><button data-tab="5" style="--sec:#f43f5e" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5.2 9.4A2 2 0 0 0 6.6 21h10.8a2 2 0 0 0 1.8-2.6L14 9V3"/><path d="M7.6 14h8.8"/></svg><span class="sec-name">研究前沿</span><span class="cnt">5</span></button><button data-tab="6" style="--sec:#06b6d4" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><span class="sec-name">社区热议</span><span class="cnt">10</span></button></nav>
+  <div class="side-label">往期归档</div>
+  <nav class="archive-list"><a href="2026-11-14.html" class="cur">2026-11-14</a><a href="2026-11-13.html">2026-11-13</a><a href="2026-11-12.html">2026-11-12</a><a href="2026-11-11.html">2026-11-11</a><a href="2026-11-10.html">2026-11-10</a><a href="2026-11-09.html">2026-11-09</a><a href="2026-11-08.html">2026-11-08</a><a href="2026-11-07.html">2026-11-07</a><a href="2026-11-06.html">2026-11-06</a></nav>
+  <div class="stats"><div><b>9</b><span>收录期数</span></div><div><b>549</b><span>累计条目</span></div></div>
+  <div class="side-foot">内容由 AI 收集整理，仅供参考<br>每天 8 点（北京时间）自动更新</div>
+</aside>
+<main class="content"><div class="content-col">
+  <div class="head-card">
+    <header class="top"><h1 id="secTitle" style="--sec:#ff5a36">今日热点</h1></header>
+  </div>
+  <div class="sec-desc" id="secDesc" style="--sec:#ff5a36;display:none"></div>
+  <div class="content-scroll" id="contentScroll">
+  <section class="tab-panel" id="s0" style="--sec:#ff5a36"><ul class="items">
+<li><div class="item-title">跟进：黄仁勋辞职后续<span class="hot-badge">🔥 热门</span></div><div class="item-body">英伟达员工请愿要求请回黄仁勋，HN 主帖 787 分、645 评论；TechCrunch 梳理事件时间线；另有报道称黄仁勋辞职前承认面临晶圆与内存过剩“雪崩”，Arm CEO Haas 已被接触接任，Kress 被曝曾被黄仁勋形容为“受惊的小鹿”；以色列 VC 认为动荡给挑战者留出机会。这是该故事连续第 3 天有实质新进展。Q3 财报电话会定于 11 月 17 日，依赖英伟达路线图做采购与算力规划的团队先把该会列入必看，别在交接期锁定长期采购承诺。</div><div class="item-src">来源：<a href="https://www.wired.com/story/nvidia-employees-petition-for-jensen-huangs-return/" target="_blank" rel="noopener">Wired</a>、<a href="https://techcrunch.com/2026/11/13/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://techcrunch.com/2026/11/13/jensen-huang-didnt-show-confidence-in-his-successor-report-says/" target="_blank" rel="noopener">TechCrunch</a></div></li>
+<li><div class="item-title">OpenAI 发布 ChatGPT Wallet<span class="hot-badge">🔥 热门</span></div><div class="item-body">Agent 付款但不接触用户真实卡号，用户加一次卡、每笔购买须生物识别确认，支付网络发一次性支付 token；初期仅限美国 ChatGPT Pro 用户，经 dots（Agent 功能）使用；同步发布 Commerce Partner Playbook，商家须认领企业信息并上传商品 feed。OpenAI 官方博客、The Verge 与 TechCrunch 三家同报。做 Agent 电商的商家先按 Playbook 认领企业信息并上传商品 feed，别等 Agent 订单被风控误拒才排查。</div><div class="item-src">来源：<a href="https://openai.com/index/introducing-chatgpt-wallet" target="_blank" rel="noopener">OpenAI</a>、<a href="https://www.theverge.com/ai-artificial-intelligence/1033425/openai-chatgpt-wallet" target="_blank" rel="noopener">The Verge</a>、<a href="https://techcrunch.com/2026/11/13/chatgpts-new-wallet-lets-ai-agents-shop-and-check-out-for-you/" target="_blank" rel="noopener">TechCrunch</a></div></li>
+<li><div class="item-title">Claude 登录认证故障约 2 小时<span class="hot-badge">🔥 热门</span></div><div class="item-body">11 月 13 日约 17:58–19:58（北京时间），claude.ai、Claude Code 与 platform.claude.com 登录报错激增，status.claude.com 列 Major Outage；HN 主帖 482 分、382 评论；Claude API 全程正常。依赖 Claude Code 做生产调用的团队，把登录态异常与 API 异常分开告警，别在登录故障时误判为模型服务中断。(<a href="https://status.claude.com/incidents/nn11wk485zfn" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">跟进：微软 Outlook/365 大面积故障逾 12 小时<span class="hot-badge">🔥 热门</span></div><div class="item-body">11 月 12 日爆发后持续近两日，The Verge 称 11 月 13 日服务开始恢复、部分功能仍降级；HN 主帖 458 分、303 评论。把 M365 当关键依赖的团队，先确认自家租户的各项服务是否已恢复，别只看 Outlook 恢复就解除告警。</div><div class="item-src">来源：<a href="https://www.theverge.com/tech/1032862/microsoft-outlook-down-outage" target="_blank" rel="noopener">The Verge</a>、<a href="https://twitter.com/MSFT365Status/status/2121079061774491735" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">字节 Seedream 5.5 发布<span class="hot-badge">🔥 热门</span></div><div class="item-body">同一张图可连续改图 100 轮、每轮接着上一轮结果改，能单独动戒指、镜框等小物件；新增 Alpha 通道透明底输出，半透明边缘与淡阴影可保留；国内旗舰生图模型正式发布，按新规则标 🔥。做贴纸、商品图或游戏素材的团队，先拿自家图实测 100 轮改图的稳定性与透明底叠加效果，别按演示直接排期。(<a href="https://www.v2ex.com/t/1256927#reply0" target="_blank" rel="noopener">V2EX</a>，单信源）</div></li>
+<li><div class="item-title">AI 正在摧毁作者与读者的信任<span class="hot-badge">🔥 热门</span></div><div class="item-body">大西洋月刊文章称 AI 生成的文学骗局正在冲击图书市场；HN 主帖 304 分、193 评论。做内容平台或出版相关产品的团队，先把 AI 生成内容的标识与核验机制列入计划，别等信任崩了再补。(<a href="https://www.theatlantic.com/books/2026/11/ai-literary-scams-amazon/689391/" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">AI 解锁哥德尔手稿，据称含数百个已证明定理<span class="hot-badge">🔥 热门</span></div><div class="item-body">Guardian 11 月 13 日文章称 AI 帮助解读哥德尔未发表手稿；HN 主帖 302 分、88 评论。当作 AI 辅助数学史研究案例，别当通用推理能力证据。(<a href="https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">OpenAI 解散独立机器人团队：通用模型已能直接驱动机器人</div><div class="item-body">Fortune 11 月 13 日报道、OpenAI 确认；机器人研究团队并入主研究团队，应用与硬件团队并入 Applied 组织；理由是通用模型（含 GPT-6 Astra）已可直接驱动机器人，英伟达 RoboLab-120 模拟抓取基准中 Astra 驱动的 Agent 成功率 74.8%，最佳专用机器人模型 Lakeside 为 51.0%。做具身智能的团队先对照 RoboLab-120 的评测口径，评估通用模型替代专用模型的可行性再排路线。(<a href="https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">跟进：中国前沿模型被指带有出口管制 GPU 指纹</div><div class="item-body">昨日 B 稿收的是 Unemployment Labs 的检查点取证报告；新进展是 TechCrunch 报道该研究，称中国最先进的模型由被禁运的英伟达芯片训练。引用时先读方法部分，把“指纹匹配”与“训练证据”分开说，别直接写成违规结论。(<a href="https://techcrunch.com/2026/11/13/export-banned-nvidia-chips-are-behind-chinas-most-powerful-ai-models-uh-oh-jensen/" target="_blank" rel="noopener">TechCrunch</a>，单信源）</div></li>
+<li><div class="item-title">大厂总会让人失望<span class="hot-badge">🔥 热门</span></div><div class="item-body">博客文章结合微软宕机等事件，批评大厂服务可靠性；HN 主帖 196 分、171 评论。把单云关键路径列入故障演练清单，别等下一次宕机才发现没有备用路径。(<a href="https://blog.jsweeting.me/big-tech-is-here-to-let-us-down" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+</ul></section><section class="tab-panel" id="s1" style="--sec:#3b82f6"><ul class="items">
+<li><div class="item-title">OpenAI 发布 ChatGPT Wallet<span class="hot-badge">🔥 热门</span></div><div class="item-body">Agent 付款但不接触用户真实卡号，用户加一次卡、每笔购买须生物识别确认，支付网络发一次性支付 token；初期仅限美国 ChatGPT Pro 用户，经 dots（Agent 功能）使用；同步发布 Commerce Partner Playbook，商家须认领企业信息并上传商品 feed。OpenAI 官方博客、The Verge 与 TechCrunch 三家同报。做 Agent 电商的商家先按 Playbook 认领企业信息并上传商品 feed，别等 Agent 订单被风控误拒才排查。</div><div class="item-src">来源：<a href="https://openai.com/index/introducing-chatgpt-wallet" target="_blank" rel="noopener">OpenAI</a>、<a href="https://www.theverge.com/ai-artificial-intelligence/1033425/openai-chatgpt-wallet" target="_blank" rel="noopener">The Verge</a>、<a href="https://techcrunch.com/2026/11/13/chatgpts-new-wallet-lets-ai-agents-shop-and-check-out-for-you/" target="_blank" rel="noopener">TechCrunch</a></div></li>
+<li><div class="item-title">跟进：黄仁勋辞职后续<span class="hot-badge">🔥 热门</span></div><div class="item-body">英伟达员工请愿要求请回黄仁勋，HN 主帖 787 分、645 评论；TechCrunch 梳理事件时间线；另有报道称黄仁勋辞职前承认面临晶圆与内存过剩“雪崩”，Arm CEO Haas 已被接触接任，Kress 被曝曾被黄仁勋形容为“受惊的小鹿”；以色列 VC 认为动荡给挑战者留出机会。这是该故事连续第 3 天有实质新进展。Q3 财报电话会定于 11 月 17 日，依赖英伟达路线图做采购与算力规划的团队先把该会列入必看，别在交接期锁定长期采购承诺。</div><div class="item-src">来源：<a href="https://www.wired.com/story/nvidia-employees-petition-for-jensen-huangs-return/" target="_blank" rel="noopener">Wired</a>、<a href="https://techcrunch.com/2026/11/13/nvidia-ceo-jensen-huangs-affair-with-alleged-chinese-spy-a-timeline/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://techcrunch.com/2026/11/13/jensen-huang-didnt-show-confidence-in-his-successor-report-says/" target="_blank" rel="noopener">TechCrunch</a></div></li>
+<li><div class="item-title">字节 Seedream 5.5 发布<span class="hot-badge">🔥 热门</span></div><div class="item-body">同一张图可连续改图 100 轮、每轮接着上一轮结果改，能单独动戒指、镜框等小物件；新增 Alpha 通道透明底输出，半透明边缘与淡阴影可保留；国内旗舰生图模型正式发布，按新规则标 🔥。做贴纸、商品图或游戏素材的团队，先拿自家图实测 100 轮改图的稳定性与透明底叠加效果，别按演示直接排期。(<a href="https://www.v2ex.com/t/1256927#reply0" target="_blank" rel="noopener">V2EX</a>，单信源）</div></li>
+<li><div class="item-title">OpenAI 解散独立机器人团队：通用模型已能直接驱动机器人</div><div class="item-body">Fortune 11 月 13 日报道、OpenAI 确认；机器人研究团队并入主研究团队，应用与硬件团队并入 Applied 组织；理由是通用模型（含 GPT-6 Astra）已可直接驱动机器人，英伟达 RoboLab-120 模拟抓取基准中 Astra 驱动的 Agent 成功率 74.8%，最佳专用机器人模型 Lakeside 为 51.0%。做具身智能的团队先对照 RoboLab-120 的评测口径，评估通用模型替代专用模型的可行性再排路线。(<a href="https://fortune.com/2026/11/13/openai-disbands-robotics-team-as-its-general-models-start-running-robots/" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">Perplexity 发布 Decider v1.3：披露训练、评测与用例</div><div class="item-body">HN 87 分、18 评论。做搜索/问答 Agent 选型时，对照其评测方法再决定是否接入，别只看发布文案。(<a href="https://www.perplexity.ai/hub/blog/perplexity-decider" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">ElevenLabs 新应用：会议记录与听写合一，面向团队</div><div class="item-body">ElevenAI 是面向团队与企业的新应用，会议记录与听写功能合一；近几个月 Fireflies、Wispr Flow、Granola 都推出了同类能力。选型前先拿自家会议场景对照三家的转写准确率与价格，别只看功能清单。(<a href="https://techcrunch.com/2026/11/13/elevenlabs-new-app-combines-meeting-note-taking-and-dictation-for-teams/" target="_blank" rel="noopener">TechCrunch</a>，单信源）</div></li>
+<li><div class="item-title">谷歌 Gemini Glasses 开启预售，395 美元、支持 iPhone</div><div class="item-body">首款集成 AI 的智能眼镜，支持 iPhone，谷歌直接进入混合现实可穿戴市场。买前先确认眼镜的 Gemini 功能在国内网络环境下是否可用，别只看硬件参数下单。(<a href="https://dev.to/rriostrujillo/google-launches-gemini-glasses-for-pre-order-at-395-and-they-work-with-iphone-27ei" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">跟进：中国前沿模型被指带有出口管制 GPU 指纹</div><div class="item-body">昨日 B 稿收的是 Unemployment Labs 的检查点取证报告；新进展是 TechCrunch 报道该研究，称中国最先进的模型由被禁运的英伟达芯片训练。引用时先读方法部分，把“指纹匹配”与“训练证据”分开说，别直接写成违规结论。(<a href="https://techcrunch.com/2026/11/13/export-banned-nvidia-chips-are-behind-chinas-most-powerful-ai-models-uh-oh-jensen/" target="_blank" rel="noopener">TechCrunch</a>，单信源）</div></li>
+<li><div class="item-title">Anthropic 无预警砍掉 Claude Code 功能，用户不满</div><div class="item-body">GitHub issue 称 Anthropic 悄悄移除了用户已在使用的 Claude Code 功能且未提前通知；HN 26 分、7 评论。依赖 Claude Code 特定功能的团队先锁定版本并检查自家工作流是否受影响，别等升级后才发现功能没了。(<a href="https://github.com/anthropics/claude-code/issues/109446" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">V2EX：转战 Gemini，Antigravity 里仍可用 Opus 5.5</div><div class="item-body">有用户称已从 Claude 转投 Gemini，同时在 Antigravity 里仍能用上 Opus 5.5。切模型前先核对自家用量与额度，别跟风退订。(<a href="https://www.v2ex.com/t/1256941#reply11" target="_blank" rel="noopener">V2EX</a>，单信源）</div></li>
+</ul>
+<p class="body">本板块今日收录 10 条。</p></section><section class="tab-panel" id="s2" style="--sec:#10b981"><ul class="items">
+<li><div class="item-title">llama.cpp v1.0.0：本地 AI 生态更稳固的基础</div><div class="item-body">HF 博客介绍 llama.cpp 1.0.0，可在消费级本地硬件到高端企业服务器上跑多模态 LLM。升级前先在目标硬件上回归量化精度，别直接升生产。(<a href="https://huggingface.co/blog/ggml-org/llama-cpp-v1" target="_blank" rel="noopener">Hugging Face Blog</a>，单信源）</div></li>
+<li><div class="item-title">开源 Browser Hands：让 Codex/Cursor 用上 Claude 官方插件级浏览器操作</div><div class="item-body">作者开源的 Chrome 扩展工具，让 Agent 在已登录的 Chrome 里自动填表、点后台、查资料；演示为 20 秒自动填 Product Hunt 提交表单。接进工作流前先在沙箱验证其操作权限，别直接给生产浏览器。(<a href="https://www.v2ex.com/t/1256953#reply0" target="_blank" rel="noopener">V2EX</a>，单信源）</div></li>
+<li><div class="item-title">无界前沿开源 Fx-Bio-1031，把 RSI 带进生命科学</div><div class="item-body">高难盲测中超越 GPT-6-Astra 与 Opus-5，数据不出域、本地可部署。做生命科学 Agent 的团队先拿自家任务复测盲测口径，别只看榜单排名。(<a href="https://www.qbitai.com/2026/11/509663.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+<li><div class="item-title">写《Python 之禅》的 Tim Peters 去世</div><div class="item-body">Python 创始人 Guido van Rossum 在官方论坛发帖悼念，Tim Peters 于今年 7 月 15 日去世，享年 74 岁；他最广为人知的是《Python 之禅》。Python 社区的重要人物变动，相关纪念与回顾可到官方论坛原帖查看。(<a href="https://www.oschina.net/news/503569/in-memoriam-tim-peters-1952-2026" target="_blank" rel="noopener">开源中国</a>，单信源）</div></li>
+<li><div class="item-title">谷歌推出 LiteRT Tensor API，用于构建、定制与优化端侧机器学习模型</div><div class="item-body">轻量级 C++ API，开发者可直接面向端侧构建、定制与优化 ML 模型，兼顾原生开发的灵活性与跨平台可移植性。做端侧 ML 的团队先对照自家硬件目标的后端支持再接入，别只按 API 文档排期。(<a href="https://www.infoq.cn/article/joYjCTbwWFSkbACK5lje?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">HF：用 SimReady 资产搭建机器人抓取模拟</div><div class="item-body">英伟达 walkthrough，用 UR17G 机械臂、Robotiq 2F-140 夹爪与饮料罐在 Isaac Sim 里搭建抓取任务。做机器人仿真的团队先按教程跑通一轮抓取流程，再决定是否把自家资产接进来。(<a href="https://huggingface.co/blog/nvidia/simready-assets-robot-pick-and-place" target="_blank" rel="noopener">Hugging Face Blog</a>，单信源）</div></li>
+<li><div class="item-title">Gnomon：Git for Postgres 数据，为 Agent 而建</div><div class="item-body">HN 22 分、11 评论，给 Postgres 数据做版本管理，面向 Agent 场景。让 Agent 直接改库前先在测试库验证它的版本回滚能力，别直接上生产库。(<a href="https://github.com/bitsinfra/gnomon" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">Build Buddy：本地 Gemma 3 4B 修 C# 编译报错，修完重建验证</div><div class="item-body">作者用本地 Gemma 3 4B 修 C# 编译错误，每次修复后重建并跑程序验证；本周测试了新样本上的修复效果。想本地跑修复 Agent 的团队先按它的验证闭环搭流程，别只让模型改完就提交。(<a href="https://dev.to/gabby_gill_23c85a86800564/build-buddy-after-the-week-i-tested-my-own-fix-on-new-samples-37bi" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">通用代码生成器光船 1.1.0 尝鲜版二：支持 AI 生成会话与项目设置</div><div class="item-body">通用代码生成器光船发布新版本，新增 AI 生成会话与项目设置功能。试用前先在非核心项目验证生成代码质量，别直接用在生产项目上。(<a href="https://www.oschina.net/news/503572" target="_blank" rel="noopener">开源中国</a>，单信源）</div></li>
+</ul>
+<p class="body">本板块今日偏少，仅收录 9 条。</p></section><section class="tab-panel" id="s3" style="--sec:#8b5cf6"><ul class="items">
+<li><div class="item-title">Brave Search API 支持 x402 Agent 支付：Agent 可直接为搜索调用付费</div><div class="item-body">HN 256 分、146 评论，11 月 13 日上线。做按调用付费的搜索 Agent 时，先对照 x402 的结算流程与自家账单系统再接入。(<a href="https://brave.com/blog/search-api-agentic-payments/" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">实测 Gemini Decisions API：拿客服工单分流做例子</div><div class="item-body">Dev.to 教程用 ADK Agent 与客服工单分流场景，把同一组问题交给四个生成模型对照。做决策类 Agent 选型前先按这份实测方法跑自家场景，别只看官方示例。(<a href="https://dev.to/gde/benchmarking-the-gemini-decisions-api-l31" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">Claude Meetings 上线</div><div class="item-body">Anthropic 推出 Claude Meetings 相关功能；HN 58 分、52 评论。把会议 Agent 接进工作流前先核对它的录音与数据保留规则，别直接用在敏感会议上。(<a href="https://claude.com/resources/articles/claude-meetings" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">智能互动 Agent 在快手商业场景的落地实践</div><div class="item-body">AICon 2026 深圳站分享，电商场景的智能对话系统从 FAQ 问答转向具备规划、决策与工具调用能力的 Agent 架构，讲效果、时延与成本三重约束下的工程选择，以及动态知识库与用户模拟器训练。做商业 Agent 前先按这三重约束定验收指标，别只看对话效果。(<a href="https://www.infoq.cn/article/e0aglHW78pZuik3CWqdo?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">从快速部署到记忆共享，数据库如何支撑 Agent 应用</div><div class="item-body">InfoQ 视频，讲数据库在 Agent 应用里的角色，从快速部署到记忆共享。给 Agent 选数据库前先把记忆的读写模式与一致性要求列清楚，别只按通用 OLTP 选型。(<a href="https://www.infoq.cn/video/FwbOyyfoAmkQPMTItMDN?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">GFlow：面向游戏设计的多 Agent 协作与验证实践｜AICon 北京</div><div class="item-body">多 Agent 协作与验证在游戏设计场景的实践分享。把多 Agent 协作接进生产流程前，先把验收标准与权限边界写成可执行规则，别只堆能力。(<a href="https://www.infoq.cn/article/dkQAAL0SSdhIq1h61eKx?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">Docker 呼吁通过隔离与治理保障智能体安全</div><div class="item-body">Docker 发布指南，讲 AI 智能体在有限人工监督下浏览网页、运行代码、调用工具时的五大安全风险，主张以隔离和治理（而非仅靠模型改进）作为主要防御。让 Agent 联网跑代码前先把隔离与凭证边界搭好，别只靠提示词约束。(<a href="https://www.infoq.cn/article/1pCuIRtm5HYwTyR4fIhA?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">容器隔离还不够：Edera 从虚拟机监控器层限制 AI 智能体</div><div class="item-body">Edera 推出对象能力受限权限模型，在虚拟机监控器层实施细粒度对象能力控制，让自主 AI 工作负载与 MCP 服务器与敏感凭证隔离。跑自主 Agent 前先评估自家隔离层级是否覆盖凭证泄露路径，别只依赖容器隔离。(<a href="https://www.infoq.cn/article/MU0txcPXXuGdGKBNa6a2?utm_source=rss&amp;utm_medium=article" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">openJiuwen 发布 RSI 原生 AgentOS，让 Agent 自由变身、持续迭代</div><div class="item-body">想要什么功能，让 Agent 自己开发。试用前先在沙箱验证它的自我迭代是否可控，别直接把生产 Agent 交给它改。(<a href="https://www.qbitai.com/2026/11/509653.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+<li><div class="item-title">中国 AI 突破复杂肺癌诊疗：250 名三甲医生联合评测，AI 对医生 88 比 12</div><div class="item-body">国产 AI 首次完成大规模肺癌实证，围绕 40 例复杂肺癌病例、在统一标准评估下取得断崖式领先；250 名参与医生多来自三甲医院、多数为主任或副主任医师。引用该结果时先核对评测口径与病例选择，别直接当成临床可用结论。(<a href="https://www.qbitai.com/2026/11/509796.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+<li><div class="item-title">本周停服盘点：两个 .NET 版本、一个 PostgreSQL 大版本、5 个 Bedrock 区 Claude 模型与一个 GitHub REST 端点</div><div class="item-body">Dev.to 盘点 11 月 9–13 日到达终点的四件事，提醒这些停服都不会在第一天就报错。先对照自家依赖清单排迁移，别等报错才处理。(<a href="https://dev.to/nabil_since_dev/what-stopped-working-this-week-nov-9-to-13-2026-3029" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">我做了个 AI 识别开屏广告并自动关闭的安卓 APP</div><div class="item-body">用 AI 自动化识别并定制跳过方案，内置 Shell 权限触摸注入解决防无障碍点击的广告无法关闭问题；AI 识别有 Jevai 与 DeepSeek 两个方案，每天约几分钱。装这类高权限应用前先确认它的权限范围与数据去向，别直接给主力机装。(<a href="https://www.v2ex.com/t/1256930#reply0" target="_blank" rel="noopener">V2EX</a>，单信源）</div></li>
+</ul>
+<p class="body">本板块今日收录 12 条。</p></section><section class="tab-panel" id="s4" style="--sec:#f59e0b"><p class="body">注：本角度无专用 RSS 源，条目来自通用 feed 与 HN 交叉。</p>
+<ul class="items">
+<li><div class="item-title">跟进：微软 Outlook/365 大面积故障逾 12 小时<span class="hot-badge">🔥 热门</span></div><div class="item-body">11 月 12 日爆发后持续近两日，The Verge 称 11 月 13 日服务开始恢复、部分功能仍降级；HN 主帖 458 分、303 评论。把 M365 当关键依赖的团队，先确认自家租户的各项服务是否已恢复，别只看 Outlook 恢复就解除告警。</div><div class="item-src">来源：<a href="https://www.theverge.com/tech/1032862/microsoft-outlook-down-outage" target="_blank" rel="noopener">The Verge</a>、<a href="https://twitter.com/MSFT365Status/status/2121079061774491735" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">Claude 登录认证故障约 2 小时<span class="hot-badge">🔥 热门</span></div><div class="item-body">11 月 13 日约 17:58–19:58（北京时间），claude.ai、Claude Code 与 platform.claude.com 登录报错激增，status.claude.com 列 Major Outage；HN 主帖 482 分、382 评论；Claude API 全程正常。依赖 Claude Code 做生产调用的团队，把登录态异常与 API 异常分开告警，别在登录故障时误判为模型服务中断。(<a href="https://status.claude.com/incidents/nn11wk485zfn" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">大厂总会让人失望<span class="hot-badge">🔥 热门</span></div><div class="item-body">博客文章结合微软宕机等事件，批评大厂服务可靠性；HN 主帖 196 分、171 评论。把单云关键路径列入故障演练清单，别等下一次宕机才发现没有备用路径。(<a href="https://blog.jsweeting.me/big-tech-is-here-to-let-us-down" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">Windows 0-day 被不满的研究者公开，可直接提权到 System</div><div class="item-body">代号 SignDrop 的漏洞让本地用户获得 System 权限，研究者 Nightmare Eclipse 与微软长期公开争执后再次公开 Windows 0-day。Windows 管理员先核对微软的缓解措施与补丁进度，别等公开利用扩散。(<a href="https://arstechnica.com/security/2026/11/windows-0-day-dropped-by-disgruntled-researcher-hands-hackers-system-rights/" target="_blank" rel="noopener">Ars Technica</a>，单信源）</div></li>
+<li><div class="item-title">Apify 安全事件</div><div class="item-body">HN 83 分、10 评论。做爬虫/自动化任务的团队先查 Apify 状态页确认影响范围再恢复任务。(<a href="https://status.apify.com/incidents/sxd1dj5j6749" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">台积电被黑：员工个人数据从云服务商系统泄露</div><div class="item-body">台积电向 SEC 提交声明，员工个人数据被发布到网上，源头是云服务商系统；HN 115 分、17 评论。用云服务商存员工数据的团队先核对自家供应商的隔离与通报流程，别等通报才排查。(<a href="https://www.sec.gov/Archives/edgar/data/1046179/000104617926000800/a20261112statementregardin.htm" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">微软宕机让客户上了一堂依赖课（The Register 评述）</div><div class="item-body">HN 110 分、36 评论，11 月 13 日文章。把单云关键路径列入故障演练清单，别等下一次宕机才发现没有备用路径。(<a href="https://www.theregister.com/saas/2026/11/13/microsoft-outage-gives-customers-a-crash-course-in-dependence-on-redmond/5309805" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+</ul>
+<p class="body">本板块今日偏少，仅收录 7 条。</p></section><section class="tab-panel" id="s5" style="--sec:#f43f5e"><p class="body">注：arXiv 三库本窗口 0 篇（cs.CL、cs.LG 连接中断，cs.AI 无新文）；以下为 HN 上的研究报告与讨论、HF Blog 基准。</p>
+<ul class="items">
+<li><div class="item-title">AI 解锁哥德尔手稿，据称含数百个已证明定理<span class="hot-badge">🔥 热门</span></div><div class="item-body">Guardian 11 月 13 日文章称 AI 帮助解读哥德尔未发表手稿；HN 主帖 302 分、88 评论。当作 AI 辅助数学史研究案例，别当通用推理能力证据。(<a href="https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">JEPA 世界模型 600 次实验：失败结论比成功更有用</div><div class="item-body">作者跑了 600 次实验总结 JEPA 世界模型的发现；HN 199 分、33 评论。做世界模型/视频生成的团队，先看 600 次实验的失败结论再定技术路线。(<a href="https://haddyalchaer.com/jepa" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">模型权重空间病毒传播（单信源）</div><div class="item-body">HN 128 分、45 评论，讨论权重空间中的“病毒式”传播现象。谨慎引用，先等复现再评估对权重分发的影响。(<a href="https://www.alphaxiv.org/abs/2611.weight-space-misfolding" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">数学界的雪崩正在逼近 AI 开发<span class="hot-badge">🔥 热门</span></div><div class="item-body">Dwarkesh 文章谈 RSI（递归自我改进）对 AI 开发的影响；HN 56 分、100 评论。读的时候把“数学证明自动化”与“通用 RSI”分开，别把一篇分析当成路线图。(<a href="https://www.dwarkesh.com/p/rsi" target="_blank" rel="noopener">Hacker News</a>，单信源）</div></li>
+<li><div class="item-title">XYBench：帮用户解决“问题背后的问题”</div><div class="item-body">AllenAI 在 HF Blog 发布 XYBench，真正有用的 AI 助手要能帮用户处理问错了的问题，而不只是回答问对了的问题。做助手类产品评估时，把“纠正用户错误提问”的能力列入评测维度，别只测问答准确率。(<a href="https://huggingface.co/blog/allenai/xybench" target="_blank" rel="noopener">Hugging Face Blog</a>，单信源）</div></li>
+</ul>
+<p class="body">本板块今日偏少，仅收录 5 条。</p></section><section class="tab-panel" id="s6" style="--sec:#06b6d4"><ul class="items">
+<li><div class="item-title">HN：英伟达员工请愿要求请回黄仁勋<span class="hot-badge">🔥 热门</span></div><div class="item-body">主帖 787 分、645 评论；请愿之外，评论主线是接任人选与英伟达治理。读评论时把猜测与已确认事实分开，别把请愿当成董事会动向。</div><div class="item-src">来源：<a href="https://www.wired.com/story/nvidia-employees-petition-for-jensen-huangs-return/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN：Claude 登录故障<span class="hot-badge">🔥 热门</span></div><div class="item-body">主帖 482 分、382 评论，claude.ai、Claude Code 与 platform.claude.com 登录报错激增约 2 小时，API 未受影响。依赖 Claude Code 的团队把登录态异常与 API 异常分开告警，别误判为模型服务中断。</div><div class="item-src">来源：<a href="https://status.claude.com/incidents/nn11wk485zfn" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN：微软 Outlook/365 仍宕机 12 小时后<span class="hot-badge">🔥 热门</span></div><div class="item-body">主帖 458 分、303 评论，全球 outage 持续，修复进展不如预期。把 M365 当关键依赖的团队先确认自家租户状态，别只看 Outlook 恢复就解除告警。</div><div class="item-src">来源：<a href="https://twitter.com/MSFT365Status/status/2121079061774491735" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN：AI 正在摧毁作者与读者的信任<span class="hot-badge">🔥 热门</span></div><div class="item-body">304 分、193 评论，大西洋月刊文章谈 AI 生成的文学骗局冲击图书市场。做内容平台的团队先把 AI 生成内容的标识与核验机制列入计划，别等信任崩了再补。</div><div class="item-src">来源：<a href="https://www.theatlantic.com/books/2026/11/ai-literary-scams-amazon/689391/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN：AI 解锁哥德尔手稿<span class="hot-badge">🔥 热门</span></div><div class="item-body">302 分、88 评论，Guardian 称 AI 帮助解读哥德尔未发表手稿、据称含数百个已证明定理。当作 AI 辅助数学史研究案例，别当通用推理能力证据。</div><div class="item-src">来源：<a href="https://www.theguardian.com/science/2026/nov/13/kurt-godel-notebooks-ai-helps-unlock-hidden-discoveries-man-who-transformed-maths" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN：1,140 万美元英伟达硬件运输途中失踪<span class="hot-badge">🔥 热门</span></div><div class="item-body">268 分、144 评论，加州运往得州途中失踪。硬件采购涉及高价值运输时，先确认物流保险与签收流程。</div><div class="item-src">来源：<a href="https://www.freightwaves.com/news/11-4-million-in-nvidia-hardware-vanishes-during-shipment-from-california-to-texas" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN：Jonathan Blow 视频——如果 AI 解决了编码，为什么我的软件还是老样子<span class="hot-badge">🔥 热门</span></div><div class="item-body">146 分、134 评论。做 AI 编程工具评估时，先看这类一线开发者的实测体感再定采购。</div><div class="item-src">来源：<a href="https://www.youtube.com/watch?v=IRK8h67ol7Q" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">HN：为什么选 Zig 而不是 C 做系统编程<span class="hot-badge">🔥 热门</span></div><div class="item-body">212 分、189 评论。选系统编程语言前先看评论区的实测对比，别只看语言特性清单。</div><div class="item-src">来源：<a href="https://www.mtsoukalos.eu/2026/11/why-zig-over-c-for-systems-programming/" target="_blank" rel="noopener">Hacker News</a></div></li>
+<li><div class="item-title">跟进：V2EX Codex 退订潮</div><div class="item-body">昨日 B 稿收的是 V2EX 上 Codex 退订与降智抱怨；新进展是多名用户称已退订或转投 Gemini Carbon、美国豆包、Agy，另有用户分享无海外卡环境下搞定 ChatGPT Plus 订阅的几种路径对比。续费 Codex 前先核对自家用量与模型表现，别只看套餐名。</div><div class="item-src">来源：<a href="https://www.v2ex.com/t/1256941" target="_blank" rel="noopener">V2EX</a>、<a href="https://www.v2ex.com/t/1256948#reply0" target="_blank" rel="noopener">V2EX</a></div></li>
+<li><div class="item-title">跟进：Claude KYC 封号潮，申诉解封与绕过经验并存</div><div class="item-body">昨日 B 稿收的是地区限制生效首日的封号帖；新进展是有用户称 KYC 后被封、走官方申诉后不到一天解封，另有用户称用护照日签页面通过了 portal 认证，也有人问被封后怎样用 Claude 最安全。依赖 Claude 的团队先准备备用模型链路，别把全部工作流押在单一账号上。</div><div class="item-src">来源：<a href="https://www.v2ex.com/t/1256932#reply10" target="_blank" rel="noopener">V2EX</a>、<a href="https://www.v2ex.com/t/1256934#reply9" target="_blank" rel="noopener">V2EX</a>、<a href="https://www.v2ex.com/t/1256979#reply0" target="_blank" rel="noopener">V2EX</a></div></li>
+</ul>
+<p class="body">本板块今日收录 10 条。</p></section>
+  </div>
+</div></main>
+</div>
+<script>
+(function(){
+  var btns=Array.prototype.slice.call(document.querySelectorAll('.sections button'));
+  var panels=Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
+  var secTitle=document.getElementById('secTitle');
+  var secDesc=document.getElementById('secDesc');
+  var secData=[["今日热点", "#ff5a36", ""], ["模型与 API", "#3b82f6", ""], ["开源与工具链", "#10b981", ""], ["Agent 与应用开发", "#8b5cf6", ""], ["部署与推理优化", "#f59e0b", ""], ["研究前沿", "#f43f5e", ""], ["社区热议", "#06b6d4", ""]];
+  if(!btns.length||!panels.length)return;
+  function show(i,hash){
+    btns.forEach(function(b,j){b.classList.toggle('active',j===i);});
+    panels.forEach(function(p,j){p.style.display=j===i?'':'none';});
+    if(secTitle&&secData[i]){secTitle.textContent=secData[i][0];secTitle.style.setProperty('--sec',secData[i][1]);}
+    if(secDesc&&secData[i]){var nt=secData[i][2]||'';secDesc.innerHTML=nt?'<p>'+nt+'</p>':'';secDesc.style.display=nt?'':'none';secDesc.style.setProperty('--sec',secData[i][1]);}
+    if(hash!==false){try{history.replaceState(null,'','#s'+i);}catch(e){}}
+    var cs=document.getElementById('contentScroll');
+    if(window.matchMedia('(max-width:920px)').matches){var hc=document.querySelector('.head-card');if(hc)hc.scrollIntoView({block:'start'});}
+    else{window.scrollTo(0,0);}
+    if(cs)cs.scrollTo(0,0);
+  }
+  btns.forEach(function(b,i){b.addEventListener('click',function(){show(i);});});
+  var m=location.hash.match(/#s(\d+)/),init=m?Math.min(parseInt(m[1],10),btns.length-1):0;
+  show(init,false);
+})();
+</script>
+</body>
+</html>
