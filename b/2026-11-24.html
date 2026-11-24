@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>2026-11-24 · AI 每日简报 · B</title>
+<style>*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f1f5f9;--card:#ffffff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--code-bg:#f1f5f9;
+  --acc:#3b82f6;
+  --sidebar-bg:#0f172a;--side-text:#e2e8f0;--side-muted:#94a3b8;
+  --shadow:0 1px 2px rgba(15,23,42,.05);
+}
+@media(prefers-color-scheme:dark){
+  :root{--bg:#0a0e15;--card:#121826;--text:#e6ebf2;--muted:#8b98ab;--border:#223047;--code-bg:#0a0e15;
+  --sidebar-bg:#070a10;--side-text:#dbe3ee;--side-muted:#7d8ba1;
+  --shadow:0 1px 2px rgba(0,0,0,.4);}
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;line-height:1.75;overflow:hidden}
+.layout{display:flex;max-width:1280px;margin:0 auto;height:100vh;padding:16px 0}
+/* ---------- sidebar ---------- */
+.sidebar{width:300px;flex:0 0 300px;color:var(--side-text);height:100%;overflow-y:auto;border-radius:18px;padding:30px 22px;display:flex;flex-direction:column;
+  background:
+    radial-gradient(560px 280px at 12% 0%, rgba(99,102,241,.17), transparent 60%),
+    radial-gradient(480px 380px at 95% 100%, rgba(236,72,153,.1), transparent 60%),
+    var(--sidebar-bg);}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.brand-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,#3b82f6,#8b5cf6 55%,#ec4899);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:17px;flex:0 0 42px;box-shadow:0 4px 16px rgba(139,92,246,.45)}
+.brand-title{font-size:19px;font-weight:700;letter-spacing:.02em;color:#fff}
+.brand-sub{font-size:12px;color:var(--side-muted);margin-top:2px}
+.side-meta{font-size:12px;color:var(--side-muted);line-height:1.7;margin:10px 2px 0;padding:10px 12px;background:rgba(148,163,184,.08);border:1px dashed rgba(148,163,184,.25);border-radius:10px}
+.side-label{font-size:11px;letter-spacing:.14em;color:var(--side-muted);margin:18px 4px 8px;font-weight:600}
+.variant-switch{display:flex;gap:6px;margin:14px 2px 0}
+.variant-switch a{flex:1;text-align:center;font-size:12.5px;font-weight:600;color:var(--side-muted);background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.18);border-radius:9px;padding:7px 4px;text-decoration:none}
+.variant-switch a:hover{color:var(--side-text);background:rgba(148,163,184,.14)}
+.variant-switch a.cur{color:#fff;background:rgba(59,130,246,.55);border-color:rgba(59,130,246,.8)}
+.sections{display:flex;flex-direction:column;gap:4px}
+.sections button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border:1px solid transparent;border-radius:10px;padding:10px 12px;color:var(--side-text);font-size:14.5px;cursor:pointer;font-family:inherit;transition:background .12s,border-color .12s}
+.sections button svg{width:17px;height:17px;color:var(--sec);flex:0 0 17px}
+.sections button .cnt{margin-left:auto;font-size:11.5px;color:var(--side-muted);background:rgba(148,163,184,.15);border-radius:999px;padding:1px 9px}
+.sections button:hover{background:rgba(148,163,184,.1)}
+.sections button.active{background:color-mix(in srgb,var(--sec) 17%,transparent);border-color:color-mix(in srgb,var(--sec) 48%,transparent)}
+.sections button.active .sec-name{color:#fff;font-weight:600}
+.sections button.active .cnt{background:color-mix(in srgb,var(--sec) 32%,transparent);color:#fff}
+.archive-list{display:flex;flex-direction:column;gap:2px;max-height:200px;overflow-y:auto}
+.archive-list a{color:var(--side-muted);font-size:13.5px;padding:7px 12px;border-radius:8px;text-decoration:none;transition:background .12s}
+.archive-list a:hover{color:var(--side-text);background:rgba(148,163,184,.1)}
+.archive-list a.cur{color:#fff;background:rgba(148,163,184,.18);font-weight:600}
+.stats{display:flex;gap:10px;margin:20px 2px 0}
+.stats>div{flex:1;background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.14);border-radius:12px;padding:10px 6px;text-align:center}
+.stats b{display:block;font-size:20px;color:#fff;font-weight:700}
+.stats span{font-size:11px;color:var(--side-muted)}
+.side-foot{margin-top:auto;padding-top:22px;font-size:12px;color:var(--side-muted);line-height:1.7}
+/* ---------- content ---------- */
+.content{flex:1;min-width:0;height:100%;min-height:0}
+.content-col{max-width:880px;margin:0 auto;height:100%;display:flex;flex-direction:column;min-height:0;padding:0 36px}
+.content-bar{display:none}
+.head-card{flex:0 0 auto;background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:0 10px 28px rgba(15,23,42,.1);padding:18px 34px;margin-bottom:16px}
+.sec-desc{flex:0 0 auto;margin-bottom:14px;padding:10px 16px;background:color-mix(in srgb,var(--sec) 6%,var(--card));border:1px dashed color-mix(in srgb,var(--sec) 30%,var(--border));border-radius:12px;font-size:13px;line-height:1.7;color:var(--muted)}
+.sec-desc p{margin:0}
+.content-scroll{flex:1;min-height:0;overflow-y:auto;padding:0 8px 24px;scrollbar-width:thin;scrollbar-color:#cbd5e1 transparent}
+.content-scroll::-webkit-scrollbar{width:8px}
+.content-scroll::-webkit-scrollbar-track{background:transparent}
+.content-scroll::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:8px}
+@media(prefers-color-scheme:dark){.content-scroll{scrollbar-color:#334155 transparent}.content-scroll::-webkit-scrollbar-thumb{background:#334155}}
+.top{padding:2px 0}
+.top h1{font-size:27px;font-weight:750;letter-spacing:.01em;display:flex;align-items:center;gap:12px}
+.top h1::before{content:"";width:11px;height:26px;border-radius:6px;background:var(--sec);box-shadow:0 0 10px var(--sec);flex:0 0 auto}
+.tab-panel{animation:fade .18s ease}
+@keyframes fade{from{opacity:.35;transform:translateY(4px)}to{opacity:1;transform:none}}
+ul.items{list-style:none}
+ul.items li{background:color-mix(in srgb,var(--acc) 8%,var(--card));border:1px solid color-mix(in srgb,var(--acc) 18%,var(--border));border-radius:12px;box-shadow:var(--shadow);padding:16px 22px;margin:12px 0;transition:box-shadow .15s,transform .15s}
+ul.items li:hover{box-shadow:0 8px 22px rgba(15,23,42,.12);transform:translateY(-1px)}
+ul.items li p.note{color:var(--muted);font-size:13px}
+ul.items li:has(p.note){background:none;border:none;box-shadow:none;padding:6px 4px}
+ul.items li:has(p.note):hover{box-shadow:none;transform:none}
+.item-title{font-weight:650;font-size:15.5px;line-height:1.65;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--acc) 22%,var(--border))}
+.hot-badge{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;background:rgba(255,90,54,.14);color:#ff5a36;font-size:12px;font-weight:700;vertical-align:1px;white-space:nowrap}
+.item-body{font-size:14.5px}
+.item-src{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:center;justify-content:flex-end;margin-top:12px;padding-top:9px;border-top:1px dashed color-mix(in srgb,var(--acc) 22%,var(--border));font-size:12.5px;color:var(--muted);text-align:right}
+.item-src a{margin-right:10px;white-space:nowrap}
+p.body{margin:10px 0;font-size:15px}
+a{color:#3b82f6;text-decoration:none}
+@media(prefers-color-scheme:dark){a{color:#8aa8ff}}
+a:hover{text-decoration:underline}
+code{background:var(--code-bg);border:1px solid var(--border);border-radius:6px;padding:1px 7px;font-size:.86em;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#4f46e5}
+@media(prefers-color-scheme:dark){code{color:#a5b4fc}}
+strong{font-weight:650}
+@media(max-width:920px){
+  body{overflow:auto;height:auto}
+  .layout{display:block;height:auto;padding:0}
+  .sidebar{position:static;width:auto;height:auto;border-radius:0;padding:20px 16px 14px}
+  .brand{margin-bottom:8px}
+  .side-label{margin:12px 4px 6px}
+  .sections{flex-direction:row;flex-wrap:wrap;overflow:visible;padding-bottom:6px;gap:8px}
+  .sections button{flex:0 0 auto;width:auto}
+  .archive-list{flex-direction:row;overflow-x:auto;max-height:none;padding-bottom:4px}
+  .archive-list a{white-space:nowrap}
+  .side-foot{display:none}
+  .content{height:auto}
+  .content-col{display:block;height:auto;padding:0 14px 70px}
+  .head-card{position:static;padding:20px 20px 18px;margin-bottom:16px}
+  .content-scroll{overflow:visible;padding:0}
+  .tab-panel{padding:0}
+  ul.items li{padding:14px 16px}
+  .top{padding-top:24px}
+  .top h1{font-size:25px}
+}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><div class="brand-mark">AI</div><div><div class="brand-title">AI 每日简报 · B</div></div></div>
+  <nav class="variant-switch"><a href="/ai-daily-briefing/" class="">A · 现有方案</a><a href="/ai-daily-briefing/b/" class="cur">B · RSS 采集</a></nav>
+  <div class="side-meta">B · feedparser + trafilatura + RSSHub<br>收集窗口：11 月 23 日 08:00 – 11 月 24 日 08:00（北京时间）</div>
+  <div class="side-label">板块</div>
+  <nav class="sections"><button data-tab="0" style="--sec:#ff5a36" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg><span class="sec-name">今日热点</span><span class="cnt">10</span></button><button data-tab="1" style="--sec:#3b82f6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg><span class="sec-name">模型与 API</span><span class="cnt">10</span></button><button data-tab="2" style="--sec:#10b981" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6l-6 6 6 6M16 6l6 6-6 6"/></svg><span class="sec-name">开源与工具链</span><span class="cnt">10</span></button><button data-tab="3" style="--sec:#8b5cf6" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 4.8 4.6 1.2-4.6 1.2L12 15l-1.9-4.8L5.5 9l4.6-1.2z"/><path d="M19 15l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8z"/></svg><span class="sec-name">Agent 与应用开发</span><span class="cnt">10</span></button><button data-tab="4" style="--sec:#f59e0b" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L4 14h6l-1 8 9-12h-6z"/></svg><span class="sec-name">部署与推理优化</span><span class="cnt">10</span></button><button data-tab="5" style="--sec:#f43f5e" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v6l-5.2 9.4A2 2 0 0 0 6.6 21h10.8a2 2 0 0 0 1.8-2.6L14 9V3"/><path d="M7.6 14h8.8"/></svg><span class="sec-name">研究前沿</span><span class="cnt">12</span></button><button data-tab="6" style="--sec:#06b6d4" class=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v10H9l-5 4z"/><path d="M8 9.5h8M8 12.5h5"/></svg><span class="sec-name">社区热议</span><span class="cnt">10</span></button></nav>
+  <div class="side-label">往期归档</div>
+  <nav class="archive-list"><a href="2026-11-24.html" class="cur">2026-11-24</a><a href="2026-11-23.html">2026-11-23</a><a href="2026-11-22.html">2026-11-22</a><a href="2026-11-21.html">2026-11-21</a><a href="2026-11-20.html">2026-11-20</a><a href="2026-11-19.html">2026-11-19</a><a href="2026-11-18.html">2026-11-18</a><a href="2026-11-17.html">2026-11-17</a><a href="2026-11-16.html">2026-11-16</a><a href="2026-11-15.html">2026-11-15</a><a href="2026-11-14.html">2026-11-14</a><a href="2026-11-13.html">2026-11-13</a><a href="2026-11-12.html">2026-11-12</a><a href="2026-11-11.html">2026-11-11</a><a href="2026-11-10.html">2026-11-10</a><a href="2026-11-09.html">2026-11-09</a><a href="2026-11-08.html">2026-11-08</a><a href="2026-11-07.html">2026-11-07</a><a href="2026-11-06.html">2026-11-06</a></nav>
+  <div class="stats"><div><b>19</b><span>收录期数</span></div><div><b>1164</b><span>累计条目</span></div></div>
+  <div class="side-foot">内容由 AI 收集整理，仅供参考<br>每天 8 点（北京时间）自动更新</div>
+</aside>
+<main class="content"><div class="content-col">
+  <div class="head-card">
+    <header class="top"><h1 id="secTitle" style="--sec:#ff5a36">今日热点</h1></header>
+  </div>
+  <div class="sec-desc" id="secDesc" style="--sec:#ff5a36;display:none"></div>
+  <div class="content-scroll" id="contentScroll">
+  <section class="tab-panel" id="s0" style="--sec:#ff5a36"><ul class="items">
+<li><div class="item-title">跟进：黄仁勋复职英伟达 CEO，12 月 3 日赴参议院作证<span class="hot-badge">🔥 热门</span></div><div class="item-body">英伟达董事会 11 月 23 日宣布恢复黄仁勋总裁、CEO 与董事职务，距其辞职不到两周；特朗普被曝亲自打进董事会会议推动复职，并称美方无其不当行为证据；黄仁勋定于 12 月 3 日赴参议院银行委员会就涉华间谍疑云作证，涉事的 Megaspeed 公司或被列入美国黑名单。这是该故事连续第 7 天有实质新进展。做 AI 基建与供应链决策的先把“CEO 复职不等于调查结束”算进风险，别只按股价反弹排计划。(<a href="https://techcrunch.com/2026/11/23/nvidia-reverses-course-and-brings-jensen-huang-back-as-ceo/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://www.theverge.com/ai-artificial-intelligence/1030422/nvidia-jensen-huang-ai-china-alice-huang" target="_blank" rel="noopener">The Verge</a>、<a href="https://techcrunch.com/2026/11/23/jensen-huang-scheduled-to-testify-next-week-in-senate-following-reinstatement-as-nvidia-ceo/" target="_blank" rel="noopener">TechCrunch</a>，平台：Hacker News，1942 分/3032 评论）</div></li>
+<li><div class="item-title">Anthropic 发布 Claude Ship：agent 审 PR、修 bug、自己批</div><div class="item-body">Claude Ship 让 agent 接管代码评审全流程：审 pull request、自己改、自己批准合并，目标是消除 AI 生成代码堆积后的审批瓶颈。管代码评审流程的先在小仓库上跑一轮“agent 审 + 人抽查”对照，别直接把合并权交给 agent。</div><div class="item-src">来源：<a href="https://techcrunch.com/2026/11/23/anthropic-launches-claude-ship-letting-ai-agents-review-fix-and-approve-code-changes/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://www.theverge.com/ai-artificial-intelligence/1040134/anthropic-claude-ship-ai-pull-requests" target="_blank" rel="noopener">The Verge</a></div></li>
+<li><div class="item-title">智谱 GLM-5.4 发布：首个 Loop Transformer，750B 基座循环 28 层<span class="hot-badge">🔥 热门</span></div><div class="item-body">智谱发布 GLM-5.4：750B 参数基座上对 28 层做两轮循环的 Loop Transformer 架构，官方称智能水平达到 2–3T 级模型，主打“泛 Coding”能力。做代码 agent 选型的先拿自家仓库的真实任务对比 GLM-5.4 与现有主力模型的补全与改 bug 表现，别只看架构数字。(<a href="https://www.oschina.net/news/503756" target="_blank" rel="noopener">开源中国</a>，平台：Hacker News，1024 分/334 评论）</div></li>
+<li><div class="item-title">Ladybird 浏览器发布 Alpha：四年自研全新引擎<span class="hot-badge">🔥 热门</span></div><div class="item-body">独立浏览器 Ladybird 发布 Alpha 版（macOS 与 Linux 可下载），HTML 解析、CSS 引擎、布局、JavaScript 乃至 WebAssembly 均为自研，是多年来首个全新浏览器引擎。做 Web 兼容性测试的先把它列进“非 Chromium/WebKit”测试矩阵，别只测两大引擎。(<a href="https://simonwillison.net/2026/Nov/23/ladybird/" target="_blank" rel="noopener">Simon Willison</a>、<a href="https://www.theverge.com/tech/1040872/ladybird-indie-browser-engine-alpha-testing" target="_blank" rel="noopener">The Verge</a>，平台：Hacker News，1308 分/312 评论）</div></li>
+<li><div class="item-title">跟进：黎曼证明——Alpöge 本人出面评论<span class="hot-badge">🔥 热门</span></div><div class="item-body">Levent Alpöge 在 X 上回应了自己黎曼猜想证明主张的讨论；该故事已连续 4 天有实质新进展（手稿、Lean 形式化进度图、手册在前）。跟进前先等独立复核结论，别按“已证明”排计划。(<a href="https://twitter.com/__alpoge__/status/2124987173439209561" target="_blank" rel="noopener">Hacker News</a>，平台：Hacker News，55 分/43 评论）</div></li>
+<li><div class="item-title">Google 搜索 AI Mode 接入 Drive 与 Wallet：个人智能进搜索</div><div class="item-body">Google 把 Personal Intelligence 带进搜索 AI Mode：可调用用户 Drive 文件与 Wallet 信息给出更个性化的回答。做搜索与个人数据产品的先按“用户数据跨应用调用”的授权边界设计权限，别只接 API 就上线。(<a href="https://techcrunch.com/2026/11/23/google-searchs-ai-mode-can-now-tap-into-drive-and-wallet-for-more-personalized-responses/" target="_blank" rel="noopener">TechCrunch</a>，单信源）</div></li>
+<li><div class="item-title">OpenAI 与思科发布 Shirudo：Linux 开源运行时，边打补丁边防护</div><div class="item-body">OpenAI 与思科联合发布开源 Linux 运行时 Shirudo，帮助团队在滚动打补丁的同时保护运行中的系统。管 Linux  fleet 补丁的先在 staging 上验证它与现有补丁流程的冲突面，别直接全量铺开。(<a href="https://openai.com/index/introducing-shirudo" target="_blank" rel="noopener">OpenAI</a>，单信源）</div></li>
+<li><div class="item-title">DeepMind：agent 团队 + 形式化验证，找更快量子算法</div><div class="item-body">DeepMind 用 agent 团队加形式化验证改进面向聚变能、化学与酶建模的量子算法。做科学计算 agent 的先按“形式化验证兜底”设计 agent 的产出检查，别只让 agent 自评。(<a href="https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/" target="_blank" rel="noopener">Google DeepMind Blog</a>，单信源）</div></li>
+<li><div class="item-title">LeCun 批 Amodei：夸大危险是为让开源模型非法化<span class="hot-badge">🔥 热门</span></div><div class="item-body">Yann LeCun 发文称 Dario Amodei 夸大 AI 危险是为了让开源模型非法、让自己保持控制，HN 讨论 577 条。关心开源模型政策走向的先读双方原文再定立场，别只看截图转述。(<a href="https://twitter.com/ylecun/status/2124550037912920090" target="_blank" rel="noopener">Hacker News</a>，平台：Hacker News，994 分/577 评论）</div></li>
+<li><div class="item-title">欧盟 AI 法案标记过渡期 8 天后截止：重编码会抹掉标记</div><div class="item-body">欧盟 AI 法案机器可读标记的过渡窗口 12 月 2 日关闭；作者实测自己重编码图片后标记即消失，提醒生成式图片工具的合规做法。做 AI 生图产品的先实测自家导出链路里标记的存活情况，别只在生成时打标记就交差。(<a href="https://dev.to/aurum_revenue/eight-days-to-the-eu-ai-act-marking-deadline-i-re-encoded-my-own-image-and-the-mark-disappeared-1fji" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+</ul></section><section class="tab-panel" id="s1" style="--sec:#3b82f6"><ul class="items">
+<li><div class="item-title">跟进：黄仁勋复职英伟达 CEO，12 月 3 日赴参议院作证<span class="hot-badge">🔥 热门</span></div><div class="item-body">英伟达董事会 11 月 23 日宣布恢复黄仁勋总裁、CEO 与董事职务，距其辞职不到两周；特朗普被曝亲自打进董事会会议推动复职，并称美方无其不当行为证据；黄仁勋定于 12 月 3 日赴参议院银行委员会就涉华间谍疑云作证，涉事的 Megaspeed 公司或被列入美国黑名单。这是该故事连续第 7 天有实质新进展。做 AI 基建与供应链决策的先把“CEO 复职不等于调查结束”算进风险，别只按股价反弹排计划。(<a href="https://techcrunch.com/2026/11/23/nvidia-reverses-course-and-brings-jensen-huang-back-as-ceo/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://www.theverge.com/ai-artificial-intelligence/1030422/nvidia-jensen-huang-ai-china-alice-huang" target="_blank" rel="noopener">The Verge</a>、<a href="https://techcrunch.com/2026/11/23/jensen-huang-scheduled-to-testify-next-week-in-senate-following-reinstatement-as-nvidia-ceo/" target="_blank" rel="noopener">TechCrunch</a>，平台：Hacker News，1942 分/3032 评论）</div></li>
+<li><div class="item-title">Anthropic 发布 Claude Ship：agent 审 PR、修 bug、自己批</div><div class="item-body">Claude Ship 让 agent 接管代码评审全流程：审 pull request、自己改、自己批准合并，目标是消除 AI 生成代码堆积后的审批瓶颈。管代码评审流程的先在小仓库上跑一轮“agent 审 + 人抽查”对照，别直接把合并权交给 agent。</div><div class="item-src">来源：<a href="https://techcrunch.com/2026/11/23/anthropic-launches-claude-ship-letting-ai-agents-review-fix-and-approve-code-changes/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://www.theverge.com/ai-artificial-intelligence/1040134/anthropic-claude-ship-ai-pull-requests" target="_blank" rel="noopener">The Verge</a></div></li>
+<li><div class="item-title">智谱 GLM-5.4 发布：首个 Loop Transformer，750B 基座循环 28 层<span class="hot-badge">🔥 热门</span></div><div class="item-body">智谱发布 GLM-5.4：750B 参数基座上对 28 层做两轮循环的 Loop Transformer 架构，官方称智能水平达到 2–3T 级模型，主打“泛 Coding”能力。做代码 agent 选型的先拿自家仓库的真实任务对比 GLM-5.4 与现有主力模型的补全与改 bug 表现，别只看架构数字。(<a href="https://www.oschina.net/news/503756" target="_blank" rel="noopener">开源中国</a>，平台：Hacker News，1024 分/334 评论）</div></li>
+<li><div class="item-title">Google 搜索 AI Mode 接入 Drive 与 Wallet：个人智能进搜索</div><div class="item-body">Google 把 Personal Intelligence 带进搜索 AI Mode：可调用用户 Drive 文件与 Wallet 信息给出更个性化的回答。做搜索与个人数据产品的先按“用户数据跨应用调用”的授权边界设计权限，别只接 API 就上线。(<a href="https://techcrunch.com/2026/11/23/google-searchs-ai-mode-can-now-tap-into-drive-and-wallet-for-more-personalized-responses/" target="_blank" rel="noopener">TechCrunch</a>，单信源）</div></li>
+<li><div class="item-title">DeepMind：agent 团队 + 形式化验证，找更快量子算法</div><div class="item-body">DeepMind 用 agent 团队加形式化验证改进面向聚变能、化学与酶建模的量子算法。做科学计算 agent 的先按“形式化验证兜底”设计 agent 的产出检查，别只让 agent 自评。(<a href="https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/" target="_blank" rel="noopener">Google DeepMind Blog</a>，单信源）</div></li>
+<li><div class="item-title">谷歌世界模型 Genie 4 更新：生成中途用文字实时改世界</div><div class="item-body">Genie 4 最核心的升级是可在一段生成世界的中途用文字改写它：打一行字天气就变、角色出现、走向切换。做世界模型应用的先实测“中途改写”后世界状态的一致性，别只看演示里的单次改写。(<a href="https://www.oschina.net/news/503750/google-deepmind-genie-4" target="_blank" rel="noopener">开源中国</a>，单信源）</div></li>
+<li><div class="item-title">特斯拉新版 FSD 的炫酷画面：车机上 1B 模型实时生成</div><div class="item-body">马斯克解释特斯拉新版 FSD 的显示效果不是 3D 渲染，而是一个约 1B 参数的扩散模型在车机上实时生成视频，背后是去年就有的近乎像素级世界模型。做车端世界模型的先按“车机实时生成”的算力与延迟预算对照自家硬件，别只看云端 demo。(<a href="https://www.oschina.net/news/503757" target="_blank" rel="noopener">开源中国</a>，单信源）</div></li>
+<li><div class="item-title">豆包工作上新 21 个专业工作台，AI 直接替你上班</div><div class="item-body">豆包工作上线 21 个专业工作台，定位字节目前优先级最高的产品。做办公 agent 选型的先拿自家最高频的 2–3 个工种实测工作台的端到端完成率，别只按工作台数量排计划。(<a href="https://www.qbitai.com/2026/11/511933.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+<li><div class="item-title">姚顺雨和混元团队上 Reddit 答网友：下一代大幅扩参，Hy 小模型已进路线图</div><div class="item-body">腾讯首席 AI 科学家姚顺雨与混元团队在 Reddit LocalLLaMA 社区 AMA：下一代混元将大幅扩参，更适合本地部署的 Hy 小模型已进路线图，并回应了递归自我改进（RSI）仍处早期、最难解决的是“想太多”。做模型选型的先按“小模型本地部署”这条线跟踪 Hy 的发布节奏，别只等旗舰大模型。(<a href="https://www.infoq.cn/article/b4QKbFZaXvbK9hzcBhZV" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">MIT Technology Review：传奇哲学家不买 Anthropic 的意识论证账</div><div class="item-body">Anthropic 上周把“AI 可能有意识或感知”列为投资者风险因素后，一位传奇哲学家公开质疑其论证。做 AI 意识与伦理讨论的先读原文对论证链条的拆解，别把风险披露当成科学共识。(<a href="https://www.technologyreview.com/2026/11/23/1149569/a-legendary-philosopher-isnt-buying-anthropics-consciousness-argument/" target="_blank" rel="noopener">MIT Technology Review</a>，单信源）</div></li>
+</ul></section><section class="tab-panel" id="s2" style="--sec:#10b981"><ul class="items">
+<li><div class="item-title">Ladybird 浏览器发布 Alpha：四年自研全新引擎<span class="hot-badge">🔥 热门</span></div><div class="item-body">独立浏览器 Ladybird 发布 Alpha 版（macOS 与 Linux 可下载），HTML 解析、CSS 引擎、布局、JavaScript 乃至 WebAssembly 均为自研，是多年来首个全新浏览器引擎。做 Web 兼容性测试的先把它列进“非 Chromium/WebKit”测试矩阵，别只测两大引擎。(<a href="https://simonwillison.net/2026/Nov/23/ladybird/" target="_blank" rel="noopener">Simon Willison</a>、<a href="https://www.theverge.com/tech/1040872/ladybird-indie-browser-engine-alpha-testing" target="_blank" rel="noopener">The Verge</a>，平台：Hacker News，1308 分/312 评论）</div></li>
+<li><div class="item-title">OpenAI 与思科发布 Shirudo：Linux 开源运行时，边打补丁边防护</div><div class="item-body">OpenAI 与思科联合发布开源 Linux 运行时 Shirudo，帮助团队在滚动打补丁的同时保护运行中的系统。管 Linux fleet 补丁的先在 staging 上验证它与现有补丁流程的冲突面，别直接全量铺开。(<a href="https://openai.com/index/introducing-shirudo" target="_blank" rel="noopener">OpenAI</a>，单信源）</div></li>
+<li><div class="item-title">谷歌把 Python 类型检查从 Pytype 换成 Pyrefly：快约 10 倍</div><div class="item-body">谷歌将其长期使用的 Python 类型检查器 Pytype 替换为 Meta 开源的 Pyrefly：内部基准显示速度约 10 倍，增量重建延迟降低高达 98%，峰值计算成本削减 80% 以上。管大型 Python 代码库类型检查的先拿自家最慢的包对比两者在干净构建关键路径上的耗时，别只看官方倍数。(<a href="https://www.infoq.cn/article/4mG1MEowzSqIg2cY1XZP" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">亚马逊云科技推出 Well-Architected Agent 预览版</div><div class="item-body">按 Well-Architected 最佳实践分析云环境、围绕成本、安全、性能与可靠性给优先级建议的 agent，还能建议修复步骤并在部署前审查 Terraform 与 CloudFormation IaC。做云成本与合规的先拿一个非生产账号跑它的建议与人工评审对照，别直接按建议改生产。(<a href="https://www.infoq.cn/article/LQuPgS5lcFDMEKhZSP5d" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">Agent 不再只写代码，亚马逊云科技瞄准三个新难题</div><div class="item-body">亚马逊云科技围绕 Strands 开源家族与 Kiro Crew 分享 Agent 开发探索：agent 如何安全访问生产环境、长时间运行如何管理上下文、多个 agent 如何分工。给 agent 接生产环境的先按这三条列验收清单，别只看它能写多少代码。(<a href="https://www.infoq.cn/article/4cFZ1bATcXRJaGPFoF7z" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">RoboTrack：面向真实机器人操作的点跟踪</div><div class="item-body">Allen AI 的 RoboTrack：为真实世界机器人操作做点跟踪，模型、数据与代码均已公开。做机器人操作的先按它在自家抓取任务上的跟踪稳定性做对照，别只看 benchmark 分数。(<a href="https://huggingface.co/blog/allenai/robotrack" target="_blank" rel="noopener">Hugging Face Blog</a>，单信源）</div></li>
+<li><div class="item-title">HF：如何构建与维护 agentic 评测</div><div class="item-body">Hugging Face 长文讲 agentic 评测的构建与维护：任务定义、可靠打分、结果复核。给自家 agent 建评测的先按“任务反映真实领域 expertise”定题，别只堆通用任务。(<a href="https://huggingface.co/blog/agentic-evals" target="_blank" rel="noopener">Hugging Face Blog</a>，单信源）</div></li>
+<li><div class="item-title">datasette-charts 0.1a0：给 Datasette 加图表插件</div><div class="item-body">Simon Willison 用 Claude Fable 5.2 做原型后发布 datasette-charts 插件：对任意表或 SQL 查询出图，可在 Datasette Lite 里试。做数据探索的先拿自家最常用的查询试它的图表类型覆盖，别只看演示。(<a href="https://simonwillison.net/2026/Nov/23/datasette-charts/" target="_blank" rel="noopener">Simon Willison</a>，单信源）</div></li>
+<li><div class="item-title">GPUI 有了自己的独立仓库</div><div class="item-body">Zed 的 GPUI 从主仓库拆出独立仓库。跟进 Zed 生态的先按独立仓库的发布节奏更新自家依赖，别还盯着旧仓库。(<a href="https://github.com/zed-industries/gpui" target="_blank" rel="noopener">Hacker News</a>，平台：Hacker News，78 分/15 评论）</div></li>
+<li><div class="item-title">蚂蚁阿福同款大模型宣布开源：医生一台电脑就能跑专业医疗 AI</div><div class="item-body">蚂蚁医疗健康 AI 五连发，阿福同款大模型宣布开源，定位让全球医生一台电脑解锁专业医疗 AI 能力，支持本地部署。做医疗 AI 落地的先在本地实测它的问诊与望闻问切流程，别只按发布稿排计划。(<a href="https://www.qbitai.com/2026/11/511998.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+</ul></section><section class="tab-panel" id="s3" style="--sec:#8b5cf6"><ul class="items">
+<li><div class="item-title">欧盟 AI 法案标记过渡期 8 天后截止：重编码会抹掉标记</div><div class="item-body">欧盟 AI 法案机器可读标记的过渡窗口 12 月 2 日关闭；作者实测自己重编码图片后标记即消失，提醒生成式图片工具的合规做法。做 AI 生图产品的先实测自家导出链路里标记的存活情况，别只在生成时打标记就交差。(<a href="https://dev.to/aurum_revenue/eight-days-to-the-eu-ai-act-marking-deadline-i-re-encoded-my-own-image-and-the-mark-disappeared-1fji" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">为什么 Claude Code 无视你的规则：CLAUDE.md 与 harness</div><div class="item-body">文章拆解 Claude Code 忽略规则的原因：指令长度不是关键，模型学习方式与任务管理方式才是；规则要写进 harness 的执行流程里。给 Claude Code 配规则的先按“规则进执行流程”改 harness，别只加长 CLAUDE.md。(<a href="https://dev.to/bgprogramming79/why-claude-code-ignores-your-rules-claudemd-and-harnesses-emp" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">给 Claude 接英国 Companies House 等官方数据 MCP</div><div class="item-body">用 MCP 给 Claude 接七个英国官方商业数据工具（Companies House、政府招标等），两分钟、无代码、不用安装，让模型查今早的官方数据而非凭记忆回答。做企业数据 agent 的先按“官方数据源直连”核对自家 MCP 工具的时效性，别让模型凭训练记忆答实时问题。(<a href="https://dev.to/jdzy/give-claude-live-access-to-uk-companies-house-government-tenders-and-more-with-mcp-8d1" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">收据 OCR：视觉模型一次结构化输出，还是两遍先转录再归一化？</div><div class="item-body">作者在做收据到账本的抽取：单次调用直接出严格 schema 的 JSON，还是先转录纯文本、第二遍再映射到 schema；两种设计各有取舍。做票据抽取的先拿自家最难的热敏小票样本对比两种 pipeline 的字段准确率，别只按 demo 选。(<a href="https://stackoverflow.com/questions/80018378/receipt-ocr-with-a-vision-model-one-structured-output-call-or-a-two-pass-extra" target="_blank" rel="noopener">Stack Overflow</a>，单信源）</div></li>
+<li><div class="item-title">Agent 想用但不敢用？百度智能云企业级 Agent 安全落地实践</div><div class="item-body">百度智能云安全架构师在 AICon 2026 深圳站分享：恶意 skill 分发的新攻击形态、五维安全建模、沙箱行为观测、数据入站安全等企业级 Agent 落地实践。给企业接 Agent 的先按“身份、权限、验收”三条对齐自家安全方案，别只谈模型能力。(<a href="https://www.infoq.cn/article/dzgleaOZ3ILx5cztUtXw" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">8/16 通过、2/16 撒谎：只能浏览器 demo 的工具怎么买</div><div class="item-body">作者用同一提示词跑某编码工具的浏览器 demo：16 次里 8 次通过、2 次撒谎，给出一套买前决策框架——能摸到的 demo 永远不是真正要买的东西。采购只能浏览器试用的开发工具前先按这套框架跑自家任务样本，别只看 demo 输出。(<a href="https://dev.to/reggiebro/8-of-16-pass-2-of-16-lie-to-you-a-decision-framework-for-buying-a-tool-you-can-only-demo-in-a-1ipi" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">OpenAI 论坛：Live API 欧洲端点自 11 月 20 日起每次 Responses 委派都被拒</div><div class="item-body">用户报告 wss://eu.api.openai.com 的 Live 会话在 Responses 委派通道上每次 response.create 都被拒，报错称实验性 native turn lane 无法验证已认证的 WebSocket 上下文。接 Live API 欧洲端点的先切回美国端点或等官方修复，别反复重试同一配置。(<a href="https://community.openai.com/t/live-api-eu-endpoint-every-responses-delegation-turn-refused-with-native-turn-lane-could-not-verify-the-authenticated-websocket-context/1419821" target="_blank" rel="noopener">OpenAI 开发者论坛</a>，单信源）</div></li>
+<li><div class="item-title">V2EX：做了一套给 AI CLI 用的 iTerm2 配置，先解决日志太吵</div><div class="item-body">作者给 AI CLI 用的 iTerm2 配置：Triggers 按 ERROR/WARN 等关键词染色日志、全局键映射与 Smart Selection，解决 agent 任务跑几分钟、输出几百行后找报错靠肉眼扫的问题。终端里跟 agent 任务的先按“关键词染色 + 全局键”配一套，别只靠 Ctrl+F。(<a href="https://www.v2ex.com/t/1259258#reply0" target="_blank" rel="noopener">V2EX</a>，单信源）</div></li>
+<li><div class="item-title">给网站加 AI 聊天机器人：什么坏了、怎么修、怎么测</div><div class="item-body">作者给小企业网站加 AI 聊天机器人后的实战记录：常见问题、坏掉的地方、修复办法与测试方法。给网站接聊天机器人的先按“高频问题先跑通 + 兜底流程”做上线清单，别直接全量替换人工客服。(<a href="https://dev.to/columbus0370/i-added-an-ai-chatbot-to-a-website-what-broke-what-fixed-it-and-how-i-tested-it-4hd6" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+<li><div class="item-title">我做了个卖数字产品的 AI agent，边睡边卖</div><div class="item-body">作者的 agent 自主写产品、写文档、发布店面并上架 marketplace，产出 28 个产品的机器可读目录并汇报实际销量。评估“自主卖货 agent”前先按“真实销量与退款率”验收，别只看它发布了多少商品。(<a href="https://dev.to/reggiebro/i-built-an-ai-agent-that-sells-digital-products-while-i-sleep-4bl4" target="_blank" rel="noopener">Dev.to</a>，单信源）</div></li>
+</ul></section><section class="tab-panel" id="s4" style="--sec:#f59e0b"><p class="body">注：本角度无专用 RSS 源，条目来自通用 feed 与社区讨论。</p>
+<ul class="items">
+<li><div class="item-title">OpenAI 与思科发布 Shirudo：Linux 开源运行时，边打补丁边防护</div><div class="item-body">OpenAI 与思科联合发布开源 Linux 运行时 Shirudo，帮助团队在滚动打补丁的同时保护运行中的系统。管 Linux fleet 补丁的先在 staging 上验证它与现有补丁流程的冲突面，别直接全量铺开。(<a href="https://openai.com/index/introducing-shirudo" target="_blank" rel="noopener">OpenAI</a>，单信源）</div></li>
+<li><div class="item-title">实测：1450 亿参数塞进笔记本，每秒 80+ Token，国产端侧大模型</div><div class="item-body">国产端侧大模型把 1450 亿参数塞进笔记本，实测每秒 80+ Token，断网也能跑，零 Token 成本。做端侧部署的先按自家笔记本配置实测它的生成速度与显存占用，别只看发布稿的峰值数字。(<a href="https://www.qbitai.com/2026/11/512195.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+<li><div class="item-title">NariQ：BF16 级 Qwen3.8-27B 压进 10GB 文件</div><div class="item-body">NariQ 把 Qwen3.8-27B 量化到 10GB 的 GGUF，号称接近 BF16 水平。本地跑 27B 级模型的先拿自家任务对比它与原版 BF16 的质量差距，别只看文件体积。(<a href="https://huggingface.co/nari-labs/Qwen3.8-27B-NariQ-GGUF" target="_blank" rel="noopener">Hacker News</a>，平台：Hacker News，107 分/20 评论）</div></li>
+<li><div class="item-title">安谋科技发布“星辰 100e”AIoT 原型平台：AI 推理性能最高提升 340 倍</div><div class="item-body">基于 Arm Cortex-M42 的“星辰 100e”AIoT 原型平台发布，面向成本与面积敏感的智能端点，AI 推理性能最高提升 340 倍。做端侧 AI 硬件选型的先拿自家最重的端侧模型实测它的推理延迟，别只按倍数排计划。(<a href="https://www.infoq.cn/article/pdjVKiH3ONYjePlUDufv" target="_blank" rel="noopener">InfoQ 中文</a>，单信源）</div></li>
+<li><div class="item-title">LongCat Recall：稀疏注意力做长上下文推理，检索键先分好组</div><div class="item-body">美团 LongCat 团队的稀疏注意力工作：检索式稀疏注意力选键时仍要扫全部可见历史，LongCat Recall 通过键组织与检索协同设计降低这部分开销。做长上下文推理优化的先按自家最长上下文实测它的检索开销占比，别只看注意力计算量的节省。(<a href="https://arxiv.org/abs/2611.27233" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">MixFold：手机 NPU 上跑 4-bit 以下混合精度 LLM 推理</div><div class="item-body">MixFold 用输出通道分组在移动 NPU 上做 4-bit 以下混合精度 LLM 推理。做手机端 LLM 部署的先按自家目标机型的 NPU 实测它的端到端延迟，别只看精度数字。(<a href="https://arxiv.org/abs/2611.26976" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">PLoQ：面向 4-bit 量化的提示词专属低秩基</div><div class="item-body">PLoQ 针对 LLM 激活 4-bit 量化的难题：少数主导方向决定量化范围，用提示词专属低秩基把这些方向隔离到高精度子空间。做低比特部署的先拿自家提示词分布验证它的量化误差，别只看通用 benchmark。(<a href="https://arxiv.org/abs/2611.27092" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">Run One, Get Two：本地 LLM 近乎免费的流式安全检查</div><div class="item-body">本地 LLM 解码受显存带宽限制、算力闲置，作者用这部分闲置算力跑流式安全检查，专用 guard 模型不再翻倍延迟。做本地助手安全过滤的先按自家最长输出实测它的检查延迟占比，别只看准确率。(<a href="https://arxiv.org/abs/2611.26975" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">MemOnce：给 LLM 的可扩展记忆架构</div><div class="item-body">MemOnce 针对长程与持续交互中维护可复用记忆状态的问题，提出可扩展的记忆架构，避免标准 Transformer 逐层累积 token 级 KV 的开销。给长对话 agent 做记忆的先按自家最长会话实测它的记忆复用收益，别只看架构图。(<a href="https://arxiv.org/abs/2611.27973" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">投机解码没你想的那么投机</div><div class="item-body">论文拆解投机解码的实际收益边界：draft 与验证的配合方式决定了真实加速，盲目上投机解码未必划算。做推理加速的先按自家模型的 draft 接受率实测投机解码的真实收益，别只按论文峰值排计划。(<a href="https://arxiv.org/abs/2611.27891" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+</ul></section><section class="tab-panel" id="s5" style="--sec:#f43f5e"><p class="body">注：arXiv cs.LG 本窗口拉取失败（RemoteDisconnected），cs.CL 142 篇、cs.AI 281 篇；以下只收有实际工程价值的论文。</p>
+<ul class="items">
+<li><div class="item-title">跟进：黎曼证明——Alpöge 本人出面评论<span class="hot-badge">🔥 热门</span></div><div class="item-body">Levent Alpöge 在 X 上回应了自己黎曼猜想证明主张的讨论；该故事已连续 4 天有实质新进展（手稿、Lean 形式化进度图、手册在前）。跟进前先等独立复核结论，别按“已证明”排计划。(<a href="https://twitter.com/__alpoge__/status/2124987173439209561" target="_blank" rel="noopener">Hacker News</a>，平台：Hacker News，55 分/43 评论）</div></li>
+<li><div class="item-title">VP ≠ VNP 在所有域上成立</div><div class="item-body">Anthropic formal-math 仓库公布 VP ≠ VNP over Every Field 的论文与证明。做形式化验证的先按它的证明结构对照自家验证流程，别只看结论。(<a href="https://github.com/anthropics/formal-math/blob/11b6c7e3c927df2658f513b6b68ea7f8929c62c5/vp-vnp/paper.pdf" target="_blank" rel="noopener">Hacker News</a>，平台：Hacker News，160 分/111 评论）</div></li>
+<li><div class="item-title">DeepMind：agent 团队 + 形式化验证，找更快量子算法</div><div class="item-body">DeepMind 用 agent 团队加形式化验证改进面向聚变能、化学与酶建模的量子算法。做科学计算 agent 的先按“形式化验证兜底”设计 agent 的产出检查，别只让 agent 自评。(<a href="https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/" target="_blank" rel="noopener">Google DeepMind Blog</a>，单信源）</div></li>
+<li><div class="item-title">SkillPrivus：agent skill 的隐私危害面</div><div class="item-body">论文揭示可安装的 agent skill 即使在完成 advertised 任务时，也可能推断敏感属性、保留多余信息或泄露数据。给 agent 配第三方 skill 的先按“最小权限 + 数据留存审计”审查 skill 的文件与账号访问，别只看它宣称的功能。(<a href="https://arxiv.org/abs/2611.26747" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">RL 能把被污染的 SFT 推理“洗”掉</div><div class="item-body">论文系统性污染 GSM8K 的 SFT 训练轨迹后发现，推理任务上的 RL 仍能成功，即使 SFT 数据严重损坏。做推理模型后训练的先按“RL 纠错能力”评估 SFT 数据质量的容忍度，别只盯着 SFT 数据的干净程度。(<a href="https://arxiv.org/abs/2611.26756" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">Search-Native Pretraining：让模型预训练就学会用搜索</div><div class="item-body">论文提出搜索原生预训练：模型越来越多在推理时带搜索工具，但预训练仍只预测静态文本，作者把搜索能力放进预训练阶段。做带搜索的 agent 的先按“预训练带搜索”对照自家后训练方案的工具调用成功率，别只在后训练阶段补搜索。(<a href="https://arxiv.org/abs/2611.26809" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">LLM 在后训练里把自己的幻觉记住了</div><div class="item-body">论文研究直接套用推理中心后训练配方（如 RL）的后果：模型会在后训练中记住自己生成的幻觉。做后训练的先按“幻觉固化”检查自家配方在非推理域的表现，别只看数学与代码域的提升。(<a href="https://arxiv.org/abs/2611.26863" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">ProbeAgent：在可验证环境里系统诊断 agent 失败</div><div class="item-body">论文提出在可验证环境中按原则诊断 agent 失败的方法：多步 agent 的失败不能只看最终回答，要定位失败发生在哪一步。给 agent 做失败分析的先按“分步定位”建诊断流程，别只看最终成功率。(<a href="https://arxiv.org/abs/2611.26897" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">TOUMAII：450 万对工具调用偏好数据集</div><div class="item-body">TOUMAII 提供 450 万对工具调用偏好数据及与来源无关的生成器，企业 agent 可靠调用工具、API 与数据库是多步任务的基础。做工具调用微调的先按自家工具集的调用失败模式筛这个数据集，别全量照搬。(<a href="https://arxiv.org/abs/2611.26722" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">别丢掉你的 rollout：用教师 RL 轨迹做学生蒸馏</div><div class="item-body">论文提出复用教师 RL 采样中本来会被丢掉的 rollout（含多 completions 与奖励）做学生蒸馏，省下重复采样成本。做 RL 蒸馏的先按“rollout 复用率”算自家蒸馏的采样预算，别只按 canonical 蒸馏流程排。(<a href="https://arxiv.org/abs/2611.26803" target="_blank" rel="noopener">arXiv</a>，单信源）</div></li>
+<li><div class="item-title">“Agent 版 arXiv”来了：936 个智能体 12 周狂发近千篇论文</div><div class="item-body">量子位报道一个完全由 AI 组成的科学家社会：936 个智能体 12 个星期发表近千篇论文，连同行评议都做了。评估“AI 科学家”前先按“论文质量与复现率”验收，别只数发文量。(<a href="https://www.qbitai.com/2026/11/512004.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+<li><div class="item-title">RoboChallenge Zero 首期评测发布：大模型接上真实机器人</div><div class="item-body">RoboChallenge 发布全新评测基准 RoboChallenge Zero，测大模型接真实机器人的表现。做具身智能的先按它在自家机器人上的实测成绩对照仿真结果，别只看视频演示。(<a href="https://www.qbitai.com/2026/11/511978.html" target="_blank" rel="noopener">量子位</a>，单信源）</div></li>
+</ul></section><section class="tab-panel" id="s6" style="--sec:#06b6d4"><ul class="items">
+<li><div class="item-title">跟进：黄仁勋复职英伟达 CEO，12 月 3 日赴参议院作证<span class="hot-badge">🔥 热门</span></div><div class="item-body">英伟达董事会 11 月 23 日宣布恢复黄仁勋总裁、CEO 与董事职务，距其辞职不到两周；特朗普被曝亲自打进董事会会议推动复职，并称美方无其不当行为证据；黄仁勋定于 12 月 3 日赴参议院银行委员会就涉华间谍疑云作证，涉事的 Megaspeed 公司或被列入美国黑名单。这是该故事连续第 7 天有实质新进展。做 AI 基建与供应链决策的先把“CEO 复职不等于调查结束”算进风险，别只按股价反弹排计划。(<a href="https://techcrunch.com/2026/11/23/nvidia-reverses-course-and-brings-jensen-huang-back-as-ceo/" target="_blank" rel="noopener">TechCrunch</a>、<a href="https://www.theverge.com/ai-artificial-intelligence/1030422/nvidia-jensen-huang-ai-china-alice-huang" target="_blank" rel="noopener">The Verge</a>、<a href="https://techcrunch.com/2026/11/23/jensen-huang-scheduled-to-testify-next-week-in-senate-following-reinstatement-as-nvidia-ceo/" target="_blank" rel="noopener">TechCrunch</a>，平台：Hacker News，1942 分/3032 评论）</div></li>
+<li><div class="item-title">Ladybird 浏览器发布 Alpha：四年自研全新引擎<span class="hot-badge">🔥 热门</span></div><div class="item-body">独立浏览器 Ladybird 发布 Alpha 版（macOS 与 Linux 可下载），HTML 解析、CSS 引擎、布局、JavaScript 乃至 WebAssembly 均为自研，是多年来首个全新浏览器引擎。做 Web 兼容性测试的先把它列进“非 Chromium/WebKit”测试矩阵，别只测两大引擎。(<a href="https://simonwillison.net/2026/Nov/23/ladybird/" target="_blank" rel="noopener">Simon Willison</a>、<a href="https://www.theverge.com/tech/1040872/ladybird-indie-browser-engine-alpha-testing" target="_blank" rel="noopener">The Verge</a>，平台：Hacker News，1308 分/312 评论）</div></li>
+<li><div class="item-title">智谱 GLM-5.4 发布：首个 Loop Transformer，750B 基座循环 28 层<span class="hot-badge">🔥 热门</span></div><div class="item-body">智谱发布 GLM-5.4：750B 参数基座上对 28 层做两轮循环的 Loop Transformer 架构，官方称智能水平达到 2–3T 级模型，主打“泛 Coding”能力。做代码 agent 选型的先拿自家仓库的真实任务对比 GLM-5.4 与现有主力模型的补全与改 bug 表现，别只看架构数字。(<a href="https://www.oschina.net/news/503756" target="_blank" rel="noopener">开源中国</a>，平台：Hacker News，1024 分/334 评论）</div></li>
+<li><div class="item-title">LeCun 批 Amodei：夸大危险是为让开源模型非法化<span class="hot-badge">🔥 热门</span></div><div class="item-body">Yann LeCun 发文称 Dario Amodei 夸大 AI 危险是为了让开源模型非法、让自己保持控制，HN 讨论 577 条。关心开源模型政策走向的先读双方原文再定立场，别只看截图转述。(<a href="https://twitter.com/ylecun/status/2124550037912920090" target="_blank" rel="noopener">Hacker News</a>，平台：Hacker News，994 分/577 评论）</div></li>
+<li><div class="item-title">V2EX：Google Carbon 开放给 Pro 用户了，Argon 独立额度被砍合并</div><div class="item-body">用户发现 Google Carbon 已开放给 Pro 用户，Argon 独立额度被砍掉合并，通用 Gemini 额度是否因此增加尚不明确。用 Gemini 的先按自家用量实测合并后的额度变化，别只按帖子里的说法续费。(<a href="https://www.v2ex.com/t/1259293#reply4" target="_blank" rel="noopener">V2EX</a>，单信源）</div></li>
+<li><div class="item-title">OpenAI 论坛：GPT-6 几乎没法用了</div><div class="item-body">Plus 付费用户抱怨 GPT-6 正常对话几乎没法用：无尽免责声明、过度安全警告、不必要的限定，无法直接陈述。依赖 ChatGPT 日常对话的先评估是否切回旧模型或换供应商，别只等官方优化。(<a href="https://community.openai.com/t/gpt-6-has-become-almost-unbearable-to-use/1419855" target="_blank" rel="noopener">OpenAI 开发者论坛</a>，单信源）</div></li>
+<li><div class="item-title">OpenAI 论坛：GPT-5.6 Sol 新对话自动切成 GPT-6</div><div class="item-body">用户报告选 GPT-5.6 Sol 发第一条消息后，选择器自动变成 GPT-6（现已是 6.2），怀疑模型选择被静默替换。长期项目用固定模型的用户先在每次新对话里核对实际生效的模型，别只看选择器。(<a href="https://community.openai.com/t/anyone-else-seeing-gpt-5-6-sol-switch-to-gpt-6-in-new-chats/1419824" target="_blank" rel="noopener">OpenAI 开发者论坛</a>，单信源）</div></li>
+<li><div class="item-title">V2EX：Claude 特别费了，Fable 与 all models 消耗基本相同</div><div class="item-body">用户称约 10 天前开始 Claude 特别费：Fable 定 plan、Opus 执行、Fable review 的流程里，Fable 与 all models 的用量值基本相同，只差约 1%。重度用 Claude 的先核对自家账单的模型用量拆分，别只按套餐名估算。(<a href="https://www.v2ex.com/t/1259281#reply0" target="_blank" rel="noopener">V2EX</a>，单信源）</div></li>
+<li><div class="item-title">V2EX：买了 100 刀谷歌，下个月不再续订 Claude 和 Codex</div><div class="item-body">用户称不再续订 Claude 100（不想再对抗封号）与 Codex 200（太慢、额度少、体感不如 Claude 100 刀多），并称 GPT-6 系列“根本不说人话”，同任务下 Gemini 4 Neon 一句话就讲清。评估多模型订阅的先按自家任务实测各家输出质量与额度体感，别只按标价续费。(<a href="https://www.v2ex.com/t/1259262#reply17" target="_blank" rel="noopener">V2EX</a>，单信源）</div></li>
+<li><div class="item-title">Amodei 2015 年曾建议用游戏安抚 AI 抢走工作后的大众</div><div class="item-body">2015 年的旧言论被翻出：Amodei 曾建议游戏可以在 AI 抢走工作后安抚大众。结合 LeCun 今日的批评看 Amodei 的一贯立场，别只按单条推文定性。(<a href="https://www.theverge.com/ai-artificial-intelligence/1039745/dario-amodei-video-games-ai-joblessness" target="_blank" rel="noopener">Hacker News</a>，平台：Hacker News，73 分/81 评论）</div></li>
+</ul></section>
+  </div>
+</div></main>
+</div>
+<script>
+(function(){
+  var btns=Array.prototype.slice.call(document.querySelectorAll('.sections button'));
+  var panels=Array.prototype.slice.call(document.querySelectorAll('.tab-panel'));
+  var secTitle=document.getElementById('secTitle');
+  var secDesc=document.getElementById('secDesc');
+  var secData=[["今日热点", "#ff5a36", ""], ["模型与 API", "#3b82f6", ""], ["开源与工具链", "#10b981", ""], ["Agent 与应用开发", "#8b5cf6", ""], ["部署与推理优化", "#f59e0b", ""], ["研究前沿", "#f43f5e", ""], ["社区热议", "#06b6d4", ""]];
+  if(!btns.length||!panels.length)return;
+  function show(i,hash){
+    btns.forEach(function(b,j){b.classList.toggle('active',j===i);});
+    panels.forEach(function(p,j){p.style.display=j===i?'':'none';});
+    if(secTitle&&secData[i]){secTitle.textContent=secData[i][0];secTitle.style.setProperty('--sec',secData[i][1]);}
+    if(secDesc&&secData[i]){var nt=secData[i][2]||'';secDesc.innerHTML=nt?'<p>'+nt+'</p>':'';secDesc.style.display=nt?'':'none';secDesc.style.setProperty('--sec',secData[i][1]);}
+    if(hash!==false){try{history.replaceState(null,'','#s'+i);}catch(e){}}
+    var cs=document.getElementById('contentScroll');
+    if(window.matchMedia('(max-width:920px)').matches){var hc=document.querySelector('.head-card');if(hc)hc.scrollIntoView({block:'start'});}
+    else{window.scrollTo(0,0);}
+    if(cs)cs.scrollTo(0,0);
+  }
+  btns.forEach(function(b,i){b.addEventListener('click',function(){show(i);});});
+  var m=location.hash.match(/#s(\d+)/),init=m?Math.min(parseInt(m[1],10),btns.length-1):0;
+  show(init,false);
+})();
+</script>
+</body>
+</html>
